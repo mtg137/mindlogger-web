@@ -3,7 +3,7 @@ import { alertConstants } from './alert.constants';
 export const alertActions = {
   success,
   error,
-  clear
+  clear,
 };
 
 function success(message) {

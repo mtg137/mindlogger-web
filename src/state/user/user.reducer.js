@@ -1,25 +1,27 @@
 import { createSlice } from '@reduxjs/toolkit';
-
 import USER_CONSTANTS from './user.constants';
 
 export const initialState = {
   auth: null,
   info: null,
   error: null,
-  loading: false
+  loading: false,
 };
 
 const userSlice = createSlice({
-  name: "user",
+  name: 'user',
   initialState,
   reducers: {
     clearUser: () => {
       localStorage.clear();
-      return initialState
+      return initialState;
     },
   },
   extraReducers: {
-    [`${USER_CONSTANTS.SIGNIN}/pending`]: (state, action) => { state.loading = true; state.error = null },
+    [`${USER_CONSTANTS.SIGNIN}/pending`]: (state, action) => {
+      state.loading = true;
+      state.error = null;
+    },
     [`${USER_CONSTANTS.SIGNIN}/fulfilled`]: (state, action) => {
       state.loading = false;
       state.error = null;
@@ -31,7 +33,10 @@ const userSlice = createSlice({
       state.error = action.error.message;
     },
 
-    [`${USER_CONSTANTS.SIGNUP}/pending`]: (state, action) => { state.loading = true; state.error = null },
+    [`${USER_CONSTANTS.SIGNUP}/pending`]: (state, action) => {
+      state.loading = true;
+      state.error = null;
+    },
     [`${USER_CONSTANTS.SIGNUP}/fulfilled`]: (state, action) => {
       state.loading = false;
       state.error = null;
@@ -45,7 +50,10 @@ const userSlice = createSlice({
       state.error = action.error.message;
     },
 
-    [`${USER_CONSTANTS.FORGOT_PASSWORD}/pending`]: (state, action) => { state.loading = true; state.error = null },
+    [`${USER_CONSTANTS.FORGOT_PASSWORD}/pending`]: (state, action) => {
+      state.loading = true;
+      state.error = null;
+    },
     [`${USER_CONSTANTS.FORGOT_PASSWORD}/fulfilled`]: (state, action) => {
       state.loading = false;
       state.error = null;
@@ -55,7 +63,10 @@ const userSlice = createSlice({
       state.error = action.error.message;
     },
 
-    [`${USER_CONSTANTS.CHANGE_PASSWORD}/pending`]: (state, action) => { state.loading = true; state.error = null },
+    [`${USER_CONSTANTS.CHANGE_PASSWORD}/pending`]: (state, action) => {
+      state.loading = true;
+      state.error = null;
+    },
     [`${USER_CONSTANTS.CHANGE_PASSWORD}/fulfilled`]: (state, action) => {
       state.loading = false;
       state.error = null;
@@ -65,7 +76,10 @@ const userSlice = createSlice({
       state.error = action.error.message;
     },
 
-    [`${USER_CONSTANTS.REMOVE_ACCOUNT}/pending`]: (state, action) => { state.loading = true; state.error = null },
+    [`${USER_CONSTANTS.REMOVE_ACCOUNT}/pending`]: (state, action) => {
+      state.loading = true;
+      state.error = null;
+    },
     [`${USER_CONSTANTS.REMOVE_ACCOUNT}/fulfilled`]: (state, action) => {
       state.loading = false;
       state.error = null;
@@ -74,9 +88,8 @@ const userSlice = createSlice({
       state.loading = false;
       state.error = action.error.message;
     },
-
-  }
-})
+  },
+});
 
 export default userSlice.reducer;
 

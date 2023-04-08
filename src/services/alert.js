@@ -7,13 +7,14 @@ const getAlertsFromOptionList = (itemList, value) => {
   }
 
   if (typeof response == 'number' || typeof response == 'string') {
-      response = [response];
+    response = [response];
   }
 
   for (let value of response) {
-    let option = itemList.find(option =>
-      typeof value == 'number' && option.value === value ||
-      typeof value == 'string' && Object.values(option.name)[0] === value.split(':')[0]
+    let option = itemList.find(
+      (option) =>
+        (typeof value == 'number' && option.value === value) ||
+        (typeof value == 'string' && Object.values(option.name)[0] === value.split(':')[0]),
     );
 
     if (option && option.alert) {
@@ -22,7 +23,7 @@ const getAlertsFromOptionList = (itemList, value) => {
   }
 
   return alerts;
-}
+};
 
 const getAlertFromContinuousSlider = (sliderConstraint, value) => {
   const { minAlertValue, maxAlertValue, responseAlertMessage } = sliderConstraint;
@@ -32,16 +33,23 @@ const getAlertFromContinuousSlider = (sliderConstraint, value) => {
   }
 
   return [];
-}
+};
 
 export const getAlertsFromResponse = (item, value) => {
-  if (value === null || value === undefined || item.inputType !== 'radio' && item.inputType !== 'slider' && item.inputType !== 'stackedRadio' && item.inputType !== 'stackedSlider') {
-      return [];
+  if (
+    value === null ||
+    value === undefined ||
+    (item.inputType !== 'radio' &&
+      item.inputType !== 'slider' &&
+      item.inputType !== 'stackedRadio' &&
+      item.inputType !== 'stackedSlider')
+  ) {
+    return [];
   }
 
   const valueConstraints = item.valueConstraints || {};
 
-  if (item.inputType == 'radio' || item.inputType == 'slider' && !valueConstraints.continousSlider) {
+  if (item.inputType == 'radio' || (item.inputType == 'slider' && !valueConstraints.continousSlider)) {
     const itemList = valueConstraints.itemList || [];
     return getAlertsFromOptionList(itemList, value);
   }
@@ -55,14 +63,14 @@ export const getAlertsFromResponse = (item, value) => {
     let optionCount = valueConstraints.options.length;
 
     for (let i = 0; i < valueConstraints.itemList.length; i++) {
-      const itemOptions = valueConstraints.itemOptions.slice(i * optionCount, (i+1) * optionCount).map((option, index) => ({
-        ...option,
-        name: valueConstraints.options[index].name
-      }));
+      const itemOptions = valueConstraints.itemOptions
+        .slice(i * optionCount, (i + 1) * optionCount)
+        .map((option, index) => ({
+          ...option,
+          name: valueConstraints.options[index].name,
+        }));
 
-      alerts = alerts.concat(
-        getAlertsFromOptionList(itemOptions, value[i])
-      );
+      alerts = alerts.concat(getAlertsFromOptionList(itemOptions, value[i]));
     }
     return alerts;
   }
@@ -72,11 +80,9 @@ export const getAlertsFromResponse = (item, value) => {
 
     for (let i = 0; i < valueConstraints.sliderOptions.length; i++) {
       const slider = valueConstraints.sliderOptions[i];
-      alerts = alerts.concat(
-        getAlertsFromOptionList(slider.itemList, value[i])
-      );
+      alerts = alerts.concat(getAlertsFromOptionList(slider.itemList, value[i]));
     }
 
     return [];
   }
-}
+};

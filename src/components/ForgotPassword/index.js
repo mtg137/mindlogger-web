@@ -1,13 +1,12 @@
-import React from 'react'
-import { Link, useHistory } from 'react-router-dom'
-import { useForm } from 'react-hook-form'
-import { useDispatch } from 'react-redux'
-import { useTranslation } from 'react-i18next'
-import { unwrapResult } from '@reduxjs/toolkit'
-import { Alert } from 'react-bootstrap'
-import { forgotPassword } from '../../state/user/user.actions'
-
-import './styles.css'
+import React from 'react';
+import { Alert } from 'react-bootstrap';
+import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
+import { Link, useHistory } from 'react-router-dom';
+import { unwrapResult } from '@reduxjs/toolkit';
+import { forgotPassword } from '../../state/user/user.actions';
+import './styles.css';
 
 /**
  *
@@ -15,10 +14,10 @@ import './styles.css'
  * @constructor
  */
 export default function ForgotPassword() {
-  const { t } = useTranslation()
-  const dispatch = useDispatch()
+  const { t } = useTranslation();
+  const dispatch = useDispatch();
   const history = useHistory();
-  const { register, handleSubmit, setError, errors } = useForm()
+  const { register, handleSubmit, setError, errors } = useForm();
 
   /**
    * Sends the forgot password email.
@@ -28,14 +27,14 @@ export default function ForgotPassword() {
     try {
       let result = await dispatch(forgotPassword(body.email));
       result = unwrapResult(result);
-      history.push({ pathname: '/login', state: { reset: true }});
+      history.push({ pathname: '/login', state: { reset: true } });
     } catch (error) {
       setError('email', {
         type: 'manual',
-        message: t('ForgotPassword.emailError')
-      })
+        message: t('ForgotPassword.emailError'),
+      });
     }
-  }
+  };
 
   return (
     <div className="demo mb-3">
@@ -52,8 +51,8 @@ export default function ForgotPassword() {
                   required: t('ForgotPassword.emailRequiredError'),
                   pattern: {
                     value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                    message: t('ForgotPassword.emailErrorMessage')
-                  }
+                    message: t('ForgotPassword.emailErrorMessage'),
+                  },
                 })}
               />
             </div>
@@ -69,11 +68,10 @@ export default function ForgotPassword() {
           {/* <p className="mt-3">{t('ForgotPassword.accountMessage')} <Link to="/signup">{t('ForgotPassword.create')}</Link></p>
           <p className="mt-3">{t('ForgotPassword.forgotPassword')} <Link to="/forgotpassword">{t('ForgotPassword.reset')}</Link></p> */}
           <p className="my-3">
-            {t('ForgotPassword.rememberPassword')}{' '}
-            <Link to="/login">{t('ForgotPassword.logIn')}</Link>{' '}
+            {t('ForgotPassword.rememberPassword')} <Link to="/login">{t('ForgotPassword.logIn')}</Link>{' '}
           </p>
         </div>
       </div>
     </div>
-  )
+  );
 }

@@ -1,9 +1,9 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import { useTranslation } from 'react-i18next'
-
 import { startedTimesSelector } from '../../state/app/app.selectors';
+
 // import { endActivity } from '../../state/responses/responses.thunks';
 
 const TimedActivity = ({ activity }) => {
@@ -16,7 +16,9 @@ const TimedActivity = ({ activity }) => {
 
     return (
       <small>
-        {allow ? `${t('timed_activity.time_to_complete')}: ${hour} ${t('timed_activity.hours')} and ${minute} minutes ` : ``}
+        {allow
+          ? `${t('timed_activity.time_to_complete')}: ${hour} ${t('timed_activity.hours')} and ${minute} minutes `
+          : ``}
       </small>
     );
   }
@@ -25,7 +27,9 @@ const TimedActivity = ({ activity }) => {
 
     return (
       <small>
-        {allow ? `${t('timed_activity.time_to_complete')}: ${hour} ${t('timed_activity.hours')} and ${minute} minutes ` : ``}
+        {allow
+          ? `${t('timed_activity.time_to_complete')}: ${hour} ${t('timed_activity.hours')} and ${minute} minutes `
+          : ``}
       </small>
     );
   }
@@ -53,9 +57,11 @@ const TimedActivity = ({ activity }) => {
 
     return (
       <small>
-        {(!startedTime || hour !== null) ? `${t('timed_activity.time_to_complete')}: ${hour} ${t('timed_activity.hours')} and ${minute} minutes` : ``}
+        {!startedTime || hour !== null
+          ? `${t('timed_activity.time_to_complete')}: ${hour} ${t('timed_activity.hours')} and ${minute} minutes`
+          : ``}
       </small>
-    )
+    );
   }
   return null;
 };
@@ -65,4 +71,3 @@ TimedActivity.propTypes = {
 };
 
 export default TimedActivity;
-

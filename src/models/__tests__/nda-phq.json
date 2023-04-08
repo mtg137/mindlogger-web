@@ -2,9 +2,7 @@
   "activities": {
     "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/activities/NDA/nda_guid.jsonld": {
       "@id": "/nda_guid",
-      "@type": [
-        "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Activity.jsonld"
-      ],
+      "@type": ["https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Activity.jsonld"],
       "_id": "activity/5cba3c1f86fafd5df796d913",
       "schema:description": [
         {
@@ -135,9 +133,7 @@
     },
     "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/activities/PHQ-8/phq8_schema.jsonld": {
       "@id": "/phq8_schema",
-      "@type": [
-        "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Activity.jsonld"
-      ],
+      "@type": ["https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Activity.jsonld"],
       "_id": "activity/5cbf866d86fafd5189aee229",
       "schema:description": [
         {
@@ -229,9 +225,7 @@
     },
     "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/activities/PHQ-9/phq9_schema.jsonld": {
       "@id": "/phq9_schema",
-      "@type": [
-        "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Activity.jsonld"
-      ],
+      "@type": ["https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Activity.jsonld"],
       "_id": "activity/5cba3c0a86fafd5df796d90e",
       "schema:description": [
         {
@@ -514,9 +508,7 @@
     },
     "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/activities/PHQ-9a/phq9a_schema.jsonld": {
       "@id": "/phq9a_schema",
-      "@type": [
-        "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Activity.jsonld"
-      ],
+      "@type": ["https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Activity.jsonld"],
       "_id": "activity/5cbf866c86fafd5189aee227",
       "schema:description": [
         {
@@ -614,9 +606,7 @@
     },
     "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/activities/voice_task/voice_task_schema.jsonld": {
       "@id": "/voice_task_schema",
-      "@type": [
-        "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Activity.jsonld"
-      ],
+      "@type": ["https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Activity.jsonld"],
       "_id": "activity/5cba425486fafd5df796d919",
       "schema:description": [
         {
@@ -709,9 +699,7 @@
   },
   "applet": {
     "@id": "/nda_phq_schema",
-    "@type": [
-      "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/ActivitySet.jsonld"
-    ],
+    "@type": ["https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/ActivitySet.jsonld"],
     "_id": "applet/5ca3a5dfd27b4e3dd5db30b4",
     "schema:description": [
       {
@@ -775,9 +763,7 @@
   "items": {
     "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/activities/NDA/items/countryOfBirth.jsonld": {
       "@id": "/birthCountry",
-      "@type": [
-        "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"
-      ],
+      "@type": ["https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"],
       "_id": "screen/5cbf850786fafd4e422e8c2a",
       "schema:description": [
         {
@@ -835,9 +821,7 @@
     },
     "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/activities/NDA/items/gender.jsonld": {
       "@id": "/gender",
-      "@type": [
-        "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"
-      ],
+      "@type": ["https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"],
       "_id": "screen/5cbf850686fafd4e422e8c28",
       "schema:description": [
         {
@@ -884,16 +868,12 @@
       ],
       "reprolib:terms/valueconstraints": [
         {
-          "@type": [
-            "http://www.w3.org/2001/XMLSchema#anyURI"
-          ],
+          "@type": ["http://www.w3.org/2001/XMLSchema#anyURI"],
           "schema:itemListElement": [
             {
               "@list": [
                 {
-                  "@type": [
-                    "schema:Female"
-                  ],
+                  "@type": ["schema:Female"],
                   "schema:name": [
                     {
                       "@language": "en",
@@ -907,9 +887,7 @@
                   ]
                 },
                 {
-                  "@type": [
-                    "schema:Male"
-                  ],
+                  "@type": ["schema:Male"],
                   "schema:name": [
                     {
                       "@language": "en",
@@ -952,9 +930,7 @@
     },
     "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/activities/NDA/items/healthCondition.jsonld": {
       "@id": "/health_condition",
-      "@type": [
-        "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"
-      ],
+      "@type": ["https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"],
       "_id": "screen/5cbf850986fafd4e422e8c2d",
       "schema:description": [
         {
@@ -999,15 +975,11 @@
           "@value": "text"
         }
       ],
-      "reprolib:terms/valueconstraints": [
-        {}
-      ]
+      "reprolib:terms/valueconstraints": [{}]
     },
     "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/activities/NDA/items/medication.jsonld": {
       "@id": "/medication",
-      "@type": [
-        "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"
-      ],
+      "@type": ["https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"],
       "_id": "screen/5cbf850986fafd4e422e8c2e",
       "schema:description": [
         {
@@ -1052,15 +1024,11 @@
           "@value": "text"
         }
       ],
-      "reprolib:terms/valueconstraints": [
-        {}
-      ]
+      "reprolib:terms/valueconstraints": [{}]
     },
     "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/activities/NDA/items/mentalHealth.jsonld": {
       "@id": "/mental_health",
-      "@type": [
-        "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"
-      ],
+      "@type": ["https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"],
       "_id": "screen/5cbf850886fafd4e422e8c2c",
       "schema:description": [
         {
@@ -1105,15 +1073,11 @@
           "@value": "text"
         }
       ],
-      "reprolib:terms/valueconstraints": [
-        {}
-      ]
+      "reprolib:terms/valueconstraints": [{}]
     },
     "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/activities/NDA/items/nativeLanguage.jsonld": {
       "@id": "/nativeLanguage",
-      "@type": [
-        "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"
-      ],
+      "@type": ["https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"],
       "_id": "screen/5cbf850886fafd4e422e8c2b",
       "schema:description": [
         {
@@ -1171,9 +1135,7 @@
     },
     "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/activities/NDA/items/raceEthnicity.jsonld": {
       "@id": "/raceEthnicity",
-      "@type": [
-        "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"
-      ],
+      "@type": ["https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"],
       "_id": "screen/5cbf850686fafd4e422e8c27",
       "schema:description": [
         {
@@ -1302,9 +1264,7 @@
     },
     "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/activities/NDA/items/state.jsonld": {
       "@id": "/state",
-      "@type": [
-        "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"
-      ],
+      "@type": ["https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"],
       "_id": "screen/5cbf850786fafd4e422e8c29",
       "schema:description": [
         {
@@ -1362,9 +1322,7 @@
     },
     "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/activities/NDA/items/yearOfBirth.jsonld": {
       "@id": "/birthYear",
-      "@type": [
-        "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"
-      ],
+      "@type": ["https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"],
       "_id": "screen/5cbf850586fafd4e422e8c26",
       "schema:description": [
         {
@@ -1428,9 +1386,7 @@
     },
     "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/activities/PHQ-8/items/phq8_1.jsonld": {
       "@id": "/phq8_1",
-      "@type": [
-        "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"
-      ],
+      "@type": ["https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"],
       "_id": "screen/5cbf867986fafd5189aee23e",
       "schema:description": [
         {
@@ -1483,9 +1439,7 @@
     },
     "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/activities/PHQ-8/items/phq8_2.jsonld": {
       "@id": "/phq8_1",
-      "@type": [
-        "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"
-      ],
+      "@type": ["https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"],
       "_id": "screen/5cbf867a86fafd5189aee23f",
       "schema:description": [
         {
@@ -1538,9 +1492,7 @@
     },
     "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/activities/PHQ-8/items/phq8_3.jsonld": {
       "@id": "/phq8_3",
-      "@type": [
-        "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"
-      ],
+      "@type": ["https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"],
       "_id": "screen/5cbf867a86fafd5189aee240",
       "schema:description": [
         {
@@ -1593,9 +1545,7 @@
     },
     "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/activities/PHQ-8/items/phq8_4.jsonld": {
       "@id": "/phq8_4",
-      "@type": [
-        "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"
-      ],
+      "@type": ["https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"],
       "_id": "screen/5cbf867b86fafd5189aee241",
       "schema:description": [
         {
@@ -1648,9 +1598,7 @@
     },
     "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/activities/PHQ-8/items/phq8_5.jsonld": {
       "@id": "/phq8_5",
-      "@type": [
-        "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"
-      ],
+      "@type": ["https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"],
       "_id": "screen/5cbf867c86fafd5189aee242",
       "schema:description": [
         {
@@ -1703,9 +1651,7 @@
     },
     "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/activities/PHQ-8/items/phq8_6.jsonld": {
       "@id": "/phq8_6",
-      "@type": [
-        "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"
-      ],
+      "@type": ["https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"],
       "_id": "screen/5cbf867d86fafd5189aee243",
       "schema:description": [
         {
@@ -1758,9 +1704,7 @@
     },
     "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/activities/PHQ-8/items/phq8_7.jsonld": {
       "@id": "/phq8_7",
-      "@type": [
-        "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"
-      ],
+      "@type": ["https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"],
       "_id": "screen/5cbf867d86fafd5189aee244",
       "schema:description": [
         {
@@ -1813,9 +1757,7 @@
     },
     "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/activities/PHQ-8/items/phq8_8.jsonld": {
       "@id": "/phq8_8",
-      "@type": [
-        "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"
-      ],
+      "@type": ["https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"],
       "_id": "screen/5cbf867e86fafd5189aee245",
       "schema:description": [
         {
@@ -1868,9 +1810,7 @@
     },
     "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/activities/PHQ-9/items/phq9_1.jsonld": {
       "@id": "/phq9_1",
-      "@type": [
-        "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"
-      ],
+      "@type": ["https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"],
       "_id": "screen/5cbf866e86fafd5189aee22a",
       "schema:description": [
         {
@@ -1923,9 +1863,7 @@
     },
     "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/activities/PHQ-9/items/phq9_10.jsonld": {
       "@id": "/phq9_10",
-      "@type": [
-        "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"
-      ],
+      "@type": ["https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"],
       "_id": "screen/5cbf867386fafd5189aee233",
       "schema:description": [
         {
@@ -2057,9 +1995,7 @@
     },
     "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/activities/PHQ-9/items/phq9_2.jsonld": {
       "@id": "/phq9_2",
-      "@type": [
-        "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"
-      ],
+      "@type": ["https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"],
       "_id": "screen/5cbf866f86fafd5189aee22b",
       "schema:description": [
         {
@@ -2112,9 +2048,7 @@
     },
     "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/activities/PHQ-9/items/phq9_3.jsonld": {
       "@id": "/phq9_3",
-      "@type": [
-        "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"
-      ],
+      "@type": ["https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"],
       "_id": "screen/5cbf866f86fafd5189aee22c",
       "schema:description": [
         {
@@ -2167,9 +2101,7 @@
     },
     "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/activities/PHQ-9/items/phq9_4.jsonld": {
       "@id": "/phq9_4",
-      "@type": [
-        "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"
-      ],
+      "@type": ["https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"],
       "_id": "screen/5cbf867086fafd5189aee22d",
       "schema:description": [
         {
@@ -2222,9 +2154,7 @@
     },
     "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/activities/PHQ-9/items/phq9_5.jsonld": {
       "@id": "/phq9_5",
-      "@type": [
-        "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"
-      ],
+      "@type": ["https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"],
       "_id": "screen/5cbf867086fafd5189aee22e",
       "schema:description": [
         {
@@ -2277,9 +2207,7 @@
     },
     "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/activities/PHQ-9/items/phq9_6.jsonld": {
       "@id": "/phq9_6",
-      "@type": [
-        "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"
-      ],
+      "@type": ["https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"],
       "_id": "screen/5cbf867186fafd5189aee22f",
       "schema:description": [
         {
@@ -2332,9 +2260,7 @@
     },
     "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/activities/PHQ-9/items/phq9_7.jsonld": {
       "@id": "/phq9_7",
-      "@type": [
-        "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"
-      ],
+      "@type": ["https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"],
       "_id": "screen/5cbf867186fafd5189aee230",
       "schema:description": [
         {
@@ -2387,9 +2313,7 @@
     },
     "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/activities/PHQ-9/items/phq9_8.jsonld": {
       "@id": "/phq9_8",
-      "@type": [
-        "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"
-      ],
+      "@type": ["https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"],
       "_id": "screen/5cbf867286fafd5189aee231",
       "schema:description": [
         {
@@ -2442,9 +2366,7 @@
     },
     "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/activities/PHQ-9/items/phq9_9.jsonld": {
       "@id": "/phq9_9",
-      "@type": [
-        "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"
-      ],
+      "@type": ["https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"],
       "_id": "screen/5cbf867286fafd5189aee232",
       "schema:description": [
         {
@@ -2497,9 +2419,7 @@
     },
     "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/activities/PHQ-9a/items/phq9a_1.jsonld": {
       "@id": "/phq9a_1",
-      "@type": [
-        "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"
-      ],
+      "@type": ["https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"],
       "_id": "screen/5cbf867386fafd5189aee234",
       "schema:description": [
         {
@@ -2552,9 +2472,7 @@
     },
     "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/activities/PHQ-9a/items/phq9a_10.jsonld": {
       "@id": "/phq9_10",
-      "@type": [
-        "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"
-      ],
+      "@type": ["https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"],
       "_id": "screen/5cbf867886fafd5189aee23d",
       "schema:description": [
         {
@@ -2607,9 +2525,7 @@
     },
     "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/activities/PHQ-9a/items/phq9a_2.jsonld": {
       "@id": "/phq9a_2",
-      "@type": [
-        "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"
-      ],
+      "@type": ["https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"],
       "_id": "screen/5cbf867486fafd5189aee235",
       "schema:description": [
         {
@@ -2662,9 +2578,7 @@
     },
     "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/activities/PHQ-9a/items/phq9a_3.jsonld": {
       "@id": "/phq9a_3",
-      "@type": [
-        "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"
-      ],
+      "@type": ["https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"],
       "_id": "screen/5cbf867486fafd5189aee236",
       "schema:description": [
         {
@@ -2717,9 +2631,7 @@
     },
     "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/activities/PHQ-9a/items/phq9a_4.jsonld": {
       "@id": "/phq9a_4",
-      "@type": [
-        "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"
-      ],
+      "@type": ["https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"],
       "_id": "screen/5cbf867586fafd5189aee237",
       "schema:description": [
         {
@@ -2824,9 +2736,7 @@
     },
     "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/activities/PHQ-9a/items/phq9a_6.jsonld": {
       "@id": "/phq9a_6",
-      "@type": [
-        "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"
-      ],
+      "@type": ["https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"],
       "_id": "screen/5cbf867686fafd5189aee239",
       "schema:description": [
         {
@@ -2879,9 +2789,7 @@
     },
     "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/activities/PHQ-9a/items/phq9a_7.jsonld": {
       "@id": "/phq9a_7",
-      "@type": [
-        "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"
-      ],
+      "@type": ["https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"],
       "_id": "screen/5cbf867786fafd5189aee23a",
       "schema:description": [
         {
@@ -2934,9 +2842,7 @@
     },
     "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/activities/PHQ-9a/items/phq9a_8.jsonld": {
       "@id": "/phq9a_8",
-      "@type": [
-        "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"
-      ],
+      "@type": ["https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"],
       "_id": "screen/5cbf867786fafd5189aee23b",
       "schema:description": [
         {
@@ -2989,9 +2895,7 @@
     },
     "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/activities/PHQ-9a/items/phq9a_9.jsonld": {
       "@id": "/phq9a_9",
-      "@type": [
-        "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"
-      ],
+      "@type": ["https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"],
       "_id": "screen/5cbf867886fafd5189aee23c",
       "schema:description": [
         {
@@ -3044,9 +2948,7 @@
     },
     "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/activities/voice_task/items/describe_image.jsonld": {
       "@id": "/phq8_1",
-      "@type": [
-        "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"
-      ],
+      "@type": ["https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"],
       "_id": "screen/5cbf868086fafd5189aee24a",
       "schema:description": [
         {
@@ -3099,9 +3001,7 @@
     },
     "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/activities/voice_task/items/free_speech.jsonld": {
       "@id": "/free_speech",
-      "@type": [
-        "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"
-      ],
+      "@type": ["https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"],
       "_id": "screen/5cbf868086fafd5189aee249",
       "schema:description": [
         {
@@ -3175,9 +3075,7 @@
     },
     "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/activities/voice_task/items/guided_speech.jsonld": {
       "@id": "/guided_speech",
-      "@type": [
-        "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"
-      ],
+      "@type": ["https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"],
       "_id": "screen/5cbf867f86fafd5189aee248",
       "schema:description": [
         {
@@ -3252,9 +3150,7 @@
     },
     "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/activities/voice_task/items/pataka.jsonld": {
       "@id": "/pataka",
-      "@type": [
-        "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"
-      ],
+      "@type": ["https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"],
       "_id": "screen/5cbf867f86fafd5189aee247",
       "schema:description": [
         {
@@ -3307,9 +3203,7 @@
     },
     "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/activities/voice_task/items/phonetic.jsonld": {
       "@id": "/phonetic_p",
-      "@type": [
-        "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"
-      ],
+      "@type": ["https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"],
       "_id": "screen/5cbf868186fafd5189aee24c",
       "schema:description": [
         {
@@ -3383,9 +3277,7 @@
     },
     "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/activities/voice_task/items/rainbow_passage.jsonld": {
       "@id": "/rainbow_p",
-      "@type": [
-        "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"
-      ],
+      "@type": ["https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"],
       "_id": "screen/5cbf868186fafd5189aee24d",
       "schema:description": [
         {
@@ -3459,9 +3351,7 @@
     },
     "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/activities/voice_task/items/say_ah.jsonld": {
       "@id": "/say_ah",
-      "@type": [
-        "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"
-      ],
+      "@type": ["https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"],
       "_id": "screen/5cbf867e86fafd5189aee246",
       "schema:description": [
         {
@@ -3514,9 +3404,7 @@
     },
     "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/activities/voice_task/multipart_voice_schema.jsonld": {
       "@id": "/phq8_schema",
-      "@type": [
-        "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Activity.jsonld"
-      ],
+      "@type": ["https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Activity.jsonld"],
       "_id": "screen/5cbf868186fafd5189aee24b",
       "schema:description": [
         {

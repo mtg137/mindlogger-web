@@ -1,12 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import { Spinner } from 'react-bootstrap';
-
+import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import { Statuses } from '../../constants';
-
 import { InvitationButtons } from './InvitationButtons';
-
 import './style.css';
 
 export const InviteLink = ({ status, onAcceptInvite, onDeclineInvite }) => {

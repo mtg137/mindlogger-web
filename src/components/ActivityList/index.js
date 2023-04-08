@@ -1,36 +1,26 @@
 /* eslint-disable react/prop-types */
-import React, { useState, useEffect } from 'react'
-import { useParams, useHistory } from 'react-router-dom'
-import { useSelector, connect, useDispatch } from 'react-redux'
-import { useTranslation } from 'react-i18next'
-import {
-  Container,
-  Card,
-  Button,
-  Modal,
-  Row,
-  Col,
-} from 'react-bootstrap'
+import React, { useState, useEffect } from 'react';
+import Avatar from 'react-avatar';
+import { Container, Card, Button, Modal, Row, Col } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
+import { useSelector, connect, useDispatch } from 'react-redux';
+import { useParams, useHistory } from 'react-router-dom';
 import _ from 'lodash';
 import * as R from 'ramda';
-import Avatar from 'react-avatar';
-
-// Local
-import sortActivities from './sortActivities';
-import { delayedExec, clearExec } from '../../util/interval';
-import { inProgressSelector } from '../../state/responses/responses.selectors';
+import { getActivityAvailabilityFromDependency } from '../../services/helper';
+import { parseAppletEvents } from '../../services/json-ld';
+import { setActivityStartTime, setCurrentActivity } from '../../state/app/app.reducer';
 import { finishedEventsSelector, startedTimesSelector } from '../../state/app/app.selectors';
 import { appletCumulativeActivities, appletsSelector } from '../../state/applet/applet.selectors';
-import { setActivityStartTime, setCurrentActivity, } from '../../state/app/app.reducer';
 import { setCurrentEvent } from '../../state/responses/responses.reducer';
 import { createResponseInProgress } from '../../state/responses/responses.reducer';
-import { parseAppletEvents } from '../../services/json-ld';
-import { getActivityAvailabilityFromDependency } from '../../services/helper';
-
+import { inProgressSelector } from '../../state/responses/responses.selectors';
+import { delayedExec, clearExec } from '../../util/interval';
 import AboutModal from '../AboutModal';
 import ActivityItem from './ActivityItem';
-
-import './style.css'
+// Local
+import sortActivities from './sortActivities';
+import './style.css';
 
 export const ActivityList = ({ inProgress, finishedEvents }) => {
   const { appletId, publicId } = useParams();
@@ -44,14 +34,17 @@ export const ActivityList = ({ inProgress, finishedEvents }) => {
   const [activities, setActivities] = useState([]);
   const [recommendedActivities, setRecommendedActivities] = useState([]);
   const [currentAct, setCurrentAct] = useState({});
-  const [markdown, setMarkDown] = useState("");
-  const [currentApplet] = useState(applets.find((applet) =>
-    appletId && applet.id.includes(appletId) ||
-    publicId && applet.publicId && applet.publicId.includes(publicId)
-  ));
+  const [markdown, setMarkDown] = useState('');
+  const [currentApplet] = useState(
+    applets.find(
+      (applet) =>
+        (appletId && applet.id.includes(appletId)) ||
+        (publicId && applet.publicId && applet.publicId.includes(publicId)),
+    ),
+  );
   const startedTimes = useSelector(startedTimesSelector);
 
-  const user = useSelector(state => R.path(['user', 'info'])(state));
+  const user = useSelector((state) => R.path(['user', 'info'])(state));
   const updateStatusDelay = 60 * 1000;
   const appletData = parseAppletEvents(currentApplet);
 
@@ -67,7 +60,7 @@ export const ActivityList = ({ inProgress, finishedEvents }) => {
       } else {
         setMarkDown(t('no_markdown'));
       }
-    }
+    };
 
     if (currentApplet) {
       fetchMarkDown();
@@ -97,65 +90,69 @@ export const ActivityList = ({ inProgress, finishedEvents }) => {
       if (updateId) {
         clearExec(updateId);
       }
-    }
-  }, [Object.keys(inProgress).length]) //responseSchedule
+    };
+  }, [Object.keys(inProgress).length]); //responseSchedule
 
   const updateActivites = () => {
-    const convertToIndexes = (activities) => activities
-      ?.map(id => {
-        const index = appletData.activities.findIndex(activity => activity.id.split('/').pop() == id)
-        return index;
-      })
-      ?.filter(index => index >= 0)
+    const convertToIndexes = (activities) =>
+      activities
+        ?.map((id) => {
+          const index = appletData.activities.findIndex((activity) => activity.id.split('/').pop() == id);
+          return index;
+        })
+        ?.filter((index) => index >= 0);
 
     let { appletActivities, recommendedActivities } = getActivityAvailabilityFromDependency(
       appletData.activities,
       convertToIndexes(cumulativeActivities[appletData.id]?.available || []),
-      convertToIndexes(cumulativeActivities[appletData.id]?.archieved || [])
-    )
+      convertToIndexes(cumulativeActivities[appletData.id]?.archieved || []),
+    );
     appletActivities = appletActivities
-      .map(index => appletData.activities[index])
-      .filter(
-        activity =>
-          activity.isPrize != true &&
-          !activity.isVis && activity.isReviewerActivity != true
-      )
-      .filter(activity => {
-        const supportedItems = activity.items.filter(item => {
-          return item.inputType === "radio"
-            || item.inputType === "checkox"
-            || item.inputType === "slider"
-            || item.inputType === "ageSelector"
-            || item.inputType === "duration"
-            || item.inputType === "text"
-            || item.inputType === "dropdownList";
+      .map((index) => appletData.activities[index])
+      .filter((activity) => activity.isPrize != true && !activity.isVis && activity.isReviewerActivity != true)
+      .filter((activity) => {
+        const supportedItems = activity.items.filter((item) => {
+          return (
+            item.inputType === 'radio' ||
+            item.inputType === 'checkox' ||
+            item.inputType === 'slider' ||
+            item.inputType === 'ageSelector' ||
+            item.inputType === 'duration' ||
+            item.inputType === 'text' ||
+            item.inputType === 'dropdownList'
+          );
         });
 
         return supportedItems.length > 0;
-      })
+      });
     setRecommendedActivities(recommendedActivities);
-    setActivities(_.uniq(sortActivities(appletActivities, inProgress, finishedEvents, currentApplet.schedule?.data), "id"));
-  }
+    setActivities(
+      _.uniq(sortActivities(appletActivities, inProgress, finishedEvents, currentApplet.schedule?.data), 'id'),
+    );
+  };
   const onPressActivity = (activity) => {
-    if (activity.status === "in-progress") {
+    if (activity.status === 'in-progress') {
       setCurrentAct(activity);
       setStartActivity(true);
     } else {
-      if (activity.event
-        && activity.event.data.timedActivity
-        && activity.event.data.timedActivity.allow
-        && startedTimes
-        && !startedTimes[activity.id + activity.event.id]
+      if (
+        activity.event &&
+        activity.event.data.timedActivity &&
+        activity.event.data.timedActivity.allow &&
+        startedTimes &&
+        !startedTimes[activity.id + activity.event.id]
       ) {
         dispatch(setActivityStartTime(activity.id + activity.event.id));
       }
-      dispatch(createResponseInProgress({
-        activity: activity,
-        event: activity.event,
-        subjectId: user && user._id,
-        publicId: currentApplet.publicId || null,
-        timeStarted: new Date().getTime()
-      }));
+      dispatch(
+        createResponseInProgress({
+          activity: activity,
+          event: activity.event,
+          subjectId: user && user._id,
+          publicId: currentApplet.publicId || null,
+          timeStarted: new Date().getTime(),
+        }),
+      );
 
       dispatch(setCurrentActivity(activity));
 
@@ -165,7 +162,7 @@ export const ActivityList = ({ inProgress, finishedEvents }) => {
         history.push(`/applet/${appletId}/${activity.id}`);
       }
     }
-  }
+  };
 
   const handleResumeActivity = () => {
     const activity = currentAct;
@@ -173,11 +170,12 @@ export const ActivityList = ({ inProgress, finishedEvents }) => {
     dispatch(setCurrentActivity(activity));
     dispatch(setCurrentEvent(activity.event ? activity.event.id : ''));
 
-    if (activity.event
-      && activity.event.data.timedActivity
-      && activity.event.data.timedActivity.allow
-      && startedTimes
-      && !startedTimes[activity.id + activity.event.id]
+    if (
+      activity.event &&
+      activity.event.data.timedActivity &&
+      activity.event.data.timedActivity.allow &&
+      startedTimes &&
+      !startedTimes[activity.id + activity.event.id]
     ) {
       dispatch(setActivityStartTime(activity.id + activity.event.id));
     }
@@ -188,24 +186,27 @@ export const ActivityList = ({ inProgress, finishedEvents }) => {
       history.push(`/applet/${appletId}/${activity.id}`);
     }
     setStartActivity(false);
-  }
+  };
 
   const handleRestartActivity = () => {
     const activity = currentAct;
 
     dispatch(setCurrentActivity(activity));
-    dispatch(createResponseInProgress({
-      activity: activity,
-      event: activity.event,
-      subjectId: user?._id,
-      publicId: currentApplet.publicId || null,
-      timeStarted: new Date().getTime()
-    }));
+    dispatch(
+      createResponseInProgress({
+        activity: activity,
+        event: activity.event,
+        subjectId: user?._id,
+        publicId: currentApplet.publicId || null,
+        timeStarted: new Date().getTime(),
+      }),
+    );
 
-    if (activity.event
-      && activity.event.data.timedActivity.allow
-      && startedTimes
-      && !startedTimes[activity.id + activity.event.id]
+    if (
+      activity.event &&
+      activity.event.data.timedActivity.allow &&
+      startedTimes &&
+      !startedTimes[activity.id + activity.event.id]
     ) {
       dispatch(setActivityStartTime(activity.id + activity.event.id));
     }
@@ -216,7 +217,7 @@ export const ActivityList = ({ inProgress, finishedEvents }) => {
       history.push(`/applet/${appletId}/${activity.id}`);
     }
     setStartActivity(false);
-  }
+  };
 
   const closeAboutPage = () => showAboutPage(false);
   const openAboutPage = () => showAboutPage(true);
@@ -224,61 +225,46 @@ export const ActivityList = ({ inProgress, finishedEvents }) => {
 
   const getRecomendedActivity = (activityId) => {
     const availableCumulativeActivities = cumulativeActivities[appletData.id]?.available;
-    return availableCumulativeActivities?.length &&
+    return (
+      availableCumulativeActivities?.length &&
       availableCumulativeActivities[availableCumulativeActivities?.length - 1] === activityId?.split('/').pop()
-  }
+    );
+  };
 
   return (
     <Container fluid>
-      {
-        currentApplet && !currentApplet.isIgnore && (
-          <Row className="ds-applet-layout">
-            <Col lg={1} />
-            <Col lg={3}>
-              <Card className="ds-card">
-                <div className="applet-header">
-                  <div className="applet-image">
-                    {currentApplet.image &&
-                      <Card.Img
-                        className="ds-shadow"
-                        variant="top"
-                        src={currentApplet.image}
-                      />
-                    }
-                    {!currentApplet.image &&
-                      <Avatar
-                        name={currentApplet.name.en}
-                        maxInitials={2}
-                        color="#777"
-                        size="240"
-                        round="3px"
-                      />
-                    }
-                  </div>
+      {(currentApplet && !currentApplet.isIgnore && (
+        <Row className="ds-applet-layout">
+          <Col lg={1} />
+          <Col lg={3}>
+            <Card className="ds-card">
+              <div className="applet-header">
+                <div className="applet-image">
+                  {currentApplet.image && <Card.Img className="ds-shadow" variant="top" src={currentApplet.image} />}
+                  {!currentApplet.image && (
+                    <Avatar name={currentApplet.name.en} maxInitials={2} color="#777" size="240" round="3px" />
+                  )}
                 </div>
+              </div>
 
-                <Card.Body className="ds-card-title">
-                  <Card.Title className="text-center">
-                    {currentApplet.name.en}
-                  </Card.Title>
-                  <Button
-                    className="ds-shadow ds-about-button"
-                    onClick={openAboutPage}
-                    variant="link"
-                  >
-                    {t('About.about')}
-                  </Button>
-                </Card.Body>
-              </Card>
-              <AboutModal
-                aboutPage={aboutPage}
-                aboutType={currentApplet.aboutType}
-                markdown={markdown}
-                closeAboutPage={closeAboutPage}
-              />
-            </Col>
-            <Col lg={7}>
-              {activities.filter(activity => !activity.isReviewerActivity).map(activity => (
+              <Card.Body className="ds-card-title">
+                <Card.Title className="text-center">{currentApplet.name.en}</Card.Title>
+                <Button className="ds-shadow ds-about-button" onClick={openAboutPage} variant="link">
+                  {t('About.about')}
+                </Button>
+              </Card.Body>
+            </Card>
+            <AboutModal
+              aboutPage={aboutPage}
+              aboutType={currentApplet.aboutType}
+              markdown={markdown}
+              closeAboutPage={closeAboutPage}
+            />
+          </Col>
+          <Col lg={7}>
+            {activities
+              .filter((activity) => !activity.isReviewerActivity)
+              .map((activity) => (
                 <ActivityItem
                   activity={activity}
                   onPress={() => onPressActivity(activity)}
@@ -287,13 +273,13 @@ export const ActivityList = ({ inProgress, finishedEvents }) => {
                   key={activity.id ? activity.id : activity.text}
                 />
               ))}
-
-            </Col>
-          </Row>
-        ) || (
-          <div className="applet-error">You have reached this URL in error. Please reach out to the organizer of this applet for further assistance.</div>
-        )
-      }
+          </Col>
+        </Row>
+      )) || (
+        <div className="applet-error">
+          You have reached this URL in error. Please reach out to the organizer of this applet for further assistance.
+        </div>
+      )}
       <Modal show={startActivity} onHide={handleClose} animation={true}>
         <Modal.Header closeButton>
           <Modal.Title>{t('additional.resume_activity')}</Modal.Title>
@@ -310,18 +296,15 @@ export const ActivityList = ({ inProgress, finishedEvents }) => {
       </Modal>
     </Container>
   );
-}
+};
 
 const mapStateToProps = (state) => {
   return {
     inProgress: inProgressSelector(state),
     finishedEvents: finishedEventsSelector(state),
-  }
-}
+  };
+};
 
-const mapDispatchToProps = {}
+const mapDispatchToProps = {};
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ActivityList);
+export default connect(mapStateToProps, mapDispatchToProps)(ActivityList);

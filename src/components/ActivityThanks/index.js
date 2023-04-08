@@ -1,18 +1,13 @@
-import React from 'react'
-import { useParams, useHistory } from 'react-router-dom'
-import { useTranslation } from 'react-i18next'
-import { useSelector } from 'react-redux'
-import {
-  Container,
-  Button,
-} from 'react-bootstrap'
-
+import React from 'react';
+import { Container, Button } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
+import { useParams, useHistory } from 'react-router-dom';
 import { appletsSelector } from '../../state/applet/applet.selectors';
-
-import './style.css'
+import './style.css';
 
 const ActivityThanks = ({}) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   const { appletId } = useParams();
   const history = useHistory();
   const applets = useSelector(appletsSelector);
@@ -28,19 +23,23 @@ const ActivityThanks = ({}) => {
         </div>
 
         <div className="actions">
-          <Button full rounded onClick={() => {
-            if (applet.publicId) {
-              history.push(`/applet/public/${applet.publicId}`);
-            } else {
-              history.push(`/applet/${appletId}/dashboard`);
-            }
-          }}>
+          <Button
+            full
+            rounded
+            onClick={() => {
+              if (applet.publicId) {
+                history.push(`/applet/public/${applet.publicId}`);
+              } else {
+                history.push(`/applet/${appletId}/dashboard`);
+              }
+            }}
+          >
             {t('additional.close')}
           </Button>
         </div>
       </div>
     </Container>
   );
-}
+};
 
 export default ActivityThanks;

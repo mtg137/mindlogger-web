@@ -7,7 +7,6 @@ export const testVisibility = (testExpression = true, items = [], responses = []
     return true;
   }
 
-
   const parser = new Parser({
     logical: true,
     comparison: true,
@@ -22,12 +21,11 @@ export const testVisibility = (testExpression = true, items = [], responses = []
     .replace(/.includes\(/g, ', ')
     .replace(/\!(?!=)/g, 'not ');
 
-
   // Custom function to test if element is present in array
 
   const isActivityShownFirstTime = (activity) => {
     return !responseTimes[activity];
-  }
+  };
 
   const arrayIncludes = (array, element) => {
     if (array === undefined || array === null) {
@@ -49,14 +47,15 @@ export const testVisibility = (testExpression = true, items = [], responses = []
     // Build an object where the keys are item variableNames, and values are
     // item responses
     const inputs = items.reduce((acc, item, index) => {
-      const response = (responses[index] && (responses[index].value || responses[index].value === 0))
-        ? responses[index].value
-        : responses[index];
+      const response =
+        responses[index] && (responses[index].value || responses[index].value === 0)
+          ? responses[index].value
+          : responses[index];
 
       return {
         ...acc,
-        [item.variableName]: responses[index] === 0 ? 0 : (response === 0 ? 0 : response || null), // cast undefined to null
-      }
+        [item.variableName]: responses[index] === 0 ? 0 : response === 0 ? 0 : response || null, // cast undefined to null
+      };
     }, {});
 
     // Run the expression

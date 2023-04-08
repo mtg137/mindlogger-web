@@ -1,18 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useSelector } from 'react-redux';
-import _ from "lodash";
 import { Row, Card, Col, Image } from 'react-bootstrap';
-
-import Navigator from '../Navigator';
-import Markdown from '../../components/Markdown';
-
-import "./style.css";
 import ReactBootstrapSlider from 'react-bootstrap-slider';
-import "bootstrap-slider/dist/css/bootstrap-slider.css"
-
+import { useSelector } from 'react-redux';
+import 'bootstrap-slider/dist/css/bootstrap-slider.css';
+import _ from 'lodash';
+import Markdown from '../../components/Markdown';
 import { parseMarkdown } from '../../services/helper';
-import { activityLastResponseTimeSelector } from '../../state/responses/responses.selectors';
 import { profileSelector } from '../../state/applet/applet.selectors';
+import { activityLastResponseTimeSelector } from '../../state/responses/responses.selectors';
+import Navigator from '../Navigator';
+import './style.css';
 
 const SliderWidget = ({
   item,
@@ -30,7 +27,7 @@ const SliderWidget = ({
   ...props
 }) => {
   const [data, setData] = useState({
-    [item.variableName]: answer && answer.value || null
+    [item.variableName]: (answer && answer.value) || null,
   });
   const lastResponseTime = useSelector(activityLastResponseTimeSelector);
   const profile = useSelector(profileSelector);
@@ -45,22 +42,22 @@ const SliderWidget = ({
     minValueImg,
     maxValueImg,
     ['minValue']: minLabel,
-    ['maxValue']: maxLabel
+    ['maxValue']: maxLabel,
   } = item.valueConstraints;
 
   const minValue = Math.min.apply(
     Math,
-    itemList.map(item => item.value)
+    itemList.map((item) => item.value),
   );
 
   const maxValue = Math.max.apply(
     Math,
-    itemList.map(item => item.value)
-  )
+    itemList.map((item) => item.value),
+  );
 
   const isNextDisable = () => {
     return !answer || (!answer.value && answer.value !== 0);
-  }
+  };
 
   const minLabelWidth = Math.floor(90 / itemList.length);
 
@@ -71,25 +68,20 @@ const SliderWidget = ({
     }
 
     if (!data || answer.value != data.value) {
-      setData({ [item.variableName]: answer.value })
-      handleChange(answer)
+      setData({ [item.variableName]: answer.value });
+      handleChange(answer);
     }
-  }
+  };
 
   return (
-    <Card className={`${invalid ? 'invalid' : ''} mb-3`} style={{ maxWidth: "auto" }}>
+    <Card className={`${invalid ? 'invalid' : ''} mb-3`} style={{ maxWidth: 'auto' }}>
       <Row className="no-gutters">
         <Col md={12}>
           <Card.Body>
             <Card.Title className="question">
-              {
-                watermark &&
-                <Image className="watermark" src={watermark} alt="watermark" rounded />
-              }
+              {watermark && <Image className="watermark" src={watermark} alt="watermark" rounded />}
               <div className="markdown">
-                <Markdown
-                  markdown={markdown}
-                />
+                <Markdown markdown={markdown} />
               </div>
             </Card.Title>
             <Row className="no-gutters no-gutters px-4 py-4">
@@ -97,60 +89,39 @@ const SliderWidget = ({
                 <ReactBootstrapSlider
                   min={minValue}
                   max={maxValue}
-                  value={data && data[item.variableName] || 0}
+                  value={(data && data[item.variableName]) || 0}
                   slideStop={(e) => {
-                    changeValue(e.target.value * 1)
+                    changeValue(e.target.value * 1);
                   }}
                   tooltip={'hide'}
                   step={continuousSlider ? 0.1 : 1}
                   disabled={!isNextShown ? 'disabled' : 'enabled'}
                 />
 
-                {
-                  (showTickLabel !== false || showTickMarks !== false) &&
+                {(showTickLabel !== false || showTickMarks !== false) && (
                   <div className="ticks">
-                    {
-                      _.map(itemList, (obj, i) => (
-                        <span
-                          key={obj.name.en}
-                          className="tick"
-                          style={{ background: showTickMarks !== false ? 'black' : 'white' }}
-                        >{showTickLabel !== false && obj.name.en || ''}</span>
-                      ))
-                    }
+                    {_.map(itemList, (obj, i) => (
+                      <span
+                        key={obj.name.en}
+                        className="tick"
+                        style={{ background: showTickMarks !== false ? 'black' : 'white' }}
+                      >
+                        {(showTickLabel !== false && obj.name.en) || ''}
+                      </span>
+                    ))}
                   </div>
-                }
+                )}
 
                 <div className="slider-description">
                   <div className="first" style={{ width: `max(${minLabelWidth}%, 100px)` }}>
-                    <img
-                      src={minValueImg}
-                      width="100%"
-                    ></img>
+                    <img src={minValueImg} width="100%"></img>
 
-                    {
-                      showTextAnchors !== false &&
-                        <div
-                          className="min-label"
-                        >
-                          {minLabel}
-                        </div>
-                    }
+                    {showTextAnchors !== false && <div className="min-label">{minLabel}</div>}
                   </div>
                   <div className="last" style={{ width: `max(${minLabelWidth}%, 100px)` }}>
-                    <img
-                      src={maxValueImg}
-                      width="100%"
-                    ></img>
+                    <img src={maxValueImg} width="100%"></img>
 
-                    {
-                      showTextAnchors !== false &&
-                        <div
-                          className="min-label"
-                        >
-                          {maxLabel}
-                        </div>
-                    }
+                    {showTextAnchors !== false && <div className="min-label">{maxLabel}</div>}
                   </div>
                 </div>
               </div>
@@ -170,6 +141,6 @@ const SliderWidget = ({
       />
     </Card>
   );
-}
+};
 
 export default SliderWidget;

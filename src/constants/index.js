@@ -1,114 +1,114 @@
-export const ALLOW = "reprolib:terms/allow";
-export const ABOUT = "reprolib:terms/landingPage";
-export const ABOUT_CONTENT = "reprolib:terms/landingPageContent";
-export const ABOUT_TYPE = "reprolib:terms/landingPageType";
-export const ALT_LABEL = "http://www.w3.org/2004/02/skos/core#altLabel";
-export const AUDIO_OBJECT = "schema:AudioObject";
-export const AUTO_ADVANCE = "reprolib:terms/auto_advance";
-export const BACK_DISABLED = "reprolib:terms/disable_back";
-export const COLOR_PALETTE = "reprolib:terms/colorPalette";
-export const CONTENT_URL = "schema:contentUrl";
-export const DELAY = "reprolib:terms/delay";
-export const DESCRIPTION = "schema:description";
-export const HEADER = "schema:header";
-export const SECTION = "schema:section";
-export const SPLASH = "schema:splash";
-export const DO_NOT_KNOW = "reprolib:terms/dont_know_answer";
-export const ENCODING_FORMAT = "schema:encodingFormat";
-export const FULL_SCREEN = "reprolib:terms/full_screen";
-export const IMAGE = "schema:image";
-export const WATERMARK = "schema:watermark";
-export const IMAGE_OBJECT = "schema:ImageObject";
-export const INPUT_TYPE = "reprolib:terms/inputType";
-export const INPUTS = "reprolib:terms/inputs";
-export const IS_ABOUT = "reprolib:terms/isAbout";
-export const ITEM_LIST_ELEMENT = "schema:itemListElement";
-export const MAX_VALUE = "schema:maxValue";
-export const MEDIA = "reprolib:terms/media";
-export const MIN_VALUE = "schema:minValue";
-export const MIN_AGE = "schema:minAge";
-export const MAX_AGE = "schema:maxAge";
-export const MULTIPLE_CHOICE = "reprolib:terms/multipleChoice";
-export const MIN_VALUE_IMAGE = "schema:minValueImg";
-export const MAX_VALUE_IMAGE = "schema:maxValueImg";
-export const SLIDER_LABEL = "schema:sliderLabel";
-export const SCORING = "reprolib:terms/scoring";
-export const ITEM_LIST = "reprolib:terms/itemList";
-export const ITEM_OPTIONS = "reprolib:terms/itemOptions";
-export const OPTIONS = "reprolib:terms/options";
-export const SLIDER_OPTIONS = "reprolib:terms/sliderOptions";
-export const VALUE_TYPE = "reprolib:terms/valueType";
-export const ENABLE_NEGATIVE_TOKENS = "reprolib:terms/enableNegativeTokens";
-export const NAME = "schema:name";
-export const PREAMBLE = "reprolib:terms/preamble";
-export const PREF_LABEL = "http://www.w3.org/2004/02/skos/core#prefLabel";
-export const QUESTION = "schema:question";
-export const REFUSE_TO_ANSWER = "reprolib:terms/refused_to_answer";
-export const REQUIRED_VALUE = "reprolib:terms/required";
-export const SCHEMA_VERSION = "schema:schemaVersion";
-export const SCORING_LOGIC = "reprolib:terms/scoringLogic";
-export const SHUFFLE = "reprolib:terms/shuffle";
-export const ISPRIZE = "reprolib:terms/isPrize";
-export const TIMER = "reprolib:terms/timer";
-export const TRANSCRIPT = "schema:transcript";
-export const URL = "schema:url";
-export const VALUE = "schema:value";
-export const COLOR = "schema:color";
-export const PRICE = "schema:price";
-export const SCORE = "schema:score";
-export const ALERT = "schema:alert";
-export const CORRECT_ANSWER = "schema:correctAnswer";
-export const RESPONSE_OPTIONS = "reprolib:terms/responseOptions";
-export const VARIABLE_NAME = "reprolib:terms/variableName";
-export const JS_EXPRESSION = "reprolib:terms/jsExpression";
-export const SCORE_OVERVIEW = "reprolib:terms/scoreOverview";
-export const DIRECTION = "reprolib:terms/direction";
-export const VERSION = "schema:version";
-export const IS_VIS = "reprolib:terms/isVis";
-export const MAX_LENGTH = "reprolib:terms/maxLength";
-export const ADD_PROPERTIES = "reprolib:terms/addProperties";
-export const COMPUTE = "reprolib:terms/compute";
-export const SUBSCALES = "reprolib:terms/subScales";
-export const FINAL_SUBSCALE = "reprolib:terms/finalSubScale";
-export const IS_AVERAGE_SCORE = "reprolib:terms/isAverageScore";
-export const MESSAGES = "reprolib:terms/messages";
-export const MESSAGE = "reprolib:terms/message";
-export const LOOKUP_TABLE = "reprolib:terms/lookupTable";
-export const AGE = "reprolib:terms/age";
-export const RAW_SCORE = "reprolib:terms/rawScore";
-export const SEX = "reprolib:terms/sex";
-export const T_SCORE = "reprolib:terms/tScore";
-export const OUTPUT_TEXT = "reprolib:terms/outputText";
-export const OUTPUT_TYPE = "reprolib:terms/outputType";
-export const RESPONSE_ALERT = "reprolib:terms/responseAlert";
-export const RANDOMIZE_OPTIONS = "reprolib:terms/randomizeOptions";
-export const CONTINOUS_SLIDER = "reprolib:terms/continousSlider";
-export const TIME_DURATION = "schema:timeDuration";
-export const SHOW_TICK_MARKS = "reprolib:terms/tickMark";
-export const SHOW_TICK_LABEL = "reprolib:terms/tickLabel";
-export const SHOW_TEXT_ANCHORS = "reprolib:terms/textAnchors";
-export const IS_OPTIONAL_TEXT = "reprolib:terms/isOptionalText";
-export const IS_OPTIONAL_TEXT_REQUIRED = "reprolib:terms/isOptionalTextRequired";
-export const RESPONSE_ALERT_MESSAGE = "schema:responseAlertMessage";
-export const MIN_ALERT_VALUE = "schema:minAlertValue";
-export const MAX_ALERT_VALUE = "schema:maxAlertValue";
-export const ORDER = "reprolib:terms/order";
-export const HAS_RESPONSE_IDENTIFIER = "reprolib:terms/hasResponseIdentifier";
-export const IS_RESPONSE_IDENTIFIER = "reprolib:terms/isResponseIdentifier";
-export const IS_REVIEWER_ACTIVITY = "reprolib:terms/isReviewerActivity";
-export const DISABLE_SUMMARY = "reprolib:terms/disable_summary";
-export const NEXT_ACTIVITY = "reprolib:terms/nextActivity";
-export const REMOVE_BACK_OPTION = "reprolib:terms/removeBackOption";
-export const IS_ONE_PAGE_ASSESSMENT = "reprolib:terms/isOnePageAssessment";
-export const COMBINE_REPORTS = "reprolib:terms/combineReports";
-export const HIDE_ACTIVITY = "reprolib:terms/hideActivity";
-export const IS_RECOMMENDED = "reprolib:terms/isRecommended";
-export const REPORTS = "reprolib:terms/reports";
-export const PRINT_ITEMS = "reprolib:terms/printItems";
-export const CONDITIONALS = "reprolib:terms/conditionals";
-export const FLAG_SCORE = "reprolib:terms/flagScore";
-export const ALLOW_EXPORT = "reprolib:terms/allow_export";
-export const REPORT_CONFIGS = "reprolib:terms/reportConfigs";
+export const ALLOW = 'reprolib:terms/allow';
+export const ABOUT = 'reprolib:terms/landingPage';
+export const ABOUT_CONTENT = 'reprolib:terms/landingPageContent';
+export const ABOUT_TYPE = 'reprolib:terms/landingPageType';
+export const ALT_LABEL = 'http://www.w3.org/2004/02/skos/core#altLabel';
+export const AUDIO_OBJECT = 'schema:AudioObject';
+export const AUTO_ADVANCE = 'reprolib:terms/auto_advance';
+export const BACK_DISABLED = 'reprolib:terms/disable_back';
+export const COLOR_PALETTE = 'reprolib:terms/colorPalette';
+export const CONTENT_URL = 'schema:contentUrl';
+export const DELAY = 'reprolib:terms/delay';
+export const DESCRIPTION = 'schema:description';
+export const HEADER = 'schema:header';
+export const SECTION = 'schema:section';
+export const SPLASH = 'schema:splash';
+export const DO_NOT_KNOW = 'reprolib:terms/dont_know_answer';
+export const ENCODING_FORMAT = 'schema:encodingFormat';
+export const FULL_SCREEN = 'reprolib:terms/full_screen';
+export const IMAGE = 'schema:image';
+export const WATERMARK = 'schema:watermark';
+export const IMAGE_OBJECT = 'schema:ImageObject';
+export const INPUT_TYPE = 'reprolib:terms/inputType';
+export const INPUTS = 'reprolib:terms/inputs';
+export const IS_ABOUT = 'reprolib:terms/isAbout';
+export const ITEM_LIST_ELEMENT = 'schema:itemListElement';
+export const MAX_VALUE = 'schema:maxValue';
+export const MEDIA = 'reprolib:terms/media';
+export const MIN_VALUE = 'schema:minValue';
+export const MIN_AGE = 'schema:minAge';
+export const MAX_AGE = 'schema:maxAge';
+export const MULTIPLE_CHOICE = 'reprolib:terms/multipleChoice';
+export const MIN_VALUE_IMAGE = 'schema:minValueImg';
+export const MAX_VALUE_IMAGE = 'schema:maxValueImg';
+export const SLIDER_LABEL = 'schema:sliderLabel';
+export const SCORING = 'reprolib:terms/scoring';
+export const ITEM_LIST = 'reprolib:terms/itemList';
+export const ITEM_OPTIONS = 'reprolib:terms/itemOptions';
+export const OPTIONS = 'reprolib:terms/options';
+export const SLIDER_OPTIONS = 'reprolib:terms/sliderOptions';
+export const VALUE_TYPE = 'reprolib:terms/valueType';
+export const ENABLE_NEGATIVE_TOKENS = 'reprolib:terms/enableNegativeTokens';
+export const NAME = 'schema:name';
+export const PREAMBLE = 'reprolib:terms/preamble';
+export const PREF_LABEL = 'http://www.w3.org/2004/02/skos/core#prefLabel';
+export const QUESTION = 'schema:question';
+export const REFUSE_TO_ANSWER = 'reprolib:terms/refused_to_answer';
+export const REQUIRED_VALUE = 'reprolib:terms/required';
+export const SCHEMA_VERSION = 'schema:schemaVersion';
+export const SCORING_LOGIC = 'reprolib:terms/scoringLogic';
+export const SHUFFLE = 'reprolib:terms/shuffle';
+export const ISPRIZE = 'reprolib:terms/isPrize';
+export const TIMER = 'reprolib:terms/timer';
+export const TRANSCRIPT = 'schema:transcript';
+export const URL = 'schema:url';
+export const VALUE = 'schema:value';
+export const COLOR = 'schema:color';
+export const PRICE = 'schema:price';
+export const SCORE = 'schema:score';
+export const ALERT = 'schema:alert';
+export const CORRECT_ANSWER = 'schema:correctAnswer';
+export const RESPONSE_OPTIONS = 'reprolib:terms/responseOptions';
+export const VARIABLE_NAME = 'reprolib:terms/variableName';
+export const JS_EXPRESSION = 'reprolib:terms/jsExpression';
+export const SCORE_OVERVIEW = 'reprolib:terms/scoreOverview';
+export const DIRECTION = 'reprolib:terms/direction';
+export const VERSION = 'schema:version';
+export const IS_VIS = 'reprolib:terms/isVis';
+export const MAX_LENGTH = 'reprolib:terms/maxLength';
+export const ADD_PROPERTIES = 'reprolib:terms/addProperties';
+export const COMPUTE = 'reprolib:terms/compute';
+export const SUBSCALES = 'reprolib:terms/subScales';
+export const FINAL_SUBSCALE = 'reprolib:terms/finalSubScale';
+export const IS_AVERAGE_SCORE = 'reprolib:terms/isAverageScore';
+export const MESSAGES = 'reprolib:terms/messages';
+export const MESSAGE = 'reprolib:terms/message';
+export const LOOKUP_TABLE = 'reprolib:terms/lookupTable';
+export const AGE = 'reprolib:terms/age';
+export const RAW_SCORE = 'reprolib:terms/rawScore';
+export const SEX = 'reprolib:terms/sex';
+export const T_SCORE = 'reprolib:terms/tScore';
+export const OUTPUT_TEXT = 'reprolib:terms/outputText';
+export const OUTPUT_TYPE = 'reprolib:terms/outputType';
+export const RESPONSE_ALERT = 'reprolib:terms/responseAlert';
+export const RANDOMIZE_OPTIONS = 'reprolib:terms/randomizeOptions';
+export const CONTINOUS_SLIDER = 'reprolib:terms/continousSlider';
+export const TIME_DURATION = 'schema:timeDuration';
+export const SHOW_TICK_MARKS = 'reprolib:terms/tickMark';
+export const SHOW_TICK_LABEL = 'reprolib:terms/tickLabel';
+export const SHOW_TEXT_ANCHORS = 'reprolib:terms/textAnchors';
+export const IS_OPTIONAL_TEXT = 'reprolib:terms/isOptionalText';
+export const IS_OPTIONAL_TEXT_REQUIRED = 'reprolib:terms/isOptionalTextRequired';
+export const RESPONSE_ALERT_MESSAGE = 'schema:responseAlertMessage';
+export const MIN_ALERT_VALUE = 'schema:minAlertValue';
+export const MAX_ALERT_VALUE = 'schema:maxAlertValue';
+export const ORDER = 'reprolib:terms/order';
+export const HAS_RESPONSE_IDENTIFIER = 'reprolib:terms/hasResponseIdentifier';
+export const IS_RESPONSE_IDENTIFIER = 'reprolib:terms/isResponseIdentifier';
+export const IS_REVIEWER_ACTIVITY = 'reprolib:terms/isReviewerActivity';
+export const DISABLE_SUMMARY = 'reprolib:terms/disable_summary';
+export const NEXT_ACTIVITY = 'reprolib:terms/nextActivity';
+export const REMOVE_BACK_OPTION = 'reprolib:terms/removeBackOption';
+export const IS_ONE_PAGE_ASSESSMENT = 'reprolib:terms/isOnePageAssessment';
+export const COMBINE_REPORTS = 'reprolib:terms/combineReports';
+export const HIDE_ACTIVITY = 'reprolib:terms/hideActivity';
+export const IS_RECOMMENDED = 'reprolib:terms/isRecommended';
+export const REPORTS = 'reprolib:terms/reports';
+export const PRINT_ITEMS = 'reprolib:terms/printItems';
+export const CONDITIONALS = 'reprolib:terms/conditionals';
+export const FLAG_SCORE = 'reprolib:terms/flagScore';
+export const ALLOW_EXPORT = 'reprolib:terms/allow_export';
+export const REPORT_CONFIGS = 'reprolib:terms/reportConfigs';
 
 export const Statuses = {
   LOADING: 'loading',
@@ -118,16 +118,16 @@ export const Statuses = {
   SUBMITTED: 'submitted',
   ACCEPTED: 'accepted',
   REMOVED: 'removed',
-  DECLINED: 'declined'
-}
+  DECLINED: 'declined',
+};
 export const ConsentMode = {
   SIGNUP: 'SignUp',
-  LOGIN: 'LogIn'
-}
+  LOGIN: 'LogIn',
+};
 export const Languages = {
   ENGLISH: 'en',
-  FRENCH: 'fr'
-}
+  FRENCH: 'fr',
+};
 export const steps = [
   {
     title: 'About the Study',
@@ -137,37 +137,34 @@ export const steps = [
     Fusce ac dui quam. Nam a nibh porttitor, tincidunt libero id, condimentum velit.
     Praesent ultricies consectetur nulla vel pharetra. Fusce auctor viverra fringilla.
     Duis euismod enim eu quam tincidunt, sed faucibus leo placerat.
-    Pellentesque et justo a orci dictum pulvinar eleifend at nisl. Integer eu purus sapien.`
+    Pellentesque et justo a orci dictum pulvinar eleifend at nisl. Integer eu purus sapien.`,
   },
   {
     title: 'How does the study work?',
-    image:
-      'https://parkinsonmpower.org/static/images/procedures%20activities.svg',
+    image: 'https://parkinsonmpower.org/static/images/procedures%20activities.svg',
     text: `Integer vel diam a lorem mattis tristique at vel magna. Etiam nunc nunc,
     vehicula in mauris vel, gravida pellentesque leo. Lorem ipsum dolor sit amet,
     consectetur adipiscing elit. Quisque orci elit, mollis at massa non, tempor
     posuere turpis. Sed lacinia eros orci, quis efficitur justo euismod eget.
     In ornare vel nisi at fringilla.
-    `
+    `,
   },
   {
     title: 'How long does it last?',
-    image:
-      'https://parkinsonmpower.org/static/images/how%20long%20does%20it%20last.svg',
+    image: 'https://parkinsonmpower.org/static/images/how%20long%20does%20it%20last.svg',
     text: `<p>We will ask you to participate for 2 weeks every three months.</p>
-    <p>We would like you to participate for 2 years, but you can participate as long as you like.</p>`
+    <p>We would like you to participate for 2 years, but you can participate as long as you like.</p>`,
   },
   {
     title: 'What are the benefits and risks?',
-    image:
-      'https://parkinsonmpower.org/static/images/benefits%20and%20risks.svg',
+    image: 'https://parkinsonmpower.org/static/images/benefits%20and%20risks.svg',
     text: `Integer vel diam a lorem mattis tristique at vel magna. Etiam nunc nunc,
     vehicula in mauris vel, gravida pellentesque leo. Lorem ipsum dolor sit amet,
     consectetur adipiscing elit. Quisque orci elit, mollis at massa non, tempor
     posuere turpis. Sed lacinia eros orci, quis efficitur justo euismod eget.
-    In ornare vel nisi at fringilla.`
-  }
-]
+    In ornare vel nisi at fringilla.`,
+  },
+];
 
 export const fullConsentForm = {
   fullConsentForm: `
@@ -188,5 +185,5 @@ Government or university staff sometimes review studies such as this one to make
 </p> <h6>RESEARCH-RELATED INJURY</h6> <p>If you think you have been harmed from being in this research, contact Someone Cool at <a href="#">someone@us.edu.</a></p> <p>* Please note that we cannot ensure the confidentiality of information sent via e-mail.
 </p> <h6>SUBJECT’S STATEMENT</h6> <p>This study has been explained to me, and I understand the procedures, benefits, and risks of this study.  I affirm that I am capable of consenting on my own behalf, that I am age 18 or older, and I volunteer to take part in this research.  I have had a chance to ask questions.  If I have questions later about the research, or if I have been harmed by participating in this study, I can contact one of the researchers listed on the first page of this consent form.  If I have questions about my rights as a research subject, I can call the Human Subjects Division.
 </p></div>
-`
-}
+`,
+};

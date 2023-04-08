@@ -1,22 +1,13 @@
-import React, { useState, useEffect, useRef } from 'react'
-import { useSelector } from 'react-redux';
-
-import _ from "lodash";
+import React, { useState, useEffect, useRef } from 'react';
+import { Modal, Card, Row, Col, Image } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import {
-  Modal,
-  Card,
-  Row,
-  Col,
-  Image
-} from 'react-bootstrap';
-
-import Navigator from './Navigator';
-import { parseMarkdown } from '../services/helper';
-import { activityLastResponseTimeSelector } from '../state/responses/responses.selectors';
-import { profileSelector } from '../state/applet/applet.selectors';
-
+import { useSelector } from 'react-redux';
+import _ from 'lodash';
 import Markdown from '../components/Markdown';
+import { parseMarkdown } from '../services/helper';
+import { profileSelector } from '../state/applet/applet.selectors';
+import { activityLastResponseTimeSelector } from '../state/responses/responses.selectors';
+import Navigator from './Navigator';
 
 const TextInput = ({
   item,
@@ -40,25 +31,20 @@ const TextInput = ({
   const markdown = useRef(parseMarkdown(item.question.en, lastResponseTime, profile, activity, answers)).current;
   const maxLength = item.valueConstraints.maxLength;
   const [show, setShow] = useState(false);
-  const [value, setValue] = useState(answer && typeof answer === "object" ? answer.value : (answer || ''));
+  const [value, setValue] = useState(answer && typeof answer === 'object' ? answer.value : answer || '');
 
   useEffect(() => {
     setValue(values[item.variableName]);
-  }, [values[item.variableName]])
+  }, [values[item.variableName]]);
 
   return (
-    <Card className={`${invalid ? 'invalid' : ''} mb-3 px-3`} style={{ maxWidth: "auto" }}>
+    <Card className={`${invalid ? 'invalid' : ''} mb-3 px-3`} style={{ maxWidth: 'auto' }}>
       <Row className="no-gutters">
         <Col md={12}>
           <Card.Title className="question">
-            {
-              watermark &&
-              <Image className="watermark" src={watermark} alt="watermark" rounded />
-            }
+            {watermark && <Image className="watermark" src={watermark} alt="watermark" rounded />}
             <div className="markdown">
-              <Markdown
-                markdown={markdown}
-              />
+              <Markdown markdown={markdown} />
             </div>
           </Card.Title>
           <Card.Body>
@@ -68,7 +54,7 @@ const TextInput = ({
                 style={{ width: '80%', margin: 'auto' }}
                 value={value}
                 maxlength={maxLength}
-                onChange={e => {
+                onChange={(e) => {
                   setValue(e.target.value);
                   handleChange(e.target.value);
                 }}
@@ -81,11 +67,9 @@ const TextInput = ({
 
       <Modal show={show} onHide={() => setShow(false)} centered>
         <Modal.Header closeButton>
-          <Modal.Title>{t("failed")}</Modal.Title>
+          <Modal.Title>{t('failed')}</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          {t("incorrect_answer")}
-        </Modal.Body>
+        <Modal.Body>{t('incorrect_answer')}</Modal.Body>
       </Modal>
 
       <Navigator
@@ -105,7 +89,7 @@ const TextInput = ({
         {...props}
       />
     </Card>
-  )
-}
+  );
+};
 
 export default TextInput;

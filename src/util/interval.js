@@ -3,7 +3,7 @@ const IDENTIFIERS = {};
 let COUNTER = 0;
 
 function _nextId() {
-  return COUNTER += 1;
+  return (COUNTER += 1);
 }
 
 export function delayedExec(fn, options) {

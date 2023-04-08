@@ -109,7 +109,7 @@
     "declineInvitation": "pour refuser cette invitation"
   },
   "InvitationText": {
-    "loadingInvitation" : "Chargement de l'invitation",
+    "loadingInvitation": "Chargement de l'invitation",
     "invitationRemoved": "Invitation supprimée",
     "networkError": "Erreur réseau. Revenir ",
     "invitationAlreadyRemoved": "Votre invitation a déjà été supprimée.",
@@ -172,11 +172,11 @@
     "saved_answers": "Réponses sauvegardées !",
     "close": "Fermer",
     "resume_activity": "Reprendre l'activité",
-    "activity_resume_restart":"Souhaitez-vous reprendre cette activité en cours ou la recommencer?",
+    "activity_resume_restart": "Souhaitez-vous reprendre cette activité en cours ou la recommencer?",
     "restart": "Recommencer",
     "resume": "Reprendre",
     "in_progress": "En cours",
-    "unscheduled":"Non programmé",
+    "unscheduled": "Non programmé",
     "scheduled": "Programmé",
     "past_due": "En retard",
     "available": "disponible",

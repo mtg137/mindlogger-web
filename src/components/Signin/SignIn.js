@@ -1,12 +1,9 @@
 import React from 'react';
-
 import { Button } from 'react-bootstrap';
-
 import { useTranslation } from 'react-i18next';
-
 import { useHistory } from 'react-router-dom';
 
-export const SignIn = ({redirectUrl}) => {
+export const SignIn = ({ redirectUrl }) => {
   const { t } = useTranslation();
 
   const history = useHistory();

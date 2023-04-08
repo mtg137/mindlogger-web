@@ -1,19 +1,23 @@
+import _ from 'lodash';
 import moment from 'moment';
-import _ from "lodash";
 
 const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
 export const btoa = (input = '') => {
   const str = input;
   let output = '';
 
-  for (let block = 0, charCode, i = 0, map = chars; str.charAt(i | 0) || (map = '=', i % 1); output += map.charAt(63 & block >> 8 - i % 1 * 8)) {
-    charCode = str.charCodeAt(i += 3 / 4);
+  for (
+    let block = 0, charCode, i = 0, map = chars;
+    str.charAt(i | 0) || ((map = '='), i % 1);
+    output += map.charAt(63 & (block >> (8 - (i % 1) * 8)))
+  ) {
+    charCode = str.charCodeAt((i += 3 / 4));
 
-    if (charCode > 0xFF) {
+    if (charCode > 0xff) {
       throw new Error("'btoa' failed: The string to be encoded contains characters outside of the Latin1 range.");
     }
 
-    block = block << 8 | charCode;
+    block = (block << 8) | charCode;
   }
 
   return output;
@@ -26,10 +30,12 @@ export const atob = (input = '') => {
   if (str.length % 4 === 1) {
     throw new Error("'atob' failed: The string to be decoded is not correctly encoded.");
   }
-  for (let bc = 0, bs = 0, buffer, i = 0; buffer = str.charAt(i += 1);
-
-    ~buffer && (bs = bc % 4 ? bs * 64 + buffer : buffer,
-      bc += 1 % 4) ? output += String.fromCharCode(255 & bs >> (-2 * bc & 6)) : 0
+  for (
+    let bc = 0, bs = 0, buffer, i = 0;
+    (buffer = str.charAt((i += 1)));
+    ~buffer && ((bs = bc % 4 ? bs * 64 + buffer : buffer), (bc += 1 % 4))
+      ? (output += String.fromCharCode(255 & (bs >> ((-2 * bc) & 6))))
+      : 0
   ) {
     buffer = chars.indexOf(buffer);
   }
@@ -39,7 +45,7 @@ export const atob = (input = '') => {
 
 export const parseMarkdown = (markdown, lastResponseTime = 0, profile = {}, activity, answers) => {
   if (!lastResponseTime) {
-    markdown = replaceItemVariableWithName(markdown, activity, answers)
+    markdown = replaceItemVariableWithName(markdown, activity, answers);
     return markdown
       .replace(/(!\[.*\]\s*\(.*?) =\d*x\d*(\))/g, '$1$2')
       .replace(/\[Nickname\]/i, profile.nickName || '')
@@ -70,7 +76,7 @@ export const parseMarkdown = (markdown, lastResponseTime = 0, profile = {}, acti
     }
 
     if (!str.length) {
-      return 'just now'
+      return 'just now';
     }
     return str;
   };
@@ -83,9 +89,9 @@ export const parseMarkdown = (markdown, lastResponseTime = 0, profile = {}, acti
     }
 
     return responseTime.format('hh:mm A');
-  }
+  };
 
-  markdown = replaceItemVariableWithName(markdown, activity, answers)
+  markdown = replaceItemVariableWithName(markdown, activity, answers);
   return markdown
     .replace(/(!\[.*\]\s*\(.*?) =\d*x\d*(\))/g, '$1$2')
     .replace(/\[Now\]/i, moment(now).format('hh:mm A') + ' today')
@@ -95,15 +101,15 @@ export const parseMarkdown = (markdown, lastResponseTime = 0, profile = {}, acti
     .replace(/\[\[sys.date]\]/i, moment().format('MM/DD/YYYY'))
     .replace(/\[\[/i, '')
     .replace(/\]\]/i, '');
-}
+};
 
 export const getTextBetweenBrackets = (str) => {
   const reBrackets = /\[\[(.*?)\]]/g;
   const listOfText = [];
   let found;
-  while (found = reBrackets.exec(str)) {
+  while ((found = reBrackets.exec(str))) {
     listOfText.push(found[1]);
-  };
+  }
   return listOfText;
 };
 
@@ -111,25 +117,26 @@ export const replaceItemVariableWithName = (markdown, activity, answers) => {
   try {
     const variableNames = getTextBetweenBrackets(markdown);
     if (variableNames?.length) {
-      variableNames.forEach(variableName => {
+      variableNames.forEach((variableName) => {
         const index = _.findIndex(activity.items, { variableName });
-        const reg = new RegExp(`\\[\\[${variableName}\\]\\]`, "gi");
+        const reg = new RegExp(`\\[\\[${variableName}\\]\\]`, 'gi');
 
         if (Array.isArray(answers[index]?.value)) {
           let names = [];
-          answers[index]?.value.forEach(ans => {
+          answers[index]?.value.forEach((ans) => {
             const item = index > -1 && _.find(activity.items[index]?.valueConstraints?.itemList, { value: ans });
             if (item) names.push(item.name.en);
-          })
+          });
 
           markdown = markdown.replace(reg, names.join(', '));
-
-        } else if (typeof answers[index] === "object") {
+        } else if (typeof answers[index] === 'object') {
           let item;
 
           switch (activity.items[index].inputType) {
             case 'radio':
-              item = index > -1 && _.find(activity.items[index]?.valueConstraints?.itemList, { value: answers[index].value });
+              item =
+                index > -1 &&
+                _.find(activity.items[index]?.valueConstraints?.itemList, { value: answers[index].value });
               if (item) {
                 markdown = markdown.replace(reg, item.name.en);
               }
@@ -138,7 +145,10 @@ export const replaceItemVariableWithName = (markdown, activity, answers) => {
               markdown = markdown.replace(reg, answers[index].value);
               break;
             case 'timeRange':
-              markdown = markdown.replace(reg, getTimeString(answers[index].value?.from) + ' - ' + getTimeString(answers[index].value?.to));
+              markdown = markdown.replace(
+                reg,
+                getTimeString(answers[index].value?.from) + ' - ' + getTimeString(answers[index].value?.to),
+              );
               break;
             case 'date':
               markdown = markdown.replace(reg, getDateString(answers[index].value));
@@ -147,7 +157,10 @@ export const replaceItemVariableWithName = (markdown, activity, answers) => {
               markdown = markdown.replace(reg, answers[index].value);
               break;
             case 'text':
-              markdown = markdown.replace(reg, (answers[index].value || answers[index] || '').replace(/(?=[$&])/g, '\\'));
+              markdown = markdown.replace(
+                reg,
+                (answers[index].value || answers[index] || '').replace(/(?=[$&])/g, '\\'),
+              );
               break;
           }
         } else if (answers[index]) {
@@ -156,19 +169,19 @@ export const replaceItemVariableWithName = (markdown, activity, answers) => {
       });
     }
   } catch (error) {
-    console.warn(error)
+    console.warn(error);
   }
   return markdown;
-}
+};
 
 // use this method for reports score replacement
 export const replaceItemVariableWithScore = (markdown, reports) => {
   try {
     const variableNames = getTextBetweenBrackets(markdown);
     if (variableNames?.length) {
-      variableNames.forEach(variableName => {
+      variableNames.forEach((variableName) => {
         const index = _.findIndex(reports, { category: variableName });
-        const reg = new RegExp(`\\[\\[${variableName}\\]\\]`, "gi");
+        const reg = new RegExp(`\\[\\[${variableName}\\]\\]`, 'gi');
 
         if (reports[index]?.score) {
           markdown = markdown.replace(reg, reports[index]?.score);
@@ -176,32 +189,31 @@ export const replaceItemVariableWithScore = (markdown, reports) => {
       });
     }
   } catch (error) {
-    console.warn(error)
+    console.warn(error);
   }
   return markdown;
-}
+};
 
 export const handleReplaceBehaviourResponse = (text, activity, answers) => {
-  return replaceItemVariableWithName(text, activity, answers)
-    .replace(/\[\[/i, '')
-    .replace(/\]\]/i, '');
-}
+  return replaceItemVariableWithName(text, activity, answers).replace(/\[\[/i, '').replace(/\]\]/i, '');
+};
 
 const findActivityFromName = (activities, name) => {
-  return activities.findIndex(activity => activity.name.en == name)
-}
+  return activities.findIndex((activity) => activity.name.en == name);
+};
 
 const findActivityIdByName = (activities, name) => {
-  return _.find(activities, activity => activity.name.en == name)?.id;
-}
+  return _.find(activities, (activity) => activity.name.en == name)?.id;
+};
 
 export const getActivityAvailabilityFromDependency = (appletActivities, availableActivities, archievedActivities) => {
   const g = getDependency(appletActivities);
-  const marked = [], activities = [];
+  const marked = [],
+    activities = [];
   let markedCount = 0;
 
   for (let i = 0; i < g.length; i++) {
-    marked.push(false)
+    marked.push(false);
   }
 
   for (let index of availableActivities) {
@@ -229,7 +241,7 @@ export const getActivityAvailabilityFromDependency = (appletActivities, availabl
     let updated = false;
 
     for (let i = 0; i < g.length; i++) {
-      if (!marked[i] && g[i].some(dependency => marked[dependency])) {
+      if (!marked[i] && g[i].some((dependency) => marked[dependency])) {
         marked[i] = true;
         markedCount++;
         updated = true;
@@ -287,20 +299,19 @@ export const getActivityAvailabilityFromDependency = (appletActivities, availabl
       } catch (error) {
         console.log(error);
       }
-
     } else if (!hidden[i] && !activities.includes(i) && !archievedActivities.includes(i)) {
       activities.push(i);
     }
   }
 
   return { appletActivities: activities.sort(), recommendedActivities };
-}
+};
 
 export const getDependency = (activities) => {
-  const dependency = []
+  const dependency = [];
 
   for (let i = 0; i < activities.length; i++) {
-    dependency.push([])
+    dependency.push([]);
   }
 
   for (let i = 0; i < activities.length; i++) {
@@ -309,7 +320,7 @@ export const getDependency = (activities) => {
     if (activity.messages) {
       for (const message of activity.messages) {
         if (message.nextActivity) {
-          const index = findActivityFromName(activities, message.nextActivity)
+          const index = findActivityFromName(activities, message.nextActivity);
           if (index >= 0) {
             dependency[index].push(i);
           }
@@ -319,12 +330,13 @@ export const getDependency = (activities) => {
   }
 
   return dependency;
-}
+};
 
 export const getChainedActivities = (activities, currentActivity) => {
   const g = getDependency(activities);
   const index = findActivityFromName(activities, currentActivity.name.en);
-  let markedCount = 0, marked = [];
+  let markedCount = 0,
+    marked = [];
 
   for (let i = 0; i < g.length; i++) {
     marked.push(false);
@@ -341,7 +353,7 @@ export const getChainedActivities = (activities, currentActivity) => {
     let updated = false;
 
     for (let i = 0; i < g.length; i++) {
-      if (!marked[i] && g[i].some(dependency => marked[dependency])) {
+      if (!marked[i] && g[i].some((dependency) => marked[dependency])) {
         marked[i] = true;
         markedCount++;
         updated = true;
@@ -361,7 +373,7 @@ export const getChainedActivities = (activities, currentActivity) => {
   }
 
   for (let i = 0; i < g.length; i++) {
-    if (!marked[i] && g[i].some(dependency => dependency == index)) {
+    if (!marked[i] && g[i].some((dependency) => dependency == index)) {
       return [currentActivity];
     }
   }
@@ -370,7 +382,8 @@ export const getChainedActivities = (activities, currentActivity) => {
     marked[i] = false;
   }
 
-  const queue = [index], chainedActivities = [];
+  const queue = [index],
+    chainedActivities = [];
 
   marked[index] = true;
 
@@ -390,9 +403,9 @@ export const getChainedActivities = (activities, currentActivity) => {
 
   for (let i = 0; i < marked.length; i++) {
     if (marked[i]) {
-      chainedActivities.push(activities[i])
+      chainedActivities.push(activities[i]);
     }
   }
 
   return chainedActivities;
-}
+};

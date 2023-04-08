@@ -1,40 +1,36 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-
-import { clearUser } from './user.reducer';
-import { clearApplets } from '../applet/applet.reducer';
-import { getPrivateKey } from '../../services/encryption';
-import { authTokenSelector, userInfoSelector } from './user.selectors';
-import { forgotPasswordAPI, deleteUserAccount } from '../../services/network';
 import { signInAPI, signUpAPI, updatePasswordAPI, signOutAPI } from '../../services/authentication.service';
-
+import { getPrivateKey } from '../../services/encryption';
+import { forgotPasswordAPI, deleteUserAccount } from '../../services/network';
+import { clearApplets } from '../applet/applet.reducer';
 import USER_CONSTANTS from './user.constants';
-
+import { clearUser } from './user.reducer';
+import { authTokenSelector, userInfoSelector } from './user.selectors';
 
 export const signIn = createAsyncThunk(USER_CONSTANTS.SIGNIN, async (user) => {
   try {
-    const response = await signInAPI(user)
+    const response = await signInAPI(user);
     const privateKey = getPrivateKey({
       userId: response.user._id,
       email: user.email,
-      password: user.password
+      password: user.password,
     });
 
     return {
       ...response,
-      user: { ...response.user, privateKey, email: user.email }
-    }
-
+      user: { ...response.user, privateKey, email: user.email },
+    };
   } catch (error) {
     throw new Error(error);
   }
 });
 
 export const signUp = createAsyncThunk(USER_CONSTANTS.SIGNUP, async (user) => {
-  const response = await signUpAPI(user)
+  const response = await signUpAPI(user);
   const privateKey = getPrivateKey({
     userId: response._id,
     email: user.email,
-    password: user.password
+    password: user.password,
   });
 
   return { ...response, privateKey, email: user.email };
@@ -42,9 +38,8 @@ export const signUp = createAsyncThunk(USER_CONSTANTS.SIGNUP, async (user) => {
 
 export const forgotPassword = createAsyncThunk(USER_CONSTANTS.FORGOT_PASSWORD, async (email) => {
   try {
-    const response = await forgotPasswordAPI(email)
+    const response = await forgotPasswordAPI(email);
     return response;
-
   } catch (error) {
     throw new Error(error);
   }
@@ -52,9 +47,8 @@ export const forgotPassword = createAsyncThunk(USER_CONSTANTS.FORGOT_PASSWORD, a
 
 export const updatePassword = createAsyncThunk(USER_CONSTANTS.CHANGE_PASSWORD, async ({ token, passwordData }) => {
   try {
-    const response = await updatePasswordAPI(token, passwordData)
+    const response = await updatePasswordAPI(token, passwordData);
     return response;
-
   } catch (error) {
     throw new Error(error);
   }
@@ -66,12 +60,10 @@ export const doLogout = createAsyncThunk(USER_CONSTANTS.LOGOUT, async (args, { g
     const authToken = authTokenSelector(state);
 
     // Delete files for activities in progress
-    if (authToken !== null)
-      signOutAPI(authToken);
+    if (authToken !== null) signOutAPI(authToken);
 
     dispatch(clearUser());
     dispatch(clearApplets());
-
   } catch (error) {
     throw new Error(error);
   }
@@ -83,9 +75,8 @@ export const removeAccount = createAsyncThunk(USER_CONSTANTS.REMOVE_ACCOUNT, asy
     const user = userInfoSelector(state);
     const authToken = authTokenSelector(state);
 
-    await deleteUserAccount(authToken, user._id)
+    await deleteUserAccount(authToken, user._id);
     dispatch(clearUser());
-
   } catch (error) {
     throw new Error(error);
   }

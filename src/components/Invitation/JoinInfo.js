@@ -1,10 +1,10 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 
 export const JoinInfo = ({ inviteLink }) => {
   const { t } = useTranslation();
-  const { info } = useSelector(state => state.user);
+  const { info } = useSelector((state) => state.user);
 
   const { inviter, displayName } = inviteLink;
 
@@ -23,7 +23,8 @@ export const JoinInfo = ({ inviteLink }) => {
       <p
         dangerouslySetInnerHTML={{
           __html: description,
-        }}></p>
+        }}
+      ></p>
     </div>
   );
 };

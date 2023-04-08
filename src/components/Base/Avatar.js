@@ -1,8 +1,10 @@
-import React from 'react'
+import React from 'react';
 
 export const Avatar = () => {
-  return <div>
+  return (
+    <div>
       <div className="avatar"></div>
-  </div>
-}
-export default Avatar
+    </div>
+  );
+};
+export default Avatar;

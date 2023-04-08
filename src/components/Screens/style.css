@@ -13,7 +13,7 @@
 }
 
 .header-text:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 .section-text {
@@ -22,13 +22,13 @@
 }
 
 .section-text:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 @media screen and (max-width: 1200px) {
   .applet-card-screen {
     width: 15rem;
-    border: 0!important;
+    border: 0 !important;
     margin: auto;
   }
 }

@@ -2,15 +2,16 @@
   width: 100%;
 }
 
-.change-pass > div{
+.change-pass > div {
   display: flex;
   align-items: center;
 }
-.demo{
+.demo {
   display: flex;
   align-items: flex-start;
 }
-.error-alert, .success-alert{
+.error-alert,
+.success-alert {
   width: 77%;
   margin: 1.5rem auto 1rem auto;
 }

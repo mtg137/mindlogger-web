@@ -1,5 +1,5 @@
 import * as R from 'ramda';
-import { createSelector } from "reselect";
+import { createSelector } from 'reselect';
 
 export const appletsSelector = R.path(['applet', 'applets']);
 
@@ -11,8 +11,8 @@ export const appletCumulativeActivities = R.path(['applet', 'cumulativeActivitie
 
 export const profileSelector = createSelector(
   R.path(['applet', 'profiles']),
-  R.path(["app", "currentApplet"]),
+  R.path(['app', 'currentApplet']),
   (profiles, currentApplet) => {
     return profiles[currentApplet] || {};
-  }
-)
+  },
+);

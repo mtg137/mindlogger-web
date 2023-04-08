@@ -1,13 +1,10 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import { Spinner } from 'react-bootstrap';
-
+import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import { Statuses } from '../../constants';
-
 import { InvitationButtons } from './InvitationButtons';
-
 import './style.css';
 
 export const InvitationText = (props) => {
@@ -29,7 +26,7 @@ export const InvitationText = (props) => {
           <div className={'invitationBody'} dangerouslySetInnerHTML={{ __html: invitationText }} />
           <InvitationButtons onAcceptInvite={onAcceptInvite} onDeclineInvite={onDeclineInvite} />
           <div className={'invitationBody'} dangerouslySetInnerHTML={{ __html: invitationText2 }} />
-          <div style={{paddingBottom: "30px"}}/>
+          <div style={{ paddingBottom: '30px' }} />
         </React.Fragment>
       );
 
@@ -66,4 +63,4 @@ export const InvitationText = (props) => {
     default:
       return null;
   }
-}
+};

@@ -1,22 +1,19 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
-
-import { authTokenSelector, userInfoSelector } from '../user/user.selectors';
-import { getLocalInfo, modifyApplet } from '../../util/applet';
-import { appletsSelector } from './applet.selectors';
-import { updateKeys } from '../responses/responses.actions';
-import { responsesSelector } from '../responses/responses.selectors';
-import { replaceResponses, setLastResponseTime } from '../responses/responses.reducer';
-import { setCumulativeActivities, setProfiles } from './applet.reducer';
-
-import { transformApplet, parseAppletEvents } from '../../services/json-ld';
-import { getAppletsAPI, getPublicAppletAPI } from '../../services/applet.service';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 import { decryptAppletResponses, mergeResponses } from '../../models/response';
+import { getAppletsAPI, getPublicAppletAPI } from '../../services/applet.service';
+import { transformApplet, parseAppletEvents } from '../../services/json-ld';
+import { getLocalInfo, modifyApplet } from '../../util/applet';
 import { setFinishedEvents } from '../app/app.reducer';
-
+import { updateKeys } from '../responses/responses.actions';
+import { replaceResponses, setLastResponseTime } from '../responses/responses.reducer';
+import { responsesSelector } from '../responses/responses.selectors';
+import { authTokenSelector, userInfoSelector } from '../user/user.selectors';
 import APPLET_CONSTANTS from './applet.constants';
+import { setCumulativeActivities, setProfiles } from './applet.reducer';
+import { appletsSelector } from './applet.selectors';
 
 // NOTE: this is for now, when we implemented the rest widgets we should remove this code
-const INPUT_TYPES = ["radio", "checkox", "slider", "text", "ageSelector", "dropdownList", "duration"]
+const INPUT_TYPES = ['radio', 'checkox', 'slider', 'text', 'ageSelector', 'dropdownList', 'duration'];
 
 export const getApplets = createAsyncThunk(APPLET_CONSTANTS.GET_APPLETS, async (args, { getState, dispatch }) => {
   const state = getState();
@@ -30,7 +27,8 @@ export const getApplets = createAsyncThunk(APPLET_CONSTANTS.GET_APPLETS, async (
 
   const transformedApplets = [];
   let finishedEvents = {};
-  let lastResponseTime = {}, profiles = {};
+  let lastResponseTime = {},
+    profiles = {};
   let cumulativeActivities = {};
 
   for (let index = 0; index < applets.data.length; index++) {
@@ -46,10 +44,10 @@ export const getApplets = createAsyncThunk(APPLET_CONSTANTS.GET_APPLETS, async (
 
       // NOTE: this is for now, when we implemented the rest widgets we should remove this code
       let isIgnore = false;
-      const appletActivities = appletData.activities.filter(act => {
+      const appletActivities = appletData.activities.filter((act) => {
         if (isIgnore) return;
 
-        isIgnore = act.items.find(item => !INPUT_TYPES.includes(item.inputType));
+        isIgnore = act.items.find((item) => !INPUT_TYPES.includes(item.inputType));
         // if (!isIgnore)
         //   isIgnore = act.compute && act.compute[0];
 
@@ -60,10 +58,10 @@ export const getApplets = createAsyncThunk(APPLET_CONSTANTS.GET_APPLETS, async (
       if (appletActivities.length > 0) {
         responses.push({
           ...decryptAppletResponses(applet, appletInfo.responses),
-          appletId: 'applet/' + appletInfo.id
+          appletId: 'applet/' + appletInfo.id,
         });
 
-        transformedApplets.push(applet)
+        transformedApplets.push(applet);
         cumulativeActivities[applet.id] = nextActivities;
       }
     } else {
@@ -72,12 +70,12 @@ export const getApplets = createAsyncThunk(APPLET_CONSTANTS.GET_APPLETS, async (
 
       // NOTE: this is for now, when we implemented the rest widgets we should remove this code
       let isIgnore = false;
-      const appletActivities = appletData.activities.filter(act => {
+      const appletActivities = appletData.activities.filter((act) => {
         if (isIgnore) return;
-        isIgnore = act.items.find(item => !INPUT_TYPES.includes(item.inputType));
+        isIgnore = act.items.find((item) => !INPUT_TYPES.includes(item.inputType));
 
         // if (!isIgnore)
-          // isIgnore = act.compute && act.compute[0];
+        // isIgnore = act.compute && act.compute[0];
 
         return !act.isPrize;
       });
@@ -90,17 +88,17 @@ export const getApplets = createAsyncThunk(APPLET_CONSTANTS.GET_APPLETS, async (
 
         responses.push({
           ...decryptAppletResponses(applet, appletInfo.responses),
-          appletId: 'applet/' + appletInfo.id
+          appletId: 'applet/' + appletInfo.id,
         });
         transformedApplets.push(applet);
 
         cumulativeActivities[applet.id] = nextActivities;
       }
     }
-  };
+  }
 
   for (let i = 0; i < responses.length; i++) {
-    const old = oldResponses.find(old => old && old.appletId == responses[i].appletId);
+    const old = oldResponses.find((old) => old && old.appletId == responses[i].appletId);
 
     if (old) {
       mergeResponses(old, responses[i]);
@@ -116,14 +114,18 @@ export const getApplets = createAsyncThunk(APPLET_CONSTANTS.GET_APPLETS, async (
   return transformedApplets;
 });
 
-export const getPublicApplet = createAsyncThunk(APPLET_CONSTANTS.GET_PUBLIC_APPLET, async (publicId, { getState, dispatch }) => {
-  const appletInfo = await getPublicAppletAPI({
-    publicId, nextActivity: ''
-  })
+export const getPublicApplet = createAsyncThunk(
+  APPLET_CONSTANTS.GET_PUBLIC_APPLET,
+  async (publicId, { getState, dispatch }) => {
+    const appletInfo = await getPublicAppletAPI({
+      publicId,
+      nextActivity: '',
+    });
 
-  const applet = transformApplet(appletInfo);
+    const applet = transformApplet(appletInfo);
 
-  applet.publicId = publicId;
+    applet.publicId = publicId;
 
-  return applet
-});
+    return applet;
+  },
+);

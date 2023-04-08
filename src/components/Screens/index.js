@@ -1,26 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import _ from 'lodash';
-import { useSelector, useDispatch } from 'react-redux';
-import { Container, Card, Row, Col, Modal, Button, ProgressBar } from 'react-bootstrap';
-import { useParams, useHistory } from 'react-router-dom';
 import Avatar from 'react-avatar';
+import { Container, Card, Row, Col, Modal, Button, ProgressBar } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { BsArrowLeft } from "react-icons/bs";
-import Item from '../Item';
-import ActivitySummary from '../../widgets/ActivitySummary';
-
+import { BsArrowLeft } from 'react-icons/bs';
+import { useSelector, useDispatch } from 'react-redux';
+import { useParams, useHistory } from 'react-router-dom';
+import _ from 'lodash';
+import { getNextPos, getLastPos } from '../../services/navigation';
 // Constants
 import { testVisibility } from '../../services/visibility';
-import { getNextPos, getLastPos } from '../../services/navigation';
-import { userInfoSelector } from '../../state/user/user.selectors';
+import { clearActivityStartTime } from '../../state/app/app.reducer';
 import { currentActivitySelector, currentAppletSelector } from '../../state/app/app.selectors';
 import { completeResponse } from '../../state/responses/responses.actions';
-import { clearActivityStartTime } from '../../state/app/app.reducer';
-import {
-  setAnswer,
-  setCurrentScreen,
-  addUserActivityEvent,
-} from '../../state/responses/responses.reducer';
+import { setAnswer, setCurrentScreen, addUserActivityEvent } from '../../state/responses/responses.reducer';
 import {
   // responsesSelector,
   currentScreenResponseSelector,
@@ -28,17 +20,19 @@ import {
   currentResponsesSelector,
   currentScreenIndexSelector,
   inProgressSelector,
-  lastResponseTimeSelector
+  lastResponseTimeSelector,
 } from '../../state/responses/responses.selectors';
-
-import "./style.css";
+import { userInfoSelector } from '../../state/user/user.selectors';
+import ActivitySummary from '../../widgets/ActivitySummary';
+import Item from '../Item';
+import './style.css';
 
 const Screens = (props) => {
-  const items = []
+  const items = [];
   const { appletId } = useParams();
   const history = useHistory();
   const dispatch = useDispatch();
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   const [data, setData] = useState({});
   const [show, setShow] = useState(false);
   const [alert, setAlert] = useState(false);
@@ -64,14 +58,9 @@ const Screens = (props) => {
   }
 
   const visibility = activityAccess.items.map((item) =>
-    item.isVis ? false : testVisibility(
-      item.visibility,
-      activityAccess.items,
-      inProgress?.responses,
-      responseTimes
-    )
+    item.isVis ? false : testVisibility(item.visibility, activityAccess.items, inProgress?.responses, responseTimes),
   );
-  const screenIndex = getNextPos(currentScreenIndex - 1, visibility)
+  const screenIndex = getNextPos(currentScreenIndex - 1, visibility);
 
   const [errors, setErrors] = useState([]);
 
@@ -108,15 +97,16 @@ const Screens = (props) => {
     }
 
     setErrors(errors);
-  }
+  };
 
   useEffect(() => validateResponses(inProgress?.responses), []);
 
   useEffect(() => {
-    if (activityAccess.splash
-      && activityAccess.splash.en
-      && currentScreenIndex === 0
-      && !activityAccess.isOnePageAssessment
+    if (
+      activityAccess.splash &&
+      activityAccess.splash.en &&
+      currentScreenIndex === 0 &&
+      !activityAccess.isOnePageAssessment
     ) {
       setIsSplashScreen(true);
     }
@@ -129,36 +119,35 @@ const Screens = (props) => {
         if (item.header) {
           newHeaders.push({
             id: index,
-            headerName: item.header
-          })
+            headerName: item.header,
+          });
         } else if (item.section) {
           newHeaders.push({
             id: index,
-            sectionName: item.section
+            sectionName: item.section,
           });
         }
-      })
+      });
 
       responses.forEach((val, i) => {
         const { variableName } = activity.items[i];
         obj = { ...obj, [variableName]: val && val.value };
-      })
+      });
       setHeaders(newHeaders);
       setData(obj);
     }
-  }, [])
+  }, []);
 
   const finishResponse = async () => {
     setIsLoading(true);
     await dispatch(completeResponse(false));
     setIsLoading(false);
     const { activity } = inProgress;
-    clearActivityStartTime(activity.event ? activity.id + activity.event.id : activity.id)
+    clearActivityStartTime(activity.event ? activity.id + activity.event.id : activity.id);
 
     if ((activityAccess.compute?.length || activityAccess.reports?.length) && !isSummaryScreen) {
       setIsSummaryScreen(true);
       setShow(false);
-
     } else {
       if (isSummaryScreen) setIsSummaryScreen(false);
 
@@ -169,34 +158,29 @@ const Screens = (props) => {
 
   const getVisibility = (responses) => {
     const visibility = activityAccess.items.map((item) =>
-      item.isVis ? false : testVisibility(
-        item.visibility,
-        activityAccess.items,
-        responses,
-        responseTimes
-      )
+      item.isVis ? false : testVisibility(item.visibility, activityAccess.items, responses, responseTimes),
     );
 
     const next = getNextPos(screenIndex, visibility);
     const prev = getLastPos(screenIndex, visibility);
 
     return [next, prev];
-  }
+  };
 
   const getPercentages = (activities, progress) => {
-    return activities.map(activity => {
+    return activities.map((activity) => {
       const currentId = progress[activity.id] ? progress[activity.id].screenIndex : 0;
 
       return {
         label: activity.name.en,
-        percentage: currentId / activity.items.length * 100
-      }
-    })
-  }
+        percentage: (currentId / activity.items.length) * 100,
+      };
+    });
+  };
 
   const [next, prev] = getVisibility(inProgress?.responses);
 
-  const handleNext = (e, autoAdvance=false) => {
+  const handleNext = (e, autoAdvance = false) => {
     let currentNext = next;
 
     if (isSplashScreen) {
@@ -217,20 +201,23 @@ const Screens = (props) => {
       if (next == -1) {
         eventType = 'DONE';
       } else if (
-        !response && response!==0 ||
-        typeof response == 'object' && (!response.value && response.value !== 0 || Array.isArray(response.value) && response.value.length==0)
+        (!response && response !== 0) ||
+        (typeof response == 'object' &&
+          ((!response.value && response.value !== 0) || (Array.isArray(response.value) && response.value.length == 0)))
       ) {
         eventType = 'SKIP';
       }
 
-      dispatch(addUserActivityEvent({
-        event: {
-          type: eventType,
-          time: Date.now(),
-          screen: screenIndex
-        },
-        activityId: activityAccess.id
-      }));
+      dispatch(
+        addUserActivityEvent({
+          event: {
+            type: eventType,
+            time: Date.now(),
+            screen: screenIndex,
+          },
+          activityId: activityAccess.id,
+        }),
+      );
     }
 
     if (currentNext === -1 || isOnePageAssessment) {
@@ -246,20 +233,20 @@ const Screens = (props) => {
       dispatch(
         setCurrentScreen({
           activityId: activityAccess.id,
-          screenIndex: currentNext
-        })
-      )
+          screenIndex: currentNext,
+        }),
+      );
     }
-  }
+  };
 
   const selectHeader = (itemId) => {
     dispatch(
       setCurrentScreen({
         activityId: activityAccess.id,
-        screenIndex: itemId
-      })
+        screenIndex: itemId,
+      }),
     );
-  }
+  };
 
   const handleChange = (answer, index) => {
     let responses = [...inProgress?.responses];
@@ -269,23 +256,24 @@ const Screens = (props) => {
       setAnswer({
         activityId: activityAccess.id,
         screenIndex: index,
-        answer
-      })
-    )
+        answer,
+      }),
+    );
 
-    dispatch(addUserActivityEvent({
-      event: {
-        type: 'SET_ANSWER',
-        time: Date.now(),
-        screen: index,
-        response: JSON.parse(JSON.stringify(answer))
-      },
-      activityId: activityAccess.id
-    }));
-
+    dispatch(
+      addUserActivityEvent({
+        event: {
+          type: 'SET_ANSWER',
+          time: Date.now(),
+          screen: index,
+          response: JSON.parse(JSON.stringify(answer)),
+        },
+        activityId: activityAccess.id,
+      }),
+    );
 
     validateResponses(responses);
-  }
+  };
 
   const handleBackScreen = () => {
     if (applet.publicId) {
@@ -293,33 +281,37 @@ const Screens = (props) => {
     } else {
       history.push(`/applet/${appletId}/dashboard`);
     }
-  }
+  };
 
   const handleBack = () => {
     if (screenIndex >= 0 && prev >= 0) {
-      dispatch(addUserActivityEvent({
-        event: {
-          type: 'PREV',
-          time: Date.now(),
-          screen: screenIndex
-        },
-        activityId: activityAccess.id
-      }));
+      dispatch(
+        addUserActivityEvent({
+          event: {
+            type: 'PREV',
+            time: Date.now(),
+            screen: screenIndex,
+          },
+          activityId: activityAccess.id,
+        }),
+      );
 
       dispatch(
         setCurrentScreen({
           activityId: activityAccess.id,
-          screenIndex: prev
-        })
+          screenIndex: prev,
+        }),
       );
     }
-  }
+  };
 
-  let availableItems = 0, isOnePageAssessment = activityAccess.isOnePageAssessment;
-  const activityStatus = getPercentages(applet.activities.filter(({ id }) => id !== activityAccess.id), progress);
-  const percentage = screenIndex ?
-    screenIndex / activityAccess.items.length * 100
-    : 0;
+  let availableItems = 0,
+    isOnePageAssessment = activityAccess.isOnePageAssessment;
+  const activityStatus = getPercentages(
+    applet.activities.filter(({ id }) => id !== activityAccess.id),
+    progress,
+  );
+  const percentage = screenIndex ? (screenIndex / activityAccess.items.length) * 100 : 0;
 
   if (activityAccess.splash && activityAccess.splash.en) {
     availableItems += 1;
@@ -338,17 +330,14 @@ const Screens = (props) => {
         invalid={false}
         activity={activityAccess}
         answers={inProgress?.responses}
-      />
+      />,
     );
   }
 
   activityAccess.items.forEach((item, i) => {
-    const isVisible = item.isVis ? false : testVisibility(
-      item.visibility,
-      activityAccess.items,
-      inProgress?.responses,
-      responseTimes
-    );
+    const isVisible = item.isVis
+      ? false
+      : testVisibility(item.visibility, activityAccess.items, inProgress?.responses, responseTimes);
 
     if (isVisible) {
       if (screenIndex >= i && !isSplashScreen) {
@@ -357,19 +346,19 @@ const Screens = (props) => {
       items.push(
         <Item
           data={data}
-          type={item.inputType === "radio" && item.valueConstraints.multipleChoice ? "checkbox" : item.inputType}
+          type={item.inputType === 'radio' && item.valueConstraints.multipleChoice ? 'checkbox' : item.inputType}
           watermark={screenIndex === i ? applet.watermark : ''}
           key={item.id}
           item={{
             ...item,
-            skippable: item.skippable || activityAccess.skippable
+            skippable: item.skippable || activityAccess.skippable,
           }}
           handleSubmit={handleNext}
           handleChange={(answer, valid) => {
             handleChange(answer, i);
           }}
           handleBack={handleBack}
-          isSubmitShown={isOnePageAssessment && activityAccess.items.length == i+1 || next === -1}
+          isSubmitShown={(isOnePageAssessment && activityAccess.items.length == i + 1) || next === -1}
           answer={inProgress?.responses[i]}
           activity={activityAccess}
           answers={inProgress?.responses}
@@ -377,44 +366,38 @@ const Screens = (props) => {
           isNextShown={isOnePageAssessment || screenIndex === i}
           isOnePageAssessment={isOnePageAssessment}
           invalid={showErrors && errors.length && errors[i]}
-        />
+        />,
       );
     }
   });
 
   return (
     <Container>
-          <Row className="mt-5">
-            <Col className="" xl={3} >
-              <Button
-                variant="primary"
-                className="mb-2 d-flex align-items-center"
-                onClick={() => handleBackScreen()}
-              >
-                <BsArrowLeft className="mr-1" />
-                {t('Consent.back')}
-              </Button>
-            </Col>
-            {
-              !isOnePageAssessment && (
-                <Col xl={9} >
-                  <Card className="bg-white p-2" >
-                    <ProgressBar striped className="mb-2" now={percentage} />
-                  </Card>
-                </Col>
-              ) || <></>
-            }
-          </Row>
+      <Row className="mt-5">
+        <Col className="" xl={3}>
+          <Button variant="primary" className="mb-2 d-flex align-items-center" onClick={() => handleBackScreen()}>
+            <BsArrowLeft className="mr-1" />
+            {t('Consent.back')}
+          </Button>
+        </Col>
+        {(!isOnePageAssessment && (
+          <Col xl={9}>
+            <Card className="bg-white p-2">
+              <ProgressBar striped className="mb-2" now={percentage} />
+            </Card>
+          </Col>
+        )) || <></>}
+      </Row>
       <Row className="mt-2 activity">
         <Col xl={3}>
           <Card className="hover text-center mb-4 applet-card-screen">
             <div className="applet-header">
               <div className="applet-image">
-                {applet.image ?
+                {applet.image ? (
                   <Card.Img variant="top" src={applet.image} className="rounded border w-h" />
-                  :
+                ) : (
                   <Avatar name={applet.name.en} maxInitials={2} color="#777" size="238" round="3px" />
-                }
+                )}
               </div>
             </div>
             <Card.Body>
@@ -422,34 +405,36 @@ const Screens = (props) => {
             </Card.Body>
           </Card>
 
-          {headers.map(itemHeader =>
+          {headers.map((itemHeader) => (
             <div className="mx-4">
-              {itemHeader.headerName &&
+              {itemHeader.headerName && (
                 <div onClick={() => selectHeader(itemHeader.id)} className="mt-1 header-text">
                   {itemHeader.headerName}
                 </div>
-              }
-              {itemHeader.sectionName &&
+              )}
+              {itemHeader.sectionName && (
                 <div onClick={() => selectHeader(itemHeader.id)} className="ml-4 section-text">
                   {` - ${itemHeader.sectionName}`}
                 </div>
-              }
+              )}
             </div>
-          )}
+          ))}
 
-          {activityStatus.map(status =>
+          {activityStatus.map((status) => (
             <div className="my-2 rounded border w-h p-2 text-center bg-white">
               <div className="mb-2">{status.label}</div>
               <ProgressBar className="mb-2" now={status.percentage} />
             </div>
-          )}
+          ))}
         </Col>
         <Col xl={9}>
-          {isSummaryScreen ?
+          {isSummaryScreen ? (
             <ActivitySummary {...props} />
-            :
-            isOnePageAssessment ? items : _.map(items.slice(0, availableItems).reverse())
-          }
+          ) : isOnePageAssessment ? (
+            items
+          ) : (
+            _.map(items.slice(0, availableItems).reverse())
+          )}
         </Col>
       </Row>
 
@@ -457,13 +442,15 @@ const Screens = (props) => {
         <Modal.Header closeButton>
           <Modal.Title>{t('additional.response_submit')}</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          {t('additional.response_submit_text')}
-        </Modal.Body>
+        <Modal.Body>{t('additional.response_submit_text')}</Modal.Body>
 
         <Modal.Footer>
-          <Button variant="secondary" disabled={isLoading} onClick={() => setShow(false)}>{t('additional.no')}</Button>
-          <Button variant="primary" disabled={isLoading} onClick={() => finishResponse()}>{t('additional.yes')}</Button>
+          <Button variant="secondary" disabled={isLoading} onClick={() => setShow(false)}>
+            {t('additional.no')}
+          </Button>
+          <Button variant="primary" disabled={isLoading} onClick={() => finishResponse()}>
+            {t('additional.yes')}
+          </Button>
         </Modal.Footer>
       </Modal>
 
@@ -472,19 +459,16 @@ const Screens = (props) => {
           <Modal.Title>{t('additional.response_submit')}</Modal.Title>
         </Modal.Header>
 
-        <Modal.Body>
-          {t('additional.fill_out_fields')}
-        </Modal.Body>
+        <Modal.Body>{t('additional.fill_out_fields')}</Modal.Body>
 
         <Modal.Footer>
-          <Button
-            variant="secondary"
-            onClick={() => setAlert(false)}
-          >{t('additional.okay')}</Button>
+          <Button variant="secondary" onClick={() => setAlert(false)}>
+            {t('additional.okay')}
+          </Button>
         </Modal.Footer>
       </Modal>
     </Container>
-  )
-}
+  );
+};
 
 export default Screens;

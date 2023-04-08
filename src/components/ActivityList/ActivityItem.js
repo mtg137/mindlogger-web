@@ -1,13 +1,11 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import moment from 'moment';
-import i18n from 'i18next';
 import { Button, Image } from 'react-bootstrap';
-
-import TimedActivity from './TimedActivity';
-
+import i18n from 'i18next';
+import moment from 'moment';
 import { scheduledEndTime, convertDateString } from '../../util/time';
-import './style.css'
+import TimedActivity from './TimedActivity';
+import './style.css';
 
 const ActivityItem = (props) => {
   const { activity, disabled, onPress, isRecommended } = props;
@@ -27,15 +25,13 @@ const ActivityItem = (props) => {
     }
 
     return null;
-  }
+  };
 
   if (activity.isHeader) {
     if (activity.text === '') {
-      return <br />
+      return <br />;
     }
-    return (
-      <p className="ds-activity-status">{activity.text}</p>
-    )
+    return <p className="ds-activity-status">{activity.text}</p>;
   }
 
   const dueDateStr = activityDueDate();
@@ -47,26 +43,24 @@ const ActivityItem = (props) => {
       disabled={disabled}
       block
     >
-      {activity.image && 
+      {activity.image && (
         <div
           className="activity-image"
           style={{
-            backgroundImage: `url(${activity.image})`
+            backgroundImage: `url(${activity.image})`,
           }}
         />
-      }
-      {isRecommended ? 
-        <img className="activity-recomended-image" src={'/recomended_badge.png'} /> : null
-      }
+      )}
+      {isRecommended ? <img className="activity-recomended-image" src={'/recomended_badge.png'} /> : null}
       <div className="activity-data">
-        <div className="activity-name-date">{activity.name.en} {dueDateStr ? ' - ' + dueDateStr : ''} </div>
+        <div className="activity-name-date">
+          {activity.name.en} {dueDateStr ? ' - ' + dueDateStr : ''}{' '}
+        </div>
 
-        {
-          activity.description && <div className="activity-description">{activity.description.en}</div>
-        }
+        {activity.description && <div className="activity-description">{activity.description.en}</div>}
         <TimedActivity activity={activity} />
       </div>
     </Button>
-  )
-}
-export default ActivityItem
+  );
+};
+export default ActivityItem;

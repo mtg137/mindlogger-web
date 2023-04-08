@@ -1,14 +1,12 @@
-import React, { useState, useEffect } from 'react'
-import { push } from 'connected-react-router'
-import { useTranslation } from 'react-i18next'
-import { Link, useLocation } from 'react-router-dom'
-import { Form, Alert, Button } from 'react-bootstrap'
-import { useDispatch, useSelector } from 'react-redux'
-
-import { signUp } from '../../state/user/user.actions'
-import { setRedirectUrl } from '../../state/app/app.reducer'
-
-import './styles.css'
+import React, { useState, useEffect } from 'react';
+import { Form, Alert, Button } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useLocation } from 'react-router-dom';
+import { push } from 'connected-react-router';
+import { setRedirectUrl } from '../../state/app/app.reducer';
+import { signUp } from '../../state/user/user.actions';
+import './styles.css';
 
 export default () => {
   const [user, setUser] = useState({
@@ -16,15 +14,15 @@ export default () => {
     firstName: '',
     lastName: '',
     password: '',
-    confirmPassword: ''
-  })
-  const [errorMessage, setErrorMsg] = useState("");
-  const { t } = useTranslation()
-  const dispatch = useDispatch()
-  const location = useLocation()
-  const { redirectUrl } = useSelector(state => state.app);
+    confirmPassword: '',
+  });
+  const [errorMessage, setErrorMsg] = useState('');
+  const { t } = useTranslation();
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const { redirectUrl } = useSelector((state) => state.app);
   const isRouted = location.pathname.includes('signup');
-  let { loading, info } = useSelector(state => state.user);
+  let { loading, info } = useSelector((state) => state.user);
   const [terms, setTerms] = useState(false);
 
   useEffect(() => {
@@ -33,12 +31,12 @@ export default () => {
         dispatch(push(redirectUrl));
       } else if (location.state) {
         dispatch(push(location.state));
-     } else {
+      } else {
         dispatch(push('/profile'));
         dispatch(setRedirectUrl(null));
       }
     }
-  }, [!loading && info])
+  }, [!loading && info]);
 
   /**
    * Sends the New User details to the server for Creating User.
@@ -46,7 +44,7 @@ export default () => {
    */
   const onSubmit = async (event) => {
     event.preventDefault();
-    const { confirmPassword, ...rest } = user
+    const { confirmPassword, ...rest } = user;
 
     const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
@@ -62,24 +60,24 @@ export default () => {
       setErrorMsg(t('SignUp.passwordsUnmatched'));
     } else if (user.password.length < 6) {
       setErrorMsg(t('SignUp.passwordLengthError'));
-    } else if (user.password.includes(" ")) {
-      setErrorMsg("Password should not contain blank spaces");
+    } else if (user.password.includes(' ')) {
+      setErrorMsg('Password should not contain blank spaces');
     } else if (isPasswordSame) {
       const response = await dispatch(signUp(rest));
       if (response.error) {
-        if (response.error.message.includes("already registered")) {
+        if (response.error.message.includes('already registered')) {
           setErrorMsg(t('SignUp.existingEmailError'));
         }
       } else {
-        setErrorMsg("");
+        setErrorMsg('');
       }
     } else {
       setErrorMsg("Confirm password doesn't match");
       return;
     }
-  }
+  };
 
-  const isPasswordSame = user.password === user.confirmPassword
+  const isPasswordSame = user.password === user.confirmPassword;
 
   return (
     <div className="demo mb-3">
@@ -103,9 +101,7 @@ export default () => {
                 placeholder={t('SignUp.firstName')}
                 className="mb-3"
                 value={user.firstName}
-                onChange={(e) =>
-                  setUser({ ...user, firstName: e.target.value })
-                }
+                onChange={(e) => setUser({ ...user, firstName: e.target.value })}
               />
               <Form.Control
                 type="text"
@@ -130,9 +126,7 @@ export default () => {
                 placeholder={t('SignUp.confirmPassword')}
                 className="mb-3"
                 value={user.confirmPassword}
-                onChange={(e) =>
-                  setUser({ ...user, confirmPassword: e.target.value })
-                }
+                onChange={(e) => setUser({ ...user, confirmPassword: e.target.value })}
               />
 
               <div className="d-flex">
@@ -143,28 +137,26 @@ export default () => {
                   id="terms_id"
                   onChange={() => setTerms(!terms)}
                 />
-                <Form.Label for="terms_id" className="hover-pointer">I agree to the <a href="https://mindlogger.org/terms" target='_blank'>Terms of Service</a></Form.Label>
+                <Form.Label for="terms_id" className="hover-pointer">
+                  I agree to the{' '}
+                  <a href="https://mindlogger.org/terms" target="_blank">
+                    Terms of Service
+                  </a>
+                </Form.Label>
               </div>
             </div>
-            <Button
-              type="submit"
-              className="btn btn-primary"
-              disabled={loading || !terms}
-            >
-              {loading
-                ? t('SignUp.signingIn')
-                : t('SignUp.title')}
+            <Button type="submit" className="btn btn-primary" disabled={loading || !terms}>
+              {loading ? t('SignUp.signingIn') : t('SignUp.title')}
             </Button>
           </Form>
           {isRouted && (
             <p className="my-3">
               {' '}
-              {t('SignUp.account')}{' '}
-              <Link to="/login"> {t('SignUp.logIn')}</Link>
+              {t('SignUp.account')} <Link to="/login"> {t('SignUp.logIn')}</Link>
             </p>
           )}
         </div>
       </div>
     </div>
-  )
-}
+  );
+};

@@ -1,47 +1,37 @@
 import React, { useState, useEffect, useRef } from 'react';
-import _ from "lodash";
-import {
-  Row,
-  Card,
-  Col,
-  Image,
-} from 'react-bootstrap';
-
-import Navigator from './Navigator';
-import Markdown from '../components/Markdown';
+import { Row, Card, Col, Image } from 'react-bootstrap';
+import _ from 'lodash';
 import questionMark from '../assets/question-mark.svg';
+import Markdown from '../components/Markdown';
+import Navigator from './Navigator';
 
 const SplashScreen = (props) => {
-  const {
-    watermark,
-    isBackShown,
-    isNextShown,
-    handleBack,
-    isSubmitShown,
-    splashScreen,
-  } = props;
+  const { watermark, isBackShown, isNextShown, handleBack, isSubmitShown, splashScreen } = props;
 
   const splashContainer = useRef();
 
   let isImageSplash = false;
 
-  if (splashScreen.includes(".png")
-    || splashScreen.includes(".bmp")
-    || splashScreen.includes(".jpg")
-    || splashScreen.includes(".gif")
-    || splashScreen.includes(".jpeg")) {
+  if (
+    splashScreen.includes('.png') ||
+    splashScreen.includes('.bmp') ||
+    splashScreen.includes('.jpg') ||
+    splashScreen.includes('.gif') ||
+    splashScreen.includes('.jpeg')
+  ) {
     isImageSplash = true;
   }
 
   function updateSplashImage(el, containerWidth, containerHeight) {
-    const w = isImageSplash ? el.naturalWidth : el.videoWidth, h = isImageSplash ? el.naturalHeight : el.videoHeight;
+    const w = isImageSplash ? el.naturalWidth : el.videoWidth,
+      h = isImageSplash ? el.naturalHeight : el.videoHeight;
     const scale = Math.min(1.2, Math.min(containerWidth / w, containerHeight / h));
 
     if (!splashScreen.includes('.gif') || isNextShown) {
       el.setAttribute('width', scale * w);
-      el.setAttribute('height', scale * h)
+      el.setAttribute('height', scale * h);
 
-      return ;
+      return;
     }
 
     var c = document.createElement('canvas');
@@ -50,7 +40,7 @@ const SplashScreen = (props) => {
     c.height = h * scale;
     c.getContext('2d').drawImage(el, 0, 0, c.width, c.height);
 
-    for (var j = 0, a; a = el.attributes[j]; j++) {
+    for (var j = 0, a; (a = el.attributes[j]); j++) {
       c.setAttribute(a.name, a.value);
     }
     el.parentNode.replaceChild(c, el);
@@ -71,36 +61,28 @@ const SplashScreen = (props) => {
       } else {
         item.addEventListener(isImageSplash ? 'load' : 'loadedmetadata', () => {
           updateSplashImage(item, width, height);
-        })
+        });
       }
     }
-  }, [isNextShown, splashScreen])
+  }, [isNextShown, splashScreen]);
 
   return (
-    <Card className="mb-3" style={{ maxWidth: "auto" }}>
+    <Card className="mb-3" style={{ maxWidth: 'auto' }}>
       <Row className="no-gutters">
         <Col md={12}>
           <Card.Body>
             <Card.Title className="question">
-              {
-                watermark &&
-                <Image className="watermark" src={watermark} alt="watermark" rounded />
-              }
+              {watermark && <Image className="watermark" src={watermark} alt="watermark" rounded />}
             </Card.Title>
             <div className="no-gutters">
               <div ref={splashContainer} className="splash-container">
-                {
-                  isImageSplash ? (
-                    <img
-                      src={splashScreen}
-                      className="image-splash"
-                    />
-                  ): (
-                    <video controls autoPlay={isNextShown}>
-                      <source src={splashScreen} />
-                    </video>
-                  )
-                }
+                {isImageSplash ? (
+                  <img src={splashScreen} className="image-splash" />
+                ) : (
+                  <video controls autoPlay={isNextShown}>
+                    <source src={splashScreen} />
+                  </video>
+                )}
               </div>
             </div>
           </Card.Body>
@@ -115,6 +97,6 @@ const SplashScreen = (props) => {
       />
     </Card>
   );
-}
+};
 
 export default SplashScreen;

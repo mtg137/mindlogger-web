@@ -1,29 +1,29 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useSelector } from 'react-redux';
-import { useParams, useHistory } from 'react-router-dom';
 import { Card, Row, Col } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { PDFExport } from '@progress/kendo-react-pdf';
-import { drawDOM, exportPDF } from "@progress/kendo-drawing";
-import moment from "moment";
-
-import styled from 'styled-components';
+import { useSelector } from 'react-redux';
+import { useParams, useHistory } from 'react-router-dom';
 import cn from 'classnames';
-import _ from 'lodash';
 import domtoimage from 'dom-to-image';
-
+import _ from 'lodash';
+import moment from 'moment';
+import styled from 'styled-components';
+import { drawDOM, exportPDF } from '@progress/kendo-drawing';
+import { PDFExport } from '@progress/kendo-react-pdf';
 // Component
 import MyButton from '../components/Button';
 import Markdown from '../components/Markdown';
 import SummaryAlert from '../components/SummaryAlert';
-
-// State
-import { inProgressSelector, currentAppletResponsesSelector, currentAlertsSelector } from '../state/responses/responses.selectors';
-
+import { getChainedActivities, replaceItemVariableWithScore } from '../services/helper';
 // services
 import { evaluateCumulatives, evaluateReports } from '../services/scoring';
-import { getChainedActivities, replaceItemVariableWithScore } from '../services/helper';
 import { currentActivitySelector, currentAppletSelector } from '../state/app/app.selectors';
+// State
+import {
+  inProgressSelector,
+  currentAppletResponsesSelector,
+  currentAlertsSelector,
+} from '../state/responses/responses.selectors';
 
 const MARKDOWN_REGEX = /(!\[.*\]\s*\(.*?) =\d*x\d*(\))/g;
 
@@ -36,7 +36,9 @@ const Summary = styled(({ className, ...props }) => {
   const [titleWidth, setTitleWidth] = useState(0);
   const [shareAllReports, setShareAllReports] = useState(false);
   const [, setRefresh] = useState(0);
-  const { messages, ...restAct } = reports.find(report => report.activity.id.split('/').pop() == activityId) || { messages: [] };
+  const { messages, ...restAct } = reports.find((report) => report.activity.id.split('/').pop() == activityId) || {
+    messages: [],
+  };
 
   const responseHistory = useSelector(currentAppletResponsesSelector);
   const applet = useSelector(currentAppletSelector);
@@ -47,8 +49,8 @@ const Summary = styled(({ className, ...props }) => {
   const ref = useRef(null);
   const images = useRef({});
 
-  const termsText = t("additional.terms_text")
-  const footerText = t("additional.footer_text");
+  const termsText = t('additional.terms_text');
+  const footerText = t('additional.footer_text');
 
   useEffect(() => {
     const el = document.getElementById('score-title');
@@ -56,8 +58,7 @@ const Summary = styled(({ className, ...props }) => {
     if (el) {
       setTitleWidth(el.offsetWidth);
     }
-
-  }, [lang])
+  }, [lang]);
 
   useEffect(() => {
     if (titleWidth && reports.length) {
@@ -72,16 +73,17 @@ const Summary = styled(({ className, ...props }) => {
         items.push(`overview-${activity.id}`);
       }
 
-      Promise.all(items.map(id => {
-        const pdfContent = document.getElementById(id);
+      Promise.all(
+        items.map((id) => {
+          const pdfContent = document.getElementById(id);
 
-        return domtoimage.toJpeg(pdfContent, { quality: 1 })
-          .then((dataUrl) => {
+          return domtoimage.toJpeg(pdfContent, { quality: 1 }).then((dataUrl) => {
             images.current[id] = dataUrl;
-          })
-      })).then(() => setRefresh(Date.now()));
+          });
+        }),
+      ).then(() => setRefresh(Date.now()));
     }
-  }, [titleWidth, reports])
+  }, [titleWidth, reports]);
 
   useEffect(() => {
     try {
@@ -119,40 +121,42 @@ const Summary = styled(({ className, ...props }) => {
       reports.push({
         activity: chainedActivity,
         messages: reportMessages,
-        scoreOverview
+        scoreOverview,
       });
     }
 
     setReports(reports);
-  }
+  };
 
   const handlePDFSave = () => {
     if (ref.current) {
       drawDOM(ref.current, {
         paperSize: 'A4',
         margin: '2cm',
-        forcePageBreak: '.page-break'
-      }).then(group => exportPDF(group)).then(dataUri => {
-        var byteString = atob(dataUri.split(',')[1]);
-        var ab = new ArrayBuffer(byteString.length);
-        var ia = new Uint8Array(ab);
-
-        for (var i = 0; i < byteString.length; i++) {
-          ia[i] = byteString.charCodeAt(i);
-        }
-
-        var file = new Blob([ab], { type: 'application/pdf' });
-        var fileURL = URL.createObjectURL(file);
-
-        const anchor = document.createElement('a');
-        anchor.href = fileURL;
-        anchor.download = 'export.pdf';
-        document.body.appendChild(anchor);
-        anchor.click();
-        document.body.removeChild(anchor);
+        forcePageBreak: '.page-break',
       })
+        .then((group) => exportPDF(group))
+        .then((dataUri) => {
+          var byteString = atob(dataUri.split(',')[1]);
+          var ab = new ArrayBuffer(byteString.length);
+          var ia = new Uint8Array(ab);
+
+          for (var i = 0; i < byteString.length; i++) {
+            ia[i] = byteString.charCodeAt(i);
+          }
+
+          var file = new Blob([ab], { type: 'application/pdf' });
+          var fileURL = URL.createObjectURL(file);
+
+          const anchor = document.createElement('a');
+          anchor.href = fileURL;
+          anchor.download = 'export.pdf';
+          document.body.appendChild(anchor);
+          anchor.click();
+          document.body.removeChild(anchor);
+        });
     }
-  }
+  };
 
   if (activityAccess.disableSummary) return <div />;
 
@@ -166,23 +170,34 @@ const Summary = styled(({ className, ...props }) => {
         </Col>
         <Col md={12}>
           <Card.Body>
-            {alerts && alerts.length ?
-              <SummaryAlert text={alerts.map(al => al.message)} /> : <></>
-            }
+            {alerts && alerts.length ? <SummaryAlert text={alerts.map((al) => al.message)} /> : <></>}
             {messages &&
               messages.map((item, i) => (
                 <div key={i}>
                   <div className="row">
                     <div className="col-md-9">
                       <p className="message-category">{item.label ? item.label : item.category.replace(/_/g, ' ')}</p>
-                      <Markdown markdown={replaceItemVariableWithScore(item.message, messages).replace(`[[${item.category}]]`, item.score).replace(MARKDOWN_REGEX, '$1$2').replace(/\[\[sys.date]\]/i, moment().format('MM/DD/YYYY'))} />
+                      <Markdown
+                        markdown={replaceItemVariableWithScore(item.message, messages)
+                          .replace(`[[${item.category}]]`, item.score)
+                          .replace(MARKDOWN_REGEX, '$1$2')
+                          .replace(/\[\[sys.date]\]/i, moment().format('MM/DD/YYYY'))}
+                      />
                     </div>
-                    {typeof item.scoreValue !== "boolean" && <div className="col-md-3"><p className="message-score float-right">{item.score}</p></div>}
+                    {typeof item.scoreValue !== 'boolean' && (
+                      <div className="col-md-3">
+                        <p className="message-score float-right">{item.score}</p>
+                      </div>
+                    )}
                     {item.conditionals?.map((conditional) => (
-                        <div className={`col-md-10 ${conditional.flagScore ? 'text-danger' : ""}`} >
-                          <p className="message-category">{conditional.label}</p>
-                          <Markdown markdown={replaceItemVariableWithScore(conditional.message, messages).replace(MARKDOWN_REGEX, '$1$2').replace(/\[\[sys.date]\]/i, moment().format('MM/DD/YYYY'))} />
-                        </div>
+                      <div className={`col-md-10 ${conditional.flagScore ? 'text-danger' : ''}`}>
+                        <p className="message-category">{conditional.label}</p>
+                        <Markdown
+                          markdown={replaceItemVariableWithScore(conditional.message, messages)
+                            .replace(MARKDOWN_REGEX, '$1$2')
+                            .replace(/\[\[sys.date]\]/i, moment().format('MM/DD/YYYY'))}
+                        />
+                      </div>
                     ))}
                   </div>
                   {messages.length > 1 && <div className="hr" />}
@@ -202,7 +217,8 @@ const Summary = styled(({ className, ...props }) => {
     </Card>
   );
 })`
-  #footer-text, .report-message {
+  #footer-text,
+  .report-message {
     background-color: white;
   }
 
@@ -219,7 +235,6 @@ const Summary = styled(({ className, ...props }) => {
   .pdf-message {
     margin: 10px 0px;
   }
-
 
   .score-overview {
     font-size: 0.8rem;

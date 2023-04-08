@@ -1,33 +1,30 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
-import { ConnectedRouter } from 'connected-react-router';
-import { Switch, Route, Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-
-import { history } from './store';
-import { userInfoSelector } from './state/user/user.selectors';
-
-import Footer from './components/Base/Footer'
-import NavBar from './components/Base/Navbar'
-import Login from './components/Login'
-import SignUp from './components/Signup'
-import ForgotPassword from './components/ForgotPassword'
-import Profile from './components/Profile'
-import ChangePassword from './components/ChangePassword'
-import Landing from './components/Landing'
-import AppletList from './components/AppletList'
-import Invitation from './components/Invitation/Invitation'
-import AcceptInvitation from './components/Invitation/AcceptInvitation'
-import DeclineInvitation from './components/Invitation/DeclineInvitation'
-import ActivityList from './components/ActivityList'
-import SetPassword from './components/Setpassword'
-import { Consent } from './components/Consent/index'
-import Screens from './components/Screens'
-import PublicApplet from './components/PublicApplet';
-import { Join } from './components/Invitation/Join';
-import ActivityThanks from './components/ActivityThanks';
-
+import { Switch, Route, Redirect } from 'react-router-dom';
+import { ConnectedRouter } from 'connected-react-router';
 import './App.css';
+import ActivityList from './components/ActivityList';
+import ActivityThanks from './components/ActivityThanks';
+import AppletList from './components/AppletList';
+import Footer from './components/Base/Footer';
+import NavBar from './components/Base/Navbar';
+import ChangePassword from './components/ChangePassword';
+import { Consent } from './components/Consent/index';
+import ForgotPassword from './components/ForgotPassword';
+import AcceptInvitation from './components/Invitation/AcceptInvitation';
+import DeclineInvitation from './components/Invitation/DeclineInvitation';
+import Invitation from './components/Invitation/Invitation';
+import { Join } from './components/Invitation/Join';
+import Landing from './components/Landing';
+import Login from './components/Login';
+import Profile from './components/Profile';
+import PublicApplet from './components/PublicApplet';
+import Screens from './components/Screens';
+import SetPassword from './components/Setpassword';
+import SignUp from './components/Signup';
+import { userInfoSelector } from './state/user/user.selectors';
+import { history } from './store';
 
 /**
  * Main Component of the Application - Routes to specific components based on the Path.
@@ -44,8 +41,9 @@ const App = () => {
             <Route path="/applet/public/:publicId" exact component={PublicApplet} />
             <Route path="/applet/public/:appletId/activity/:activityId" exact component={Screens} />
 
-            <Route path="/applet/:appletId/activity_thanks" exact component={ActivityThanks}/>
-            {user ? ( <Switch>
+            <Route path="/applet/:appletId/activity_thanks" exact component={ActivityThanks} />
+            {user ? (
+              <Switch>
                 <Route path="/" exact component={Landing} />
                 <Route path="/login" exact component={Login} />
                 <Route path="/signup" exact component={SignUp} />

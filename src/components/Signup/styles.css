@@ -1,9 +1,9 @@
-.demo{
+.demo {
   padding-top: 2.5rem;
 }
 
 @media (max-width: 767px) {
-  .demo{
+  .demo {
     margin-top: 0px;
     padding-top: 0px;
   }

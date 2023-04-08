@@ -1,18 +1,18 @@
-import React, { useState, useRef, useEffect } from 'react'
-import Navbar from 'react-bootstrap/Navbar'
-import Col from 'react-bootstrap/Col'
-import Row from 'react-bootstrap/Row'
-import Nav from 'react-bootstrap/Nav'
-import NavDropdown from 'react-bootstrap/NavDropdown'
-import { DropdownButton, Dropdown } from 'react-bootstrap'
-import { useTranslation } from 'react-i18next'
-import { useDispatch, useSelector } from 'react-redux'
-import { useHistory, useLocation } from 'react-router-dom'
-import { push } from 'connected-react-router'
-import { loggedInSelector } from '../../state/user/user.selectors'
-import { doLogout } from '../../state/user/user.actions'
-import { Languages } from '../../constants/index'
-import { version } from "../../../package.json";
+import React, { useState, useRef, useEffect } from 'react';
+import { DropdownButton, Dropdown } from 'react-bootstrap';
+import Col from 'react-bootstrap/Col';
+import Nav from 'react-bootstrap/Nav';
+import NavDropdown from 'react-bootstrap/NavDropdown';
+import Navbar from 'react-bootstrap/Navbar';
+import Row from 'react-bootstrap/Row';
+import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory, useLocation } from 'react-router-dom';
+import { push } from 'connected-react-router';
+import { version } from '../../../package.json';
+import { Languages } from '../../constants/index';
+import { doLogout } from '../../state/user/user.actions';
+import { loggedInSelector } from '../../state/user/user.selectors';
 
 /**
  * Component for Rendering the NavBar
@@ -20,27 +20,27 @@ import { version } from "../../../package.json";
  *
  */
 export default ({ user }) => {
-  const { t } = useTranslation()
-  const history = useHistory()
-  const location = useLocation()
-  const [expanded, setExpanded] = useState(false)
-  const [appVersion, setVersion] = useState()
-  const isLoggedIn = useSelector(loggedInSelector)
+  const { t } = useTranslation();
+  const history = useHistory();
+  const location = useLocation();
+  const [expanded, setExpanded] = useState(false);
+  const [appVersion, setVersion] = useState();
+  const isLoggedIn = useSelector(loggedInSelector);
   const ref = useRef();
 
   useEffect(() => {
     setVersion(process.env.REACT_APP_NODE_ENV !== 'production' && version);
-  }, [])
+  }, []);
 
   const onLogoClick = () => {
     if (!isLoggedIn) {
       history.push('/dashboard');
     } else if (location.pathname === '/applet') {
-      history.go(0)
+      history.go(0);
     } else {
-      history.push('/applet')
+      history.push('/applet');
     }
-  }
+  };
 
   return (
     <Navbar
@@ -67,35 +67,35 @@ export default ({ user }) => {
         </Nav>
       </Navbar.Collapse>
     </Navbar>
-  )
-}
+  );
+};
 
 const UserInfoDropdown = ({ user, setExpanded }) => {
-  const { t } = useTranslation()
-  const dispatch = useDispatch()
-  const history = useHistory()
+  const { t } = useTranslation();
+  const dispatch = useDispatch();
+  const history = useHistory();
 
   const logOut = () => {
-    dispatch(doLogout())
-    dispatch(push('/login'))
+    dispatch(doLogout());
+    dispatch(push('/login'));
     setExpanded(false);
-    localStorage.clear()
-  }
+    localStorage.clear();
+  };
 
   const onSettings = () => {
     history.push('/changepassword');
     setExpanded(false);
-  }
+  };
 
   const onLogin = () => {
-    history.push('/login')
+    history.push('/login');
     setExpanded(false);
-  }
+  };
 
   const onProfileSelect = () => {
-    history.push('/profile')
+    history.push('/profile');
     setExpanded(false);
-  }
+  };
 
   if (user) {
     return (
@@ -105,26 +105,15 @@ const UserInfoDropdown = ({ user, setExpanded }) => {
         </Col>
 
         <Col xs={12} md={6} className="App container justify-content-center">
-          <NavDropdown
-            title={user.firstName}
-            id="basic-nav-dropdown"
-            className="text-center drop-down"
-            size="xxl"
-          >
-            <NavDropdown.Item onClick={onSettings}>
-              {t('Navbar.settings')}
-            </NavDropdown.Item>
-            <NavDropdown.Item onClick={onProfileSelect}>
-              {t('Navbar.profile')}
-            </NavDropdown.Item>
+          <NavDropdown title={user.firstName} id="basic-nav-dropdown" className="text-center drop-down" size="xxl">
+            <NavDropdown.Item onClick={onSettings}>{t('Navbar.settings')}</NavDropdown.Item>
+            <NavDropdown.Item onClick={onProfileSelect}>{t('Navbar.profile')}</NavDropdown.Item>
             <NavDropdown.Divider />
-            <NavDropdown.Item onClick={logOut}>
-              {t('Navbar.logOut')}
-            </NavDropdown.Item>
+            <NavDropdown.Item onClick={logOut}>{t('Navbar.logOut')}</NavDropdown.Item>
           </NavDropdown>
         </Col>
       </Row>
-    )
+    );
   } else {
     return (
       <Row>
@@ -132,40 +121,34 @@ const UserInfoDropdown = ({ user, setExpanded }) => {
           <LanguageDropdown setExpanded={setExpanded} />
         </Col>
         <Col xs={12} md={6} className="App container justify-content-center">
-          <Nav.Link onClick={onLogin}>
-            {t('Navbar.logIn')}
-          </Nav.Link>
+          <Nav.Link onClick={onLogin}>{t('Navbar.logIn')}</Nav.Link>
         </Col>
       </Row>
-    )
+    );
   }
-}
+};
 
 const LanguageDropdown = ({ setExpanded }) => {
-  const { t, i18n } = useTranslation()
-  const [language, setLanguage] = useState(i18n.language || Languages.ENGLISH)
+  const { t, i18n } = useTranslation();
+  const [language, setLanguage] = useState(i18n.language || Languages.ENGLISH);
 
   // useEffect(() => changeLanguage(i18n.language), [i18n.language])
 
   const changeLanguage = (lang) => {
-    setLanguage(lang)
+    setLanguage(lang);
 
     if (!['en', 'fr'].includes(lang)) {
       return;
     }
 
-    i18n.changeLanguage(lang)
-  }
+    i18n.changeLanguage(lang);
+  };
 
   return (
     <DropdownButton
       alignRight
       className="text-center drop-down"
-      title={
-        language === Languages.ENGLISH
-          ? t('Navbar.english')
-          : t('Navbar.french')
-      }
+      title={language === Languages.ENGLISH ? t('Navbar.english') : t('Navbar.french')}
       id="dropdown-menu-align-right"
       onSelect={changeLanguage}
     >
@@ -176,5 +159,5 @@ const LanguageDropdown = ({ setExpanded }) => {
         {t('Navbar.french')}
       </Dropdown.Item>
     </DropdownButton>
-  )
-}
+  );
+};

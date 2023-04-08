@@ -1,29 +1,27 @@
-import React, { useState, useEffect } from 'react'
-import { Link, useLocation } from 'react-router-dom'
-import { push } from 'connected-react-router'
-import { useTranslation } from 'react-i18next'
-import { useDispatch, useSelector } from 'react-redux'
-import { Form, Alert, Button } from 'react-bootstrap'
-
-import { signIn } from '../../state/user/user.actions'
-import { setRedirectUrl } from '../../state/app/app.reducer'
-
-import './styles.css'
+import React, { useState, useEffect } from 'react';
+import { Form, Alert, Button } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useLocation } from 'react-router-dom';
+import { push } from 'connected-react-router';
+import { setRedirectUrl } from '../../state/app/app.reducer';
+import { signIn } from '../../state/user/user.actions';
+import './styles.css';
 
 /**
  * Component for Logging in the User
  * @constructor
  */
 export default function Login() {
-  const [user, setUser] = useState({ email: '', password: '' })
-  const [errorMessage, setErrorMsg] = useState("");
+  const [user, setUser] = useState({ email: '', password: '' });
+  const [errorMessage, setErrorMsg] = useState('');
   const [show, setShow] = useState(false);
   const [isStarted, setIsStarted] = useState(false);
-  const { t } = useTranslation()
-  const dispatch = useDispatch()
-  const { redirectUrl } = useSelector(state => state.app);
-  let { loading, info, error } = useSelector(state => state.user);
-  let errorMsg = "";
+  const { t } = useTranslation();
+  const dispatch = useDispatch();
+  const { redirectUrl } = useSelector((state) => state.app);
+  let { loading, info, error } = useSelector((state) => state.user);
+  let errorMsg = '';
   const location = useLocation();
 
   useEffect(() => {
@@ -38,7 +36,7 @@ export default function Login() {
         dispatch(setRedirectUrl(null));
       }
     }
-  }, [!loading && info])
+  }, [!loading && info]);
 
   useEffect(() => {
     if (location.state && location.state.reset) {
@@ -46,12 +44,12 @@ export default function Login() {
 
       setTimeout(() => {
         setShow(false);
-      }, 5000)
+      }, 5000);
     }
-  }, [location])
+  }, [location]);
 
   if (isStarted && error) {
-    let errorMsg = "";
+    let errorMsg = '';
     const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
     if (!user.email) {
@@ -74,9 +72,9 @@ export default function Login() {
    */
   const onSubmit = async (event) => {
     setIsStarted(true);
-    event.preventDefault()
+    event.preventDefault();
     dispatch(signIn(user));
-  }
+  };
 
   return (
     <div className="demo mp-3 align-self-center w-100">
@@ -102,29 +100,23 @@ export default function Login() {
                 // required
               />
             </div>
-            <Button
-              type="submit"
-              variant="primary"
-              disabled={loading}
-            >
-              {loading
-                ? t('Login.logging')
-                : t('Login.title')}
+            <Button type="submit" variant="primary" disabled={loading}>
+              {loading ? t('Login.logging') : t('Login.title')}
             </Button>
           </Form>
           <p className="mt-3">
-            {t('Login.accountMessage')}{' '}
-            <Link to="/signup">{t('Login.create')}</Link>
+            {t('Login.accountMessage')} <Link to="/signup">{t('Login.create')}</Link>
           </p>
           <p className="mt-3">
-            {t('Login.forgotPassword')}{' '}
-            <Link to="/forgotpassword">{t('Login.reset')}</Link>
+            {t('Login.forgotPassword')} <Link to="/forgotpassword">{t('Login.reset')}</Link>
           </p>
         </div>
-        {show && <Alert className="mt-5 mx-auto w-50" variant="success" onClose={() => setShow(false)} dismissible>
-          <p>Password reset link is sent to your email.</p>
-        </Alert>}
+        {show && (
+          <Alert className="mt-5 mx-auto w-50" variant="success" onClose={() => setShow(false)} dismissible>
+            <p>Password reset link is sent to your email.</p>
+          </Alert>
+        )}
       </div>
     </div>
-  )
+  );
 }

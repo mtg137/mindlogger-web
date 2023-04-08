@@ -1,18 +1,16 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useRef } from 'react';
 import { Formik, Form } from 'formik';
-
+import AgeSelector from '../../widgets/AgeSelector';
+import Checkbox from '../../widgets/Checkbox';
+import Dropdown from '../../widgets/Dropdown';
 // Widgets
 import Radio from '../../widgets/Radio';
-import Checkbox from '../../widgets/Checkbox';
-import AgeSelector from '../../widgets/AgeSelector';
-import TextInput from '../../widgets/TextInput';
 import Slider from '../../widgets/Slider';
-import TimeDuration from '../../widgets/TimeDuration';
 import SplashScreen from '../../widgets/SplashScreen';
-import Dropdown from '../../widgets/Dropdown';
-
-import "./style.css";
+import TextInput from '../../widgets/TextInput';
+import TimeDuration from '../../widgets/TimeDuration';
+import './style.css';
 
 const Item = (props) => {
   const { data, type, handleSubmit, handleChange, item, isOnePageAssessment } = props;
@@ -25,32 +23,32 @@ const Item = (props) => {
       if (item.autoAdvance && !isOnePageAssessment) {
         handleSubmit(answer, true);
       }
-    }
+    };
 
     if (item?.valueConstraints.removeBackOption) isBackShown = false;
 
     switch (type) {
-      case "checkbox":
+      case 'checkbox':
         return <Checkbox {...props} isBackShown={isBackShown} handleChange={onChange} values={values} />;
-      case "radio":
+      case 'radio':
         return <Radio {...props} isBackShown={isBackShown} handleChange={onChange} values={values} />;
-      case "text":
+      case 'text':
         return <TextInput {...props} isBackShown={isBackShown} handleChange={onChange} values={values} />;
-      case "slider":
+      case 'slider':
         return <Slider {...props} handleChange={onChange} values={values} />;
-      case "duration":
+      case 'duration':
         return <TimeDuration {...props} handleChange={onChange} values={values} />;
         return <Slider {...props} isBackShown={isBackShown} handleChange={onChange} />;
-      case "ageSelector":
+      case 'ageSelector':
         return <AgeSelector {...props} isBackShown={isBackShown} handleChange={onChange} />;
-      case "splash":
+      case 'splash':
         return <SplashScreen {...props} isBackShown={isBackShown} />;
-      case "dropdownList":
+      case 'dropdownList':
         return <Dropdown {...props} handleChange={onChange} values={values} />;
       default:
         return <div />;
     }
-  }
+  };
 
   const ref = useRef();
 
@@ -58,14 +56,14 @@ const Item = (props) => {
     if (props.isNextShown && !isOnePageAssessment) {
       ref.current.scrollIntoView({ behavior: 'smooth' });
     }
-  }, [props.isNextShown])
+  }, [props.isNextShown]);
 
   return (
     <Formik
       enableReinitialize
       initialValues={type === 'splash' ? {} : data}
       onSubmit={(values, { setSubmitting }) => {
-        handleSubmit(values)
+        handleSubmit(values);
       }}
     >
       {({ handleSubmit, values }) => (
@@ -76,6 +74,6 @@ const Item = (props) => {
       )}
     </Formik>
   );
-}
+};
 
 export default Item;

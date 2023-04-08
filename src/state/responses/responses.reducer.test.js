@@ -1,11 +1,5 @@
 import appReducer, { initialState } from './app.reducer';
-import {
-  setApiHost,
-  resetApiHost,
-  setSkin,
-  setCurrentApplet,
-  toggleMobileDataAllowed,
-} from './app.reducer';
+import { setApiHost, resetApiHost, setSkin, setCurrentApplet, toggleMobileDataAllowed } from './app.reducer';
 
 test('it has an initial state', () => {
   expect(appReducer(undefined, { type: 'foo' })).toEqual(initialState);

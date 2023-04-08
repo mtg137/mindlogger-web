@@ -2,9 +2,7 @@
   "activities": {
     "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/activities/EmaHBNEvening/ema_evening_schema.jsonld": {
       "@id": "/ema_evening_schema",
-      "@type": [
-        "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Activity.jsonld"
-      ],
+      "@type": ["https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Activity.jsonld"],
       "_id": "activity/5cba23ab86fafd5df796d90c",
       "schema:description": [
         {
@@ -111,9 +109,7 @@
     },
     "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/activities/EmaHBNMorning/ema_morning_schema.jsonld": {
       "@id": "/ema_morning_schema",
-      "@type": [
-        "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Activity.jsonld"
-      ],
+      "@type": ["https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Activity.jsonld"],
       "_id": "activity/5cba070386fafd5df796d908",
       "schema:description": [
         {
@@ -195,14 +191,17 @@
   },
   "applet": {
     "@id": "/ema-hbn_schema",
-    "@type": [
-      "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/ActivitySet.jsonld"
-    ],
+    "@type": ["https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/ActivitySet.jsonld"],
     "_id": "applet/5ca5314fd27b4e0459cee21f",
     "groups": ["12345"],
     "responseDates": [],
     "schedule": {},
-    "reprolib:terms/landingPage":[{"@language": "en", "@value": "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/activity-sets/ema-hbn/README.md"}],
+    "reprolib:terms/landingPage": [
+      {
+        "@language": "en",
+        "@value": "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/activity-sets/ema-hbn/README.md"
+      }
+    ],
     "schema:image": "https://childmindinstitute.github.io/mindlogger-assets/illustrations/undraw/hbn_ema_image.svg",
     "schema:description": [
       {
@@ -309,9 +308,7 @@
   "items": {
     "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/activities/EmaHBNEvening/items/energy.jsonld": {
       "@id": "/energy",
-      "@type": [
-        "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"
-      ],
+      "@type": ["https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"],
       "_id": "screen/5cbf992086fafd5189aee258",
       "schema:description": [
         {
@@ -358,9 +355,7 @@
       ],
       "reprolib:terms/valueconstraints": [
         {
-          "@type": [
-            "http://www.w3.org/2001/XMLSchema#integer"
-          ],
+          "@type": ["http://www.w3.org/2001/XMLSchema#integer"],
           "schema:itemListElement": [
             {
               "@list": [
@@ -457,9 +452,7 @@
     },
     "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/activities/EmaHBNEvening/items/enjoyed_day.jsonld": {
       "@id": "/enjoyed_day",
-      "@type": [
-        "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"
-      ],
+      "@type": ["https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"],
       "_id": "screen/5cbf992086fafd5189aee257",
       "schema:description": [
         {
@@ -506,9 +499,7 @@
       ],
       "reprolib:terms/valueconstraints": [
         {
-          "@type": [
-            "http://www.w3.org/2001/XMLSchema#integer"
-          ],
+          "@type": ["http://www.w3.org/2001/XMLSchema#integer"],
           "schema:itemListElement": [
             {
               "@list": [
@@ -618,9 +609,7 @@
     },
     "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/activities/EmaHBNEvening/items/good_bad_day.jsonld": {
       "@id": "/good_bad_day",
-      "@type": [
-        "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"
-      ],
+      "@type": ["https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"],
       "_id": "screen/5cbf991f86fafd5189aee256",
       "schema:description": [
         {
@@ -667,16 +656,12 @@
       ],
       "reprolib:terms/valueconstraints": [
         {
-          "@type": [
-            "http://www.w3.org/2001/XMLSchema#anyURI"
-          ],
+          "@type": ["http://www.w3.org/2001/XMLSchema#anyURI"],
           "schema:itemListElement": [
             {
               "@list": [
                 {
-                  "@type": [
-                    "schema:Boolean"
-                  ],
+                  "@type": ["schema:Boolean"],
                   "schema:image": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/master/color/svg/1F44E.svg?sanitize=true",
                   "schema:name": [
                     {
@@ -691,9 +676,7 @@
                   ]
                 },
                 {
-                  "@type": [
-                    "schema:Boolean"
-                  ],
+                  "@type": ["schema:Boolean"],
                   "schema:image": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/master/color/svg/1F44D.svg?sanitize=true",
                   "schema:name": [
                     {
@@ -731,9 +714,7 @@
     },
     "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/activities/EmaHBNEvening/items/health.jsonld": {
       "@id": "/health",
-      "@type": [
-        "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"
-      ],
+      "@type": ["https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"],
       "_id": "screen/5cbf992186fafd5189aee259",
       "schema:description": [
         {
@@ -780,16 +761,12 @@
       ],
       "reprolib:terms/valueconstraints": [
         {
-          "@type": [
-            "http://www.w3.org/2001/XMLSchema#anyURI"
-          ],
+          "@type": ["http://www.w3.org/2001/XMLSchema#anyURI"],
           "schema:itemListElement": [
             {
               "@list": [
                 {
-                  "@type": [
-                    "schema:Boolean"
-                  ],
+                  "@type": ["schema:Boolean"],
                   "schema:image": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/master/color/svg/1F915.svg?sanitize=true",
                   "schema:name": [
                     {
@@ -804,9 +781,7 @@
                   ]
                 },
                 {
-                  "@type": [
-                    "schema:Boolean"
-                  ],
+                  "@type": ["schema:Boolean"],
                   "schema:image": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/master/color/svg/263A.svg?sanitize=true",
                   "schema:name": [
                     {
@@ -844,9 +819,7 @@
     },
     "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/activities/EmaHBNEvening/items/negative_event.jsonld": {
       "@id": "/sleeping_aids",
-      "@type": [
-        "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"
-      ],
+      "@type": ["https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"],
       "_id": "screen/5cbf992186fafd5189aee25a",
       "schema:description": [
         {
@@ -893,16 +866,12 @@
       ],
       "reprolib:terms/valueconstraints": [
         {
-          "@type": [
-            "http://www.w3.org/2001/XMLSchema#anyURI"
-          ],
+          "@type": ["http://www.w3.org/2001/XMLSchema#anyURI"],
           "schema:itemListElement": [
             {
               "@list": [
                 {
-                  "@type": [
-                    "schema:Boolean"
-                  ],
+                  "@type": ["schema:Boolean"],
                   "schema:name": [
                     {
                       "@language": "en",
@@ -916,9 +885,7 @@
                   ]
                 },
                 {
-                  "@type": [
-                    "schema:Boolean"
-                  ],
+                  "@type": ["schema:Boolean"],
                   "schema:name": [
                     {
                       "@language": "en",
@@ -955,9 +922,7 @@
     },
     "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/activities/EmaHBNEvening/items/sources_of_stress.jsonld": {
       "@id": "/sources_of_stress",
-      "@type": [
-        "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"
-      ],
+      "@type": ["https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"],
       "_id": "screen/5cbf991f86fafd5189aee255",
       "schema:description": [
         {
@@ -1004,16 +969,12 @@
       ],
       "reprolib:terms/valueconstraints": [
         {
-          "@type": [
-            "http://www.w3.org/2001/XMLSchema#anyURI"
-          ],
+          "@type": ["http://www.w3.org/2001/XMLSchema#anyURI"],
           "schema:itemListElement": [
             {
               "@list": [
                 {
-                  "@type": [
-                    "schema:option"
-                  ],
+                  "@type": ["schema:option"],
                   "schema:image": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/master/color/svg/1F915.svg?sanitize=true",
                   "schema:name": [
                     {
@@ -1028,9 +989,7 @@
                   ]
                 },
                 {
-                  "@type": [
-                    "schema:option"
-                  ],
+                  "@type": ["schema:option"],
                   "schema:image": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/master/color/svg/1F469-200D-1F3EB.svg?sanitize=true",
                   "schema:name": [
                     {
@@ -1045,9 +1004,7 @@
                   ]
                 },
                 {
-                  "@type": [
-                    "schema:option"
-                  ],
+                  "@type": ["schema:option"],
                   "schema:image": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/master/color/svg/1F4DD.svg?sanitize=true",
                   "schema:name": [
                     {
@@ -1062,9 +1019,7 @@
                   ]
                 },
                 {
-                  "@type": [
-                    "schema:option"
-                  ],
+                  "@type": ["schema:option"],
                   "schema:image": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/master/color/svg/1F47F.svg?sanitize=true",
                   "schema:name": [
                     {
@@ -1079,9 +1034,7 @@
                   ]
                 },
                 {
-                  "@type": [
-                    "schema:option"
-                  ],
+                  "@type": ["schema:option"],
                   "schema:image": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/master/color/svg/E246.svg?sanitize=true",
                   "schema:name": [
                     {
@@ -1096,9 +1049,7 @@
                   ]
                 },
                 {
-                  "@type": [
-                    "schema:option"
-                  ],
+                  "@type": ["schema:option"],
                   "schema:image": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/master/color/svg/2764.svg?sanitize=true",
                   "schema:name": [
                     {
@@ -1136,9 +1087,7 @@
     },
     "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/activities/EmaHBNEvening/items/stressful_day.jsonld": {
       "@id": "/stressful_day",
-      "@type": [
-        "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"
-      ],
+      "@type": ["https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"],
       "_id": "screen/5cbf991e86fafd5189aee254",
       "schema:description": [
         {
@@ -1185,16 +1134,12 @@
       ],
       "reprolib:terms/valueconstraints": [
         {
-          "@type": [
-            "http://www.w3.org/2001/XMLSchema#anyURI"
-          ],
+          "@type": ["http://www.w3.org/2001/XMLSchema#anyURI"],
           "schema:itemListElement": [
             {
               "@list": [
                 {
-                  "@type": [
-                    "schema:Boolean"
-                  ],
+                  "@type": ["schema:Boolean"],
                   "schema:image": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/master/color/svg/1F60A.svg?sanitize=true",
                   "schema:name": [
                     {
@@ -1209,9 +1154,7 @@
                   ]
                 },
                 {
-                  "@type": [
-                    "schema:Boolean"
-                  ],
+                  "@type": ["schema:Boolean"],
                   "schema:image": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/master/color/svg/1F630.svg?sanitize=true",
                   "schema:name": [
                     {
@@ -1249,9 +1192,7 @@
     },
     "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/activities/EmaHBNMorning/items/nightmares.jsonld": {
       "@id": "/nightmares",
-      "@type": [
-        "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"
-      ],
+      "@type": ["https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"],
       "_id": "screen/5cbf991e86fafd5189aee252",
       "schema:description": [
         {
@@ -1298,14 +1239,10 @@
       ],
       "reprolib:terms/responseOptions": [
         {
-          "@type": [
-            "http://www.w3.org/2001/XMLSchema#anyURI"
-          ],
+          "@type": ["http://www.w3.org/2001/XMLSchema#anyURI"],
           "schema:itemListElement": [
             {
-              "@type": [
-                "schema:Boolean"
-              ],
+              "@type": ["schema:Boolean"],
               "schema:image": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/master/color/svg/1F634.svg?sanitize=true",
               "schema:name": [
                 {
@@ -1320,9 +1257,7 @@
               ]
             },
             {
-              "@type": [
-                "schema:Boolean"
-              ],
+              "@type": ["schema:Boolean"],
               "schema:image": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/master/color/svg/1F62B.svg?sanitize=true",
               "schema:name": [
                 {
@@ -1358,9 +1293,7 @@
     },
     "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/activities/EmaHBNMorning/items/sleeping_aids.jsonld": {
       "@id": "/sleeping_aids",
-      "@type": [
-        "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"
-      ],
+      "@type": ["https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"],
       "_id": "screen/5cbf991e86fafd5189aee253",
       "schema:description": [
         {
@@ -1407,16 +1340,12 @@
       ],
       "reprolib:terms/valueconstraints": [
         {
-          "@type": [
-            "http://www.w3.org/2001/XMLSchema#anyURI"
-          ],
+          "@type": ["http://www.w3.org/2001/XMLSchema#anyURI"],
           "schema:itemListElement": [
             {
               "@list": [
                 {
-                  "@type": [
-                    "schema:Boolean"
-                  ],
+                  "@type": ["schema:Boolean"],
                   "schema:image": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/master/color/svg/1F6CF.svg?sanitize=true",
                   "schema:name": [
                     {
@@ -1431,9 +1360,7 @@
                   ]
                 },
                 {
-                  "@type": [
-                    "schema:Boolean"
-                  ],
+                  "@type": ["schema:Boolean"],
                   "schema:image": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/master/color/svg/1F48A.svg?sanitize=true",
                   "schema:name": [
                     {
@@ -1471,9 +1398,7 @@
     },
     "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/activities/EmaHBNMorning/items/time_in_bed.jsonld": {
       "@id": "/time_in_bed",
-      "@type": [
-        "https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"
-      ],
+      "@type": ["https://raw.githubusercontent.com/ReproNim/schema-standardization/master/schemas/Field.jsonld"],
       "_id": "screen/5cbf991d86fafd5189aee251",
       "schema:description": [
         {
@@ -1518,9 +1443,7 @@
           "@value": "timeRange"
         }
       ],
-      "reprolib:terms/valueconstraints": [
-        {}
-      ]
+      "reprolib:terms/valueconstraints": [{}]
     }
   }
 }

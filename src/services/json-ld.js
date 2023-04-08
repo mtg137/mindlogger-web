@@ -1,9 +1,7 @@
-import * as R from "ramda";
-import moment from 'moment';
-import _ from 'lodash';
 import { Parse, Day } from 'dayspan';
-import { getStartOfInterval } from '../util/time';
-
+import _ from 'lodash';
+import moment from 'moment';
+import * as R from 'ramda';
 import {
   ALLOW,
   ABOUT,
@@ -117,21 +115,18 @@ import {
   ALLOW_EXPORT,
   REPORT_CONFIGS,
 } from '../constants';
+import { getStartOfInterval } from '../util/time';
 
 export const languageListToObject = (list) => {
-  if (
-    typeof list === "undefined" ||
-    typeof list === "string" ||
-    list.length === 0
-  ) {
+  if (typeof list === 'undefined' || typeof list === 'string' || list.length === 0) {
     return undefined;
   }
   return list.reduce(
     (obj, item) => ({
       ...obj,
-      [item["@language"]]: item["@value"],
+      [item['@language']]: item['@value'],
     }),
-    {}
+    {},
   );
 };
 
@@ -139,39 +134,36 @@ export const listToObject = (list = []) =>
   list.reduce(
     (obj, item) => ({
       ...obj,
-      [item["@index"]]: item["@value"],
+      [item['@index']]: item['@value'],
     }),
-    {}
+    {},
   );
 
 export const listToVisObject = (list = []) =>
   list.reduce(
     (obj, item) => ({
       ...obj,
-      [item[VARIABLE_NAME][0]["@value"]]: item[IS_VIS] ? item[IS_VIS][0]["@value"] : true,
+      [item[VARIABLE_NAME][0]['@value']]: item[IS_VIS] ? item[IS_VIS][0]['@value'] : true,
     }),
-    {}
+    {},
   );
 
-export const listToValue = (list = []) =>
-  list.length > 0 ? list[0]["@value"] : undefined;
+export const listToValue = (list = []) => (list.length > 0 ? list[0]['@value'] : undefined);
 
-export const flattenIdList = (list = []) => list.map((item) => item["@id"]);
+export const flattenIdList = (list = []) => list.map((item) => item['@id']);
 
 export const flattenItemList = (list = []) =>
   list.map((item) => ({
     name: languageListToObject(item[NAME]),
-    value: R.path([VALUE, 0, "@value"], item),
-    color: R.path([COLOR, 0, "@value"], item),
-    price: R.path([PRICE, 0, "@value"], item),
-    score: R.path([SCORE, 0, "@value"], item),
-    alert: R.path([ALERT, 0, "@value"], item),
-    isVis: item[IS_VIS] ? R.path([IS_VIS, 0, "@value"], item) : undefined,
-    description: R.path([DESCRIPTION, 0, "@value"], item),
+    value: R.path([VALUE, 0, '@value'], item),
+    color: R.path([COLOR, 0, '@value'], item),
+    price: R.path([PRICE, 0, '@value'], item),
+    score: R.path([SCORE, 0, '@value'], item),
+    alert: R.path([ALERT, 0, '@value'], item),
+    isVis: item[IS_VIS] ? R.path([IS_VIS, 0, '@value'], item) : undefined,
+    description: R.path([DESCRIPTION, 0, '@value'], item),
     image: item[IMAGE],
-    valueConstraints: item[RESPONSE_OPTIONS]
-      ? flattenValueConstraints(R.path([RESPONSE_OPTIONS, 0], item))
-      : undefined,
+    valueConstraints: item[RESPONSE_OPTIONS] ? flattenValueConstraints(R.path([RESPONSE_OPTIONS, 0], item)) : undefined,
   }));
 
 export const flattenValueConstraints = (vcObj) =>
@@ -180,88 +172,87 @@ export const flattenValueConstraints = (vcObj) =>
       return { ...accumulator, valueType: R.path([key, 0], vcObj) };
     }
     if (key === MAX_VALUE) {
-      return { ...accumulator, maxValue: R.path([key, 0, "@value"], vcObj) };
+      return { ...accumulator, maxValue: R.path([key, 0, '@value'], vcObj) };
     }
     if (key === TIME_DURATION) {
-      return { ...accumulator, timeDuration: R.path([key, 0, "@value"], vcObj) };
+      return { ...accumulator, timeDuration: R.path([key, 0, '@value'], vcObj) };
     }
     if (key === MIN_VALUE) {
-      return { ...accumulator, minValue: R.path([key, 0, "@value"], vcObj) };
+      return { ...accumulator, minValue: R.path([key, 0, '@value'], vcObj) };
     }
     if (key === MIN_AGE) {
-      return { ...accumulator, minAge: Number(R.path([key, 0, "@value"], vcObj)) };
+      return { ...accumulator, minAge: Number(R.path([key, 0, '@value'], vcObj)) };
     }
     if (key === MAX_AGE) {
-      return { ...accumulator, maxAge: Number(R.path([key, 0, "@value"], vcObj)) };
+      return { ...accumulator, maxAge: Number(R.path([key, 0, '@value'], vcObj)) };
     }
     if (key === MULTIPLE_CHOICE) {
       return {
         ...accumulator,
-        multipleChoice: R.path([key, 0, "@value"], vcObj),
+        multipleChoice: R.path([key, 0, '@value'], vcObj),
       };
     }
 
     if (key === IS_RESPONSE_IDENTIFIER) {
       return {
         ...accumulator,
-        isResponseIdentifier: R.path([key, 0, "@value"], vcObj),
+        isResponseIdentifier: R.path([key, 0, '@value'], vcObj),
       };
     }
 
     if (key === IS_OPTIONAL_TEXT_REQUIRED) {
       return {
         ...accumulator,
-        isOptionalTextRequired: R.path([key, 0, "@value"], vcObj),
+        isOptionalTextRequired: R.path([key, 0, '@value'], vcObj),
       };
     }
     if (key === SCORING) {
       return {
         ...accumulator,
-        scoring: R.path([key, 0, "@value"], vcObj),
+        scoring: R.path([key, 0, '@value'], vcObj),
       };
     }
 
     if (key == MAX_LENGTH) {
       return {
         ...accumulator,
-        maxLength: R.path([key, 0, "@value"], vcObj),
-      }
+        maxLength: R.path([key, 0, '@value'], vcObj),
+      };
     }
 
     if (key === SHOW_TICK_MARKS) {
       return {
         ...accumulator,
-        showTickMarks: R.path([key, 0, "@value"], vcObj),
-      }
-
+        showTickMarks: R.path([key, 0, '@value'], vcObj),
+      };
     }
 
     if (key == SHOW_TICK_LABEL) {
       return {
         ...accumulator,
-        showTickLabel: R.path([key, 0, "@value"], vcObj),
-      }
+        showTickLabel: R.path([key, 0, '@value'], vcObj),
+      };
     }
 
     if (key == SHOW_TEXT_ANCHORS) {
       return {
         ...accumulator,
-        showTextAnchors: R.path([key, 0, "@value"], vcObj),
-      }
+        showTextAnchors: R.path([key, 0, '@value'], vcObj),
+      };
     }
 
     if (key == MIN_VALUE_IMAGE) {
       return {
         ...accumulator,
-        minValueImg: R.path([key, 0, "@value"], vcObj)
-      }
+        minValueImg: R.path([key, 0, '@value'], vcObj),
+      };
     }
 
     if (key == MAX_VALUE_IMAGE) {
       return {
         ...accumulator,
-        maxValueImg: R.path([key, 0, "@value"], vcObj)
-      }
+        maxValueImg: R.path([key, 0, '@value'], vcObj),
+      };
     }
 
     /*  if (key === IS_OPTIONAL_TEXT) {
@@ -274,58 +265,58 @@ export const flattenValueConstraints = (vcObj) =>
     if (key === RESPONSE_ALERT) {
       return {
         ...accumulator,
-        responseAlert: R.path([key, 0, "@value"], vcObj),
-      }
+        responseAlert: R.path([key, 0, '@value'], vcObj),
+      };
     }
 
     if (key === RANDOMIZE_OPTIONS) {
       return {
         ...accumulator,
-        randomizeOptions: R.path([key, 0, "@value"], vcObj)
-      }
+        randomizeOptions: R.path([key, 0, '@value'], vcObj),
+      };
     }
 
     if (key === COLOR_PALETTE) {
       return {
         ...accumulator,
-        colorPalette: R.path([key, 0, "@value"], vcObj)
-      }
+        colorPalette: R.path([key, 0, '@value'], vcObj),
+      };
     }
 
     if (key === CONTINOUS_SLIDER) {
       return {
         ...accumulator,
-        continuousSlider: R.path([key, 0, "@value"], vcObj),
-      }
+        continuousSlider: R.path([key, 0, '@value'], vcObj),
+      };
     }
     if (key === RESPONSE_ALERT_MESSAGE) {
       return {
         ...accumulator,
-        responseAlertMessage: R.path([key, 0, "@value"], vcObj),
-      }
+        responseAlertMessage: R.path([key, 0, '@value'], vcObj),
+      };
     }
     if (key === MIN_ALERT_VALUE) {
       return {
         ...accumulator,
-        minAlertValue: R.path([key, 0, "@value"], vcObj)
-      }
+        minAlertValue: R.path([key, 0, '@value'], vcObj),
+      };
     }
     if (key === MAX_ALERT_VALUE) {
       return {
         ...accumulator,
-        maxAlertValue: R.path([key, 0, "@value"], vcObj)
-      }
+        maxAlertValue: R.path([key, 0, '@value'], vcObj),
+      };
     }
     if (key === VALUE_TYPE) {
       return {
         ...accumulator,
-        valueType: R.path([key, 0, "@id"], vcObj),
+        valueType: R.path([key, 0, '@id'], vcObj),
       };
     }
     if (key === ENABLE_NEGATIVE_TOKENS) {
       return {
         ...accumulator,
-        enableNegativeTokens: R.path([key, 0, "@value"], vcObj),
+        enableNegativeTokens: R.path([key, 0, '@value'], vcObj),
       };
     }
     if (key === ITEM_LIST_ELEMENT) {
@@ -335,60 +326,64 @@ export const flattenValueConstraints = (vcObj) =>
     if (key === ITEM_LIST) {
       const itemList = R.path([key], vcObj);
       return {
-        ...accumulator, itemList: itemList.map(item => ({
-          description: R.path([DESCRIPTION, 0, "@value"], item),
+        ...accumulator,
+        itemList: itemList.map((item) => ({
+          description: R.path([DESCRIPTION, 0, '@value'], item),
           image: item[IMAGE],
-          name: languageListToObject(item[NAME])
-        }))
+          name: languageListToObject(item[NAME]),
+        })),
       };
     }
 
     if (key === ITEM_OPTIONS) {
       const itemOptions = R.path([key], vcObj);
       return {
-        ...accumulator, itemOptions: itemOptions.map(option => ({
-          score: R.path([SCORE, 0, "@value"], option),
-          value: R.path([VALUE, 0, "@value"], option),
-          alert: R.path([ALERT, 0, "@value"], option)
-        }))
+        ...accumulator,
+        itemOptions: itemOptions.map((option) => ({
+          score: R.path([SCORE, 0, '@value'], option),
+          value: R.path([VALUE, 0, '@value'], option),
+          alert: R.path([ALERT, 0, '@value'], option),
+        })),
       };
     }
 
     if (key === OPTIONS) {
       const options = R.path([key], vcObj);
       return {
-        ...accumulator, options: options.map(option => ({
-          description: R.path([DESCRIPTION, 0, "@value"], option),
+        ...accumulator,
+        options: options.map((option) => ({
+          description: R.path([DESCRIPTION, 0, '@value'], option),
           image: option[IMAGE],
-          name: languageListToObject(option[NAME])
-        }))
-      }
+          name: languageListToObject(option[NAME]),
+        })),
+      };
     }
 
     if (key === SLIDER_OPTIONS) {
       const sliderOptions = R.path([SLIDER_OPTIONS], vcObj);
 
       return {
-        ...accumulator, sliderOptions: sliderOptions.map(option => ({
-          minValue: R.path([MIN_VALUE, 0, "@value"], option),
-          maxValue: R.path([MAX_VALUE, 0, "@value"], option),
-          minValueImg: R.path([MIN_VALUE_IMAGE, 0, "@value"], option),
-          maxValueImg: R.path([MAX_VALUE_IMAGE, 0, "@value"], option),
-          sliderLabel: R.path([SLIDER_LABEL, 0, "@value"], option),
-          itemList: flattenItemList(R.path([ITEM_LIST_ELEMENT], option))
-        }))
-      }
+        ...accumulator,
+        sliderOptions: sliderOptions.map((option) => ({
+          minValue: R.path([MIN_VALUE, 0, '@value'], option),
+          maxValue: R.path([MAX_VALUE, 0, '@value'], option),
+          minValueImg: R.path([MIN_VALUE_IMAGE, 0, '@value'], option),
+          maxValueImg: R.path([MAX_VALUE_IMAGE, 0, '@value'], option),
+          sliderLabel: R.path([SLIDER_LABEL, 0, '@value'], option),
+          itemList: flattenItemList(R.path([ITEM_LIST_ELEMENT], option)),
+        })),
+      };
     }
 
     if (key === REMOVE_BACK_OPTION) {
       return {
         ...accumulator,
-        removeBackOption: R.path([key, 0, "@value"], vcObj)
-      }
+        removeBackOption: R.path([key, 0, '@value'], vcObj),
+      };
     }
 
     if (key === REQUIRED_VALUE) {
-      return { ...accumulator, required: R.path([key, 0, "@value"], vcObj) };
+      return { ...accumulator, required: R.path([key, 0, '@value'], vcObj) };
     }
     if (key === IMAGE) {
       return { ...accumulator, image: vcObj[key] };
@@ -398,28 +393,28 @@ export const flattenValueConstraints = (vcObj) =>
 
 export const transformInputs = (inputs) =>
   inputs.reduce((accumulator, inputObj) => {
-    const key = R.path([NAME, 0, "@value"], inputObj);
-    const type = R.path(["@type", 0], inputObj);
+    const key = R.path([NAME, 0, '@value'], inputObj);
+    const type = R.path(['@type', 0], inputObj);
 
-    let val = (R.path([VALUE], inputObj) || []).map(d => d["@value"]);
+    let val = (R.path([VALUE], inputObj) || []).map((d) => d['@value']);
 
     if (type !== 'http://schema.org/List') {
       val = val[0];
     }
 
-    if (typeof val === "undefined" && inputObj[ITEM_LIST_ELEMENT]) {
+    if (typeof val === 'undefined' && inputObj[ITEM_LIST_ELEMENT]) {
       const itemList = R.path([ITEM_LIST_ELEMENT], inputObj);
       val = flattenItemList(itemList);
     }
 
-    if ((inputObj["@type"] || []).includes(AUDIO_OBJECT)) {
+    if ((inputObj['@type'] || []).includes(AUDIO_OBJECT)) {
       val = {
         contentUrl: languageListToObject(inputObj[CONTENT_URL]),
         transcript: languageListToObject(inputObj[TRANSCRIPT]),
       };
     }
 
-    if ((inputObj["@type"] || []).includes(IMAGE_OBJECT)) {
+    if ((inputObj['@type'] || []).includes(IMAGE_OBJECT)) {
       val = {
         contentUrl: languageListToObject(inputObj[CONTENT_URL]),
       };
@@ -433,8 +428,8 @@ export const transformInputs = (inputs) =>
 
 export const transformVariableMap = (variableAr) =>
   variableAr.reduce((accumulator, item) => {
-    const val = R.path([VARIABLE_NAME, 0, "@value"], item);
-    const key = R.path([IS_ABOUT, 0, "@id"], item);
+    const val = R.path([VARIABLE_NAME, 0, '@value'], item);
+    const key = R.path([IS_ABOUT, 0, '@id'], item);
     return {
       ...accumulator,
       [key]: val,
@@ -448,27 +443,31 @@ export const flattenLookupTable = (lookupTable, isFinalSubScale) => {
 
   let references = {
     [RAW_SCORE]: 'rawScore',
-    [OUTPUT_TEXT]: 'outputText'
+    [OUTPUT_TEXT]: 'outputText',
   };
 
   if (!isFinalSubScale) {
     Object.assign(references, {
       [AGE]: 'age',
       [SEX]: 'sex',
-      [T_SCORE]: 'tScore'
+      [T_SCORE]: 'tScore',
     });
   }
 
-  return R.map(row => Object.keys(references).reduce((previousValue, key) => {
-    return {
-      ...previousValue,
-      [references[key]]: R.path([key, 0, "@value"], row)
-    }
-  }, {}), lookupTable)
-}
+  return R.map(
+    (row) =>
+      Object.keys(references).reduce((previousValue, key) => {
+        return {
+          ...previousValue,
+          [references[key]]: R.path([key, 0, '@value'], row),
+        };
+      }, {}),
+    lookupTable,
+  );
+};
 
 export const transformMedia = (mediaObj) => {
-  if (typeof mediaObj === "undefined") {
+  if (typeof mediaObj === 'undefined') {
     return undefined;
   }
 
@@ -476,10 +475,10 @@ export const transformMedia = (mediaObj) => {
   return keys.map((key) => {
     const media = mediaObj[key];
     return {
-      contentUrl: R.path([0, CONTENT_URL, 0, "@value"], media),
-      transcript: R.path([0, TRANSCRIPT, 0, "@value"], media),
-      encodingType: R.path([0, ENCODING_FORMAT, 0, "@value"], media),
-      name: R.path([0, NAME, 0, "@value"], media),
+      contentUrl: R.path([0, CONTENT_URL, 0, '@value'], media),
+      transcript: R.path([0, TRANSCRIPT, 0, '@value'], media),
+      encodingType: R.path([0, ENCODING_FORMAT, 0, '@value'], media),
+      name: R.path([0, NAME, 0, '@value'], media),
     };
   });
 };
@@ -494,115 +493,124 @@ export const isSkippable = (allowList) => {
   return false;
 };
 
-export const itemAttachExtras = (
-  transformedItem,
-  schemaUri,
-  addProperties = [],
-) => {
-  const config = addProperties.find(
-    config => R.path([0, "@value"], config[VARIABLE_NAME]) == transformedItem.variableName
-  ) || {};
+export const itemAttachExtras = (transformedItem, schemaUri, addProperties = []) => {
+  const config =
+    addProperties.find((config) => R.path([0, '@value'], config[VARIABLE_NAME]) == transformedItem.variableName) || {};
 
   return {
     ...transformedItem,
     schema: schemaUri,
-    variableName: R.path([0, "@value"], config[VARIABLE_NAME]),
-    visibility: R.path([0, "@value"], config[IS_VIS]),
-  }
+    variableName: R.path([0, '@value'], config[VARIABLE_NAME]),
+    visibility: R.path([0, '@value'], config[IS_VIS]),
+  };
 };
 
 const SHORT_PREAMBLE_LENGTH = 90;
 
 export const attachPreamble = (preamble, items) => {
-  const text = preamble ? preamble.en : "";
+  const text = preamble ? preamble.en : '';
   if (text && text.length > SHORT_PREAMBLE_LENGTH) {
     return R.prepend(
       {
-        inputType: "markdownMessage",
+        inputType: 'markdownMessage',
         preamble,
       },
-      items
+      items,
     );
   }
   if (text && items.length > 0) {
-    return R.assocPath([0, "preamble"], preamble, items);
+    return R.assocPath([0, 'preamble'], preamble, items);
   }
   return items;
 };
 
 const transformPureActivity = (activityJson) => {
-  const allowList = flattenIdList(
-    R.pathOr([], [ALLOW, 0, "@list"], activityJson)
-  );
+  const allowList = flattenIdList(R.pathOr([], [ALLOW, 0, '@list'], activityJson));
   const scoringLogic = activityJson[SCORING_LOGIC]; // TO DO
   const addProperties = activityJson[ADD_PROPERTIES];
   const preamble = languageListToObject(activityJson[PREAMBLE]);
-  const order = (activityJson[ORDER] && flattenIdList(activityJson[ORDER][0]["@list"])) || [];
+  const order = (activityJson[ORDER] && flattenIdList(activityJson[ORDER][0]['@list'])) || [];
   const notification = {}; // TO DO
   const info = languageListToObject(activityJson.info); // TO DO
-  const isVis = activityJson[IS_VIS] ? R.path([IS_VIS, 0, "@value"], activityJson) : undefined;
-  const compute = activityJson[COMPUTE] && R.map((item) => {
-    return {
-      jsExpression: R.path([JS_EXPRESSION, 0, "@value"], item),
-      variableName: R.path([VARIABLE_NAME, 0, "@value"], item),
-      description: _.get(item, [DESCRIPTION, 0, "@value"]),
-      direction: _.get(item, [DIRECTION, 0, "@value"], true),
-    }
-  }, activityJson[COMPUTE]) || [];
-  const subScales = activityJson[SUBSCALES] && R.map((subScale) => {
-    const jsExpression = R.path([JS_EXPRESSION, 0, "@value"], subScale);
+  const isVis = activityJson[IS_VIS] ? R.path([IS_VIS, 0, '@value'], activityJson) : undefined;
+  const compute =
+    (activityJson[COMPUTE] &&
+      R.map((item) => {
+        return {
+          jsExpression: R.path([JS_EXPRESSION, 0, '@value'], item),
+          variableName: R.path([VARIABLE_NAME, 0, '@value'], item),
+          description: _.get(item, [DESCRIPTION, 0, '@value']),
+          direction: _.get(item, [DIRECTION, 0, '@value'], true),
+        };
+      }, activityJson[COMPUTE])) ||
+    [];
+  const subScales =
+    activityJson[SUBSCALES] &&
+    R.map((subScale) => {
+      const jsExpression = R.path([JS_EXPRESSION, 0, '@value'], subScale);
 
-    return {
-      isAverageScore: R.path([IS_AVERAGE_SCORE, 0, "@value"], subScale),
-      jsExpression,
-      variableName: R.path([VARIABLE_NAME, 0, "@value"], subScale),
-      lookupTable: flattenLookupTable(subScale[LOOKUP_TABLE], false),
-      innerSubScales: jsExpression.split('+').filter(name => name.includes('(')).map(name => name.trim().replace(/[()]/g, ''))
-    }
-  }, activityJson[SUBSCALES])
+      return {
+        isAverageScore: R.path([IS_AVERAGE_SCORE, 0, '@value'], subScale),
+        jsExpression,
+        variableName: R.path([VARIABLE_NAME, 0, '@value'], subScale),
+        lookupTable: flattenLookupTable(subScale[LOOKUP_TABLE], false),
+        innerSubScales: jsExpression
+          .split('+')
+          .filter((name) => name.includes('('))
+          .map((name) => name.trim().replace(/[()]/g, '')),
+      };
+    }, activityJson[SUBSCALES]);
 
   const finalSubScale = activityJson[FINAL_SUBSCALE] && {
-    isAverageScore: R.path([FINAL_SUBSCALE, 0, IS_AVERAGE_SCORE, 0, "@value"], activityJson),
-    variableName: R.path([FINAL_SUBSCALE, 0, VARIABLE_NAME, 0, "@value"], activityJson),
+    isAverageScore: R.path([FINAL_SUBSCALE, 0, IS_AVERAGE_SCORE, 0, '@value'], activityJson),
+    variableName: R.path([FINAL_SUBSCALE, 0, VARIABLE_NAME, 0, '@value'], activityJson),
     lookupTable: flattenLookupTable(R.path([FINAL_SUBSCALE, 0, LOOKUP_TABLE], activityJson), true),
-  }
+  };
 
-  const messages = activityJson[MESSAGES] && R.map((item) => {
-    return {
-      message: R.path([MESSAGE, 0, "@value"], item),
-      jsExpression: R.path([JS_EXPRESSION, 0, "@value"], item),
-      outputType: R.path([OUTPUT_TYPE, 0, "@value"], item),
-      nextActivity: R.path([NEXT_ACTIVITY, 0, "@value"], item),
-      hideActivity: R.path([HIDE_ACTIVITY, 0, "@value"], item),
-      isRecommended: R.path([IS_RECOMMENDED, 0, "@value"], item),
-    }
-  }, activityJson[MESSAGES]) || [];
+  const messages =
+    (activityJson[MESSAGES] &&
+      R.map((item) => {
+        return {
+          message: R.path([MESSAGE, 0, '@value'], item),
+          jsExpression: R.path([JS_EXPRESSION, 0, '@value'], item),
+          outputType: R.path([OUTPUT_TYPE, 0, '@value'], item),
+          nextActivity: R.path([NEXT_ACTIVITY, 0, '@value'], item),
+          hideActivity: R.path([HIDE_ACTIVITY, 0, '@value'], item),
+          isRecommended: R.path([IS_RECOMMENDED, 0, '@value'], item),
+        };
+      }, activityJson[MESSAGES])) ||
+    [];
 
-  const reports = activityJson[REPORTS] && R.map((item) => {
-    item = item['@list'];
-    return R.map((itemJson) => {
-      return {
-        variableName: itemJson['@id'],
-        label: R.path([PREF_LABEL, 0, "@value"], itemJson),
-        message: R.path([MESSAGE, 0, "@value"], itemJson),
-        conditionals: R.map((cond) => {
-          cond = cond['@list'];
-          return R.map((condJson) => ({
-            variableName: condJson['@id'],
-            label: R.path([PREF_LABEL, 0, "@value"], condJson),
-            message: R.path([MESSAGE, 0, "@value"], condJson),
-            jsExpression: R.path([IS_VIS, 0, "@value"], condJson),
-            flagScore: R.path([FLAG_SCORE, 0, "@value"], condJson),
-            printItems: R.map(pItem => pItem['@value'], R.path([PRINT_ITEMS, 0, "@list"], condJson) || []),
-          }), cond)
-        }, itemJson[CONDITIONALS] || []),
-        jsExpression: R.path([IS_VIS, 0, "@value"], itemJson) || R.path([JS_EXPRESSION, 0, "@value"], itemJson),
-        outputType: R.path([OUTPUT_TYPE, 0, "@value"], itemJson),
-        printItems: R.map(pItem => pItem['@value'], R.path([PRINT_ITEMS, 0, "@list"], itemJson) || []),
-      }
-    }, item)
-
-  }, activityJson[REPORTS]) || [];
+  const reports =
+    (activityJson[REPORTS] &&
+      R.map((item) => {
+        item = item['@list'];
+        return R.map((itemJson) => {
+          return {
+            variableName: itemJson['@id'],
+            label: R.path([PREF_LABEL, 0, '@value'], itemJson),
+            message: R.path([MESSAGE, 0, '@value'], itemJson),
+            conditionals: R.map((cond) => {
+              cond = cond['@list'];
+              return R.map(
+                (condJson) => ({
+                  variableName: condJson['@id'],
+                  label: R.path([PREF_LABEL, 0, '@value'], condJson),
+                  message: R.path([MESSAGE, 0, '@value'], condJson),
+                  jsExpression: R.path([IS_VIS, 0, '@value'], condJson),
+                  flagScore: R.path([FLAG_SCORE, 0, '@value'], condJson),
+                  printItems: R.map((pItem) => pItem['@value'], R.path([PRINT_ITEMS, 0, '@list'], condJson) || []),
+                }),
+                cond,
+              );
+            }, itemJson[CONDITIONALS] || []),
+            jsExpression: R.path([IS_VIS, 0, '@value'], itemJson) || R.path([JS_EXPRESSION, 0, '@value'], itemJson),
+            outputType: R.path([OUTPUT_TYPE, 0, '@value'], itemJson),
+            printItems: R.map((pItem) => pItem['@value'], R.path([PRINT_ITEMS, 0, '@list'], itemJson) || []),
+          };
+        }, item);
+      }, activityJson[REPORTS])) ||
+    [];
 
   return {
     id: activityJson._id,
@@ -612,7 +620,7 @@ const transformPureActivity = (activityJson) => {
     version: languageListToObject(activityJson[VERSION]),
     splash: languageListToObject(activityJson[SPLASH]),
     altLabel: languageListToObject(activityJson[ALT_LABEL]),
-    shuffle: R.path([SHUFFLE, 0, "@value"], activityJson),
+    shuffle: R.path([SHUFFLE, 0, '@value'], activityJson),
     image: activityJson[IMAGE],
     skippable: isSkippable(allowList),
     backDisabled: allowList.includes(BACK_DISABLED),
@@ -620,13 +628,13 @@ const transformPureActivity = (activityJson) => {
     fullScreen: allowList.includes(FULL_SCREEN),
     autoAdvance: allowList.includes(AUTO_ADVANCE),
     allowExport: allowList.includes(ALLOW_EXPORT),
-    isPrize: R.path([ISPRIZE, 0, "@value"], activityJson) || false,
-    isOnePageAssessment: R.path([IS_ONE_PAGE_ASSESSMENT, 0, "@value"], activityJson) || false,
+    isPrize: R.path([ISPRIZE, 0, '@value'], activityJson) || false,
+    isOnePageAssessment: R.path([IS_ONE_PAGE_ASSESSMENT, 0, '@value'], activityJson) || false,
     isReviewerActivity: R.path([IS_REVIEWER_ACTIVITY, 0, '@value'], activityJson) || false,
-    hasResponseIdentifier: R.path([HAS_RESPONSE_IDENTIFIER, 0, "@value"], activityJson) || false,
+    hasResponseIdentifier: R.path([HAS_RESPONSE_IDENTIFIER, 0, '@value'], activityJson) || false,
     isVis,
     compute,
-    scoreOverview: _.get(activityJson, [SCORE_OVERVIEW, 0, "@value"], ""),
+    scoreOverview: _.get(activityJson, [SCORE_OVERVIEW, 0, '@value'], ''),
     subScales,
     finalSubScale,
     messages,
@@ -642,14 +650,14 @@ const transformPureActivity = (activityJson) => {
 
 export const itemTransformJson = (itemJson) => {
   // For items, 'skippable' is undefined if there's no ALLOW prop
-  const allowList = flattenIdList(R.path([ALLOW, 0, "@list"], itemJson)) || [];
+  const allowList = flattenIdList(R.path([ALLOW, 0, '@list'], itemJson)) || [];
   const skippable = isSkippable(allowList) ? true : undefined;
 
   const valueConstraintsObj = R.pathOr({}, [RESPONSE_OPTIONS, 0], itemJson);
   const valueConstraints = flattenValueConstraints(valueConstraintsObj);
-  const isVis = itemJson[IS_VIS] ? R.path([IS_VIS, 0, "@value"], itemJson) : undefined;
-  const header = itemJson[HEADER] ? R.path([HEADER, 0, "@value"], itemJson) : "";
-  const section = itemJson[SECTION] ? R.path([SECTION, 0, "@value"], itemJson) : "";
+  const isVis = itemJson[IS_VIS] ? R.path([IS_VIS, 0, '@value'], itemJson) : undefined;
+  const header = itemJson[HEADER] ? R.path([HEADER, 0, '@value'], itemJson) : '';
+  const section = itemJson[SECTION] ? R.path([SECTION, 0, '@value'], itemJson) : '';
   const inputs = R.pathOr([], [INPUTS], itemJson);
   const inputsObj = transformInputs(inputs);
 
@@ -667,8 +675,8 @@ export const itemTransformJson = (itemJson) => {
     isOptionalText: listToValue(itemJson[IS_OPTIONAL_TEXT]),
     question: languageListToObject(itemJson[QUESTION]),
     preamble: languageListToObject(itemJson[PREAMBLE]),
-    timer: R.path([TIMER, 0, "@value"], itemJson),
-    delay: R.path([DELAY, 0, "@value"], itemJson),
+    timer: R.path([TIMER, 0, '@value'], itemJson),
+    delay: R.path([DELAY, 0, '@value'], itemJson),
     isVis,
     section,
     header,
@@ -679,7 +687,7 @@ export const itemTransformJson = (itemJson) => {
     autoAdvance: allowList.includes(AUTO_ADVANCE),
     inputs: inputsObj,
     media,
-    variableName: itemJson['@id']
+    variableName: itemJson['@id'],
   };
 
   if (res.inputType === 'markdown-message') {
@@ -698,19 +706,19 @@ export const appletTransformJson = (appletJson) => {
     description: languageListToObject(applet[DESCRIPTION]),
     about: languageListToObject(applet[ABOUT]),
     aboutContent: languageListToObject(applet[ABOUT_CONTENT]),
-    aboutType: R.path([0, "@value"], applet[ABOUT_TYPE]) || 'markdown',
+    aboutType: R.path([0, '@value'], applet[ABOUT_TYPE]) || 'markdown',
     schemaVersion: languageListToObject(applet[SCHEMA_VERSION]),
     version: languageListToObject(applet[VERSION]),
     altLabel: languageListToObject(applet[ALT_LABEL]),
     visibility: listToVisObject(applet[ADD_PROPERTIES]),
     image: applet[IMAGE],
-    watermark: R.path([WATERMARK, 0, "@id"], applet),
-    order: flattenIdList(applet[ORDER][0]["@list"]),
+    watermark: R.path([WATERMARK, 0, '@id'], applet),
+    order: flattenIdList(applet[ORDER][0]['@list']),
     schedule,
     contentUpdateTime: updated,
     responseDates: applet.responseDates,
-    shuffle: R.path([SHUFFLE, 0, "@value"], applet),
-    combineReports: R.path([COMBINE_REPORTS, 0, "@value"], applet) || false,
+    shuffle: R.path([SHUFFLE, 0, '@value'], applet),
+    combineReports: R.path([COMBINE_REPORTS, 0, '@value'], applet) || false,
     reportConfigs: transformInputs(R.path([REPORT_CONFIGS, 0, '@list'], applet) || []),
   };
   if (applet.encryption && Object.keys(applet.encryption).length) {
@@ -721,7 +729,8 @@ export const appletTransformJson = (appletJson) => {
 
 export const activityTransformJson = (activityJson, itemsJson) => {
   const activity = transformPureActivity(activityJson);
-  let itemIndex = -1, itemData;
+  let itemIndex = -1,
+    itemData;
   let isHeaderAdded = false;
 
   const mapItems = R.map((itemKey) => {
@@ -729,9 +738,7 @@ export const activityTransformJson = (activityJson, itemsJson) => {
     itemData = itemsJson[itemKey];
 
     if (!itemData) {
-      console.warn(
-        `Item ID "${itemKey}" defined in 'reprolib:terms/order' was not found`
-      );
+      console.warn(`Item ID "${itemKey}" defined in 'reprolib:terms/order' was not found`);
       return null;
     }
     const item = itemTransformJson(itemsJson[itemKey]);
@@ -739,18 +746,18 @@ export const activityTransformJson = (activityJson, itemsJson) => {
     if (item.header || item.section) isHeaderAdded = true;
     return itemAttachExtras(item, itemKey, activity.addProperties);
   });
-  const nonEmptyItems = R.filter(item => item, mapItems(activity.order));
+  const nonEmptyItems = R.filter((item) => item, mapItems(activity.order));
   const items = attachPreamble(activity.preamble, nonEmptyItems);
   let { addProperties } = activity;
 
   if (isHeaderAdded) {
-    addProperties = addProperties.map(property => {
-      const isVis = property[IS_VIS][0]["@value"] = true;
+    addProperties = addProperties.map((property) => {
+      const isVis = (property[IS_VIS][0]['@value'] = true);
       return {
         ...property,
-        IS_VIS: isVis
+        IS_VIS: isVis,
       };
-    })
+    });
   }
 
   return {
@@ -760,20 +767,22 @@ export const activityTransformJson = (activityJson, itemsJson) => {
   };
 };
 
-const orderBySchema = (order, getSchema = null) => (a, b) => {
-  const indexA = order.indexOf(getSchema ? getSchema(a) : a.schema);
-  const indexB = order.indexOf(getSchema ? getSchema(b) : b.schema);
+const orderBySchema =
+  (order, getSchema = null) =>
+  (a, b) => {
+    const indexA = order.indexOf(getSchema ? getSchema(a) : a.schema);
+    const indexB = order.indexOf(getSchema ? getSchema(b) : b.schema);
 
-  if (indexA < indexB) {
-    return -1;
-  }
+    if (indexA < indexB) {
+      return -1;
+    }
 
-  if (indexA > indexB) {
-    return 1;
-  }
+    if (indexA > indexB) {
+      return 1;
+    }
 
-  return 0;
-}
+    return 0;
+  };
 
 export const transformApplet = (payload, currentApplets = null) => {
   const applet = appletTransformJson(payload);
@@ -783,10 +792,7 @@ export const transformApplet = (payload, currentApplets = null) => {
 
     if (!currentApplet) {
       const activities = Object.keys(payload.activities).map((key) => {
-        const activity = activityTransformJson(
-          payload.activities[key],
-          payload.items,
-        );
+        const activity = activityTransformJson(payload.activities[key], payload.items);
         activity.schema = key;
         return activity;
       });
@@ -798,21 +804,25 @@ export const transformApplet = (payload, currentApplets = null) => {
         if (R.isEmpty(payload.items)) {
           applet.activities = [...currentApplet.activities];
         } else {
-          Object.keys(payload.items).forEach(dataKey => {
+          Object.keys(payload.items).forEach((dataKey) => {
             const keys = dataKey.split('/');
             applet.activities.forEach((act, index) => {
               if (act.id.substring(9) === keys[0]) {
                 act.items.forEach((itemData, i) => {
                   if (itemData.id === payload.items[dataKey]) {
-                    const item = itemAttachExtras(itemTransformJson(payload.items[dataKey]), dataKey, applet.activities[index].addProperties);
+                    const item = itemAttachExtras(
+                      itemTransformJson(payload.items[dataKey]),
+                      dataKey,
+                      applet.activities[index].addProperties,
+                    );
                     item.variableName = payload.items[dataKey]['@id'];
 
                     applet.activities[index].items[i] = {
                       ...itemData,
                       ...item,
-                    }
+                    };
                   }
-                })
+                });
               }
             });
           });
@@ -828,7 +838,7 @@ export const transformApplet = (payload, currentApplets = null) => {
               updated = true;
               applet.activities[index] = {
                 ...activity,
-                items: act.items.map(item => itemAttachExtras(item, item.schema, activity.addProperties))
+                items: act.items.map((item) => itemAttachExtras(item, item.schema, activity.addProperties)),
               };
             }
           });
@@ -837,12 +847,16 @@ export const transformApplet = (payload, currentApplets = null) => {
           }
         });
         if (!R.isEmpty(payload.items)) {
-          Object.keys(payload.items).forEach(dataKey => {
+          Object.keys(payload.items).forEach((dataKey) => {
             const keys = dataKey.split('/');
 
             applet.activities.forEach((act, index) => {
               if (act.id.substring(9) === keys[0]) {
-                const item = itemAttachExtras(itemTransformJson(payload.items[dataKey]), dataKey, applet.activities[index].addProperties);
+                const item = itemAttachExtras(
+                  itemTransformJson(payload.items[dataKey]),
+                  dataKey,
+                  applet.activities[index].addProperties,
+                );
                 item.variableName = payload.items[dataKey]['@id'];
 
                 let updated = false;
@@ -857,7 +871,7 @@ export const transformApplet = (payload, currentApplets = null) => {
                     applet.activities[index].items[i] = {
                       ...itemData,
                       ...item,
-                    }
+                    };
                   }
                 });
                 if (!updated) {
@@ -874,9 +888,9 @@ export const transformApplet = (payload, currentApplets = null) => {
         applet.schedule = payload.schedule;
 
         if (!R.isEmpty(payload.schedule.events)) {
-          Object.keys(payload.schedule.events).forEach(eventId => {
+          Object.keys(payload.schedule.events).forEach((eventId) => {
             events[eventId] = payload.schedule.events[eventId];
-          })
+          });
         }
 
         if (currentApplet.schedule) {
@@ -898,7 +912,7 @@ export const transformApplet = (payload, currentApplets = null) => {
     }
 
     if (payload.removedItems && payload.removedItems.length) {
-      payload.removedItems.forEach(itemKey => {
+      payload.removedItems.forEach((itemKey) => {
         const keys = itemKey.split('/');
 
         applet.activities.forEach((activity, index) => {
@@ -907,27 +921,24 @@ export const transformApplet = (payload, currentApplets = null) => {
               if (item.id.substring(7) === keys[1]) {
                 applet.activities[index].items.splice(i, 1);
               }
-            })
+            });
           }
-        })
-      })
+        });
+      });
     }
 
     if (payload.removedActivities && payload.removedActivities.length) {
-      payload.removedActivities.forEach(activityKey => {
+      payload.removedActivities.forEach((activityKey) => {
         applet.activities.forEach((activity, index) => {
           if (activity.id.substring(9) === activityKey) {
             applet.activities.splice(index, 1);
           }
-        })
-      })
+        });
+      });
     }
   } else {
     const activities = Object.keys(payload.activities).map((key) => {
-      const activity = activityTransformJson(
-        payload.activities[key],
-        payload.items,
-      );
+      const activity = activityTransformJson(payload.activities[key], payload.items);
       activity.schema = key;
       return activity;
     });
@@ -942,11 +953,13 @@ export const transformApplet = (payload, currentApplets = null) => {
 
     applet.activities[i] = {
       ...activity,
-      items
-    }
+      items,
+    };
   }
 
-  applet.activities = [...applet.activities].sort(orderBySchema(applet.order, (activity) => activity.id.split('/').pop()));
+  applet.activities = [...applet.activities].sort(
+    orderBySchema(applet.order, (activity) => activity.id.split('/').pop()),
+  );
 
   applet.groupId = payload.groups;
   return applet;
@@ -955,16 +968,17 @@ export const transformApplet = (payload, currentApplets = null) => {
 const getActivityAbility = (schedule, activityId) => {
   let availability = false;
 
-  schedule && Object.keys(schedule.events).forEach(key => {
-    const e = schedule.events[key];
+  schedule &&
+    Object.keys(schedule.events).forEach((key) => {
+      const e = schedule.events[key];
 
-    if (e.data.activity_id === activityId.substring(9)) {
-      availability = e.data.availability;
-    }
-  });
+      if (e.data.activity_id === activityId.substring(9)) {
+        availability = e.data.availability;
+      }
+    });
 
   return availability;
-}
+};
 
 export const parseAppletEvents = (applet) => {
   const extraInfoActivities = applet.activities.map((act) => {
@@ -975,13 +989,7 @@ export const parseAppletEvents = (applet) => {
       for (let eventId in applet.schedule.events) {
         const event = { ...applet.schedule.events[eventId] };
         if (event.data.activity_id === act.id.substring(9) && !act.hasResponseIdentifier) {
-          const futureSchedule = Parse.schedule(event.schedule).forecast(
-            Day.fromDate(new Date()),
-            true,
-            1,
-            0,
-            true,
-          );
+          const futureSchedule = Parse.schedule(event.schedule).forecast(Day.fromDate(new Date()), true, 1, 0, true);
 
           if (futureSchedule.array().length) {
             event.scheduledTime = getStartOfInterval(futureSchedule.array()[0]).getTime();
@@ -996,12 +1004,12 @@ export const parseAppletEvents = (applet) => {
       ...act,
       appletId: applet.id,
       availability,
-      events
-    }
+      events,
+    };
   });
 
   return {
     ...applet,
     activities: extraInfoActivities,
   };
-}
+};

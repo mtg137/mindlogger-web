@@ -1,4 +1,4 @@
-.btn-get-start{
+.btn-get-start {
   background-color: #ff0045;
   border: 1px solid #ff0045;
   cursor: pointer;
@@ -30,11 +30,11 @@
   height: 20em;
   display: flex;
   align-items: center;
-  justify-content: center
+  justify-content: center;
 }
 
 .notfound h3 {
-  margin: 0
+  margin: 0;
 }
 
 .applet-list {

@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useLocation, useHistory } from 'react-router-dom';
-
-import { useTranslation } from "react-i18next";
-
 import { Statuses } from '../../constants';
-import { InviteLink } from './InviteLink';
-import { SignIn } from '../Signin/SignIn';
-import { loggedInSelector } from '../../state/user/user.selectors';
 import { acceptInviteLink, getInviteLinkInfo } from '../../state/app/app.actions';
+import { loggedInSelector } from '../../state/user/user.selectors';
+import { SignIn } from '../Signin/SignIn';
+import { InviteLink } from './InviteLink';
 
 export const Join = () => {
   const { t } = useTranslation();
@@ -22,7 +20,7 @@ export const Join = () => {
   const [inviteLink, setInviteLink] = useState('');
 
   const isLoggedIn = useSelector(loggedInSelector);
-  const { info } = useSelector(state => state.user);
+  const { info } = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
   const location = useLocation();
@@ -31,7 +29,6 @@ export const Join = () => {
     (async () => {
       await getInviteLink();
     })();
-
   }, [inviteLinkId]);
 
   const getInviteLink = async () => {
@@ -71,16 +68,16 @@ export const Join = () => {
 
   return (
     <div className="mt-3 pt-3 container">
-      {
-        status == Statuses.REMOVED &&
-          <div className={'heading'}>
-            <h1 className={'invitationMessage'}>{t('InvitationText.invitationRemoved')}</h1>
-          </div>
-        || <>
+      {(status == Statuses.REMOVED && (
+        <div className={'heading'}>
+          <h1 className={'invitationMessage'}>{t('InvitationText.invitationRemoved')}</h1>
+        </div>
+      )) || (
+        <>
           {renderInviteLink()}
           {renderNotFound()}
         </>
-      }
+      )}
     </div>
   );
 
@@ -93,7 +90,7 @@ export const Join = () => {
           {renderAcceptDeclineInvite()}
           {renderSignIn()}
         </div>
-      )
+      );
     }
 
     const { inviter, displayName } = inviteLink;
@@ -107,7 +104,9 @@ export const Join = () => {
       <li>${t('InviteLink.step2', { displayName })}${info ? '' : t('InviteLink.step2_1', { displayName })}</li>
       ${t('InviteLink.step3', { displayName })}
       <div style='border-top: 2px solid rgb(216,216,216); padding-top: 35px;'>
-        <img src='https://cmi-logos.s3.amazonaws.com/ChildMindInstitute_Logo_Horizontal_${window.innerWidth < 768 ? 'KO' : 'RGB'}.png' style='width: 200px; margin-left: 10px;'/>
+        <img src='https://cmi-logos.s3.amazonaws.com/ChildMindInstitute_Logo_Horizontal_${
+          window.innerWidth < 768 ? 'KO' : 'RGB'
+        }.png' style='width: 200px; margin-left: 10px;'/>
       </div><br/>
       <small style='padding-bottom: 20px'>${t('InviteLink.footer')}</small>
     `;
@@ -117,19 +116,21 @@ export const Join = () => {
         <p
           dangerouslySetInnerHTML={{
             __html: title,
-          }}></p>
+          }}
+        ></p>
         {renderAcceptDeclineInvite()}
         {renderSignIn()}
         <p
           dangerouslySetInnerHTML={{
             __html: description,
-          }}></p>
+          }}
+        ></p>
       </div>
     );
   }
 
   function renderAcceptDeclineInvite() {
-    if (!inviteLink || !isLoggedIn && status !== Statuses.LOADING) {
+    if (!inviteLink || (!isLoggedIn && status !== Statuses.LOADING)) {
       return undefined;
     }
 
@@ -148,9 +149,11 @@ export const Join = () => {
 
   function renderNotFound() {
     if (!inviteLink) {
-      return <div className="heading">
-        <div className="invitationMessage">{t('InviteLink.notFound')}</div>
-      </div>
+      return (
+        <div className="heading">
+          <div className="invitationMessage">{t('InviteLink.notFound')}</div>
+        </div>
+      );
     }
 
     return undefined;

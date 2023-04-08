@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { unwrapResult } from '@reduxjs/toolkit';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useLocation } from 'react-router-dom';
+import { unwrapResult } from '@reduxjs/toolkit';
 import { Statuses } from '../../constants';
-import { InvitationText } from './InvitationText';
-import { SignIn } from '../Signin/SignIn';
+import { getInvitation, acceptInvitation, declineInvitation } from '../../state/app/app.actions';
 import { setRedirectUrl } from '../../state/app/app.reducer';
 import { loggedInSelector } from '../../state/user/user.selectors';
-import { getInvitation, acceptInvitation, declineInvitation } from '../../state/app/app.actions';
-
+import { SignIn } from '../Signin/SignIn';
+import { InvitationText } from './InvitationText';
 import './style.css';
 
 const Invitation = () => {

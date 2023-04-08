@@ -1,13 +1,11 @@
-import React, { useState } from 'react'
-import { useTranslation } from 'react-i18next'
-import { unwrapResult } from '@reduxjs/toolkit'
-import { Form, Alert, Button, Row, Col } from 'react-bootstrap'
-import { useDispatch, useSelector } from 'react-redux'
-
-import Avatar from '../Base/Avatar'
-import { updatePassword } from '../../state/user/user.actions'
-
-import './styles.css'
+import React, { useState } from 'react';
+import { Form, Alert, Button, Row, Col } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
+import { unwrapResult } from '@reduxjs/toolkit';
+import { updatePassword } from '../../state/user/user.actions';
+import Avatar from '../Base/Avatar';
+import './styles.css';
 
 /**
  * Component for Changing Password.
@@ -17,18 +15,18 @@ export default () => {
   const [passwordData, setPasswordData] = useState({
     oldPassword: '',
     newPassword: '',
-    confirmPassword: ''
-  })
+    confirmPassword: '',
+  });
 
   const [state, setErrorSuccess] = useState({
     type: '',
-    message: ''
-  })
+    message: '',
+  });
 
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
-  const dispatch = useDispatch()
-  const { loading, info: user, auth: authToken } = useSelector(state => state.user);
+  const dispatch = useDispatch();
+  const { loading, info: user, auth: authToken } = useSelector((state) => state.user);
 
   /**
    * Takes old password and new password, sents it to the backend for changing the password
@@ -37,28 +35,28 @@ export default () => {
    * @returns {Promise} resolves when the password gets successfully changed.
    */
   const onSubmit = async (event) => {
-    event.preventDefault()
+    event.preventDefault();
 
     try {
       if (passwordData.newPassword.length < 6) {
         setErrorSuccess({
           type: 'error',
-          message: t('SetPassword.passwordShort')
-        })
+          message: t('SetPassword.passwordShort'),
+        });
         return;
       }
-      if (passwordData.newPassword.includes(" ")) {
+      if (passwordData.newPassword.includes(' ')) {
         setErrorSuccess({
           type: 'error',
-          message: t('SetPassword.passwordBlank')
-        })
+          message: t('SetPassword.passwordBlank'),
+        });
         return;
       }
       if (passwordData.newPassword === passwordData.oldPassword) {
         setErrorSuccess({
           type: 'error',
-          message: t('SetPassword.passwordSame')
-        })
+          message: t('SetPassword.passwordSame'),
+        });
         return;
       }
       let result = await dispatch(updatePassword({ token: authToken && authToken.token, passwordData }));
@@ -66,30 +64,29 @@ export default () => {
 
       setErrorSuccess({
         type: 'success',
-        message: t('ChangePassword.success')
-      })
+        message: t('ChangePassword.success'),
+      });
     } catch (error) {
-      if (error.message === "Error: Password must be at least 6 characters.") {
+      if (error.message === 'Error: Password must be at least 6 characters.') {
         setErrorSuccess({
           type: 'error',
-          message: t('ChangePassword.passwordErrorMessage')
-        })
-      } else if (error.message === "Error: Old password is incorrect.") {
+          message: t('ChangePassword.passwordErrorMessage'),
+        });
+      } else if (error.message === 'Error: Old password is incorrect.') {
         setErrorSuccess({
           type: 'error',
-          message: t('ChangePassword.oldPasswordIncorrect')
-        })
+          message: t('ChangePassword.oldPasswordIncorrect'),
+        });
       } else {
         setErrorSuccess({
           type: 'error',
-          message: t('SetPassword.failed')
-        })
+          message: t('SetPassword.failed'),
+        });
       }
-
     }
-  }
+  };
 
-  const isPasswordSame = passwordData.newPassword === passwordData.confirmPassword
+  const isPasswordSame = passwordData.newPassword === passwordData.confirmPassword;
 
   return (
     <div className="demo mb-3">
@@ -116,7 +113,7 @@ export default () => {
                   onChange={(e) =>
                     setPasswordData({
                       ...passwordData,
-                      oldPassword: e.target.value
+                      oldPassword: e.target.value,
                     })
                   }
                 />
@@ -136,7 +133,7 @@ export default () => {
                   onChange={(e) =>
                     setPasswordData({
                       ...passwordData,
-                      newPassword: e.target.value
+                      newPassword: e.target.value,
                     })
                   }
                 />
@@ -156,7 +153,7 @@ export default () => {
                   onChange={(e) =>
                     setPasswordData({
                       ...passwordData,
-                      confirmPassword: e.target.value
+                      confirmPassword: e.target.value,
                     })
                   }
                 />
@@ -171,30 +168,25 @@ export default () => {
               type="submit"
               className="my-2"
               variant="success"
-              disabled={
-                loading ||
-                !isPasswordSame ||
-                !passwordData.oldPassword
-              }
+              disabled={loading || !isPasswordSame || !passwordData.oldPassword}
             >
               {t('ChangePassword.submit')}
             </Button>
 
             {isPasswordSame && state.type === 'error' && (
               <Alert variant={'danger'} className="error-alert">
-                { state.message }
+                {state.message}
               </Alert>
             )}
 
             {isPasswordSame && state.type === 'success' && (
               <Alert variant={'success'} className="success-alert">
-                { state.message }
+                {state.message}
               </Alert>
             )}
-
           </Form>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};

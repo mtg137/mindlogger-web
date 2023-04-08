@@ -1,5 +1,5 @@
-import * as R from 'ramda';
 import moment from 'moment';
+import * as R from 'ramda';
 
 export const getStartOfInterval = R.pathOr(null, [0, 'start', 'date']);
 
@@ -27,4 +27,4 @@ export const convertDateString = (str) => {
   }
 
   return str;
-}
+};

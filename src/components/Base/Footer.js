@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 export const Footer = () => {
   return (
@@ -8,25 +8,17 @@ export const Footer = () => {
           className="logo mr-1 xs-display-none"
           src="https://cmi-logos.s3.amazonaws.com/ChildMindInstitute_Logo_Horizontal_RGB.png"
         />
-        <span className="xs-display-none">
-        {'© '}
-        </span>
-        <a
-          href="https://childmind.org"
-          className="mx-1"
-          target={'_blank'}
-          rel="noreferrer"
-        >
+        <span className="xs-display-none">{'© '}</span>
+        <a href="https://childmind.org" className="mx-1" target={'_blank'} rel="noreferrer">
           {' '}
           Child Mind Institute{' '}
         </a>{' '}
-        <span className="xs-display-none">
-        MATTER Lab 2022
-        </span>
-
-        <a className="mx-4" href="https://mindlogger.org/terms" target='_blank'>Terms of Service</a>
+        <span className="xs-display-none">MATTER Lab 2022</span>
+        <a className="mx-4" href="https://mindlogger.org/terms" target="_blank">
+          Terms of Service
+        </a>
       </p>
     </footer>
-  )
-}
-export default Footer
+  );
+};
+export default Footer;

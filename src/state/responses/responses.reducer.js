@@ -19,7 +19,7 @@ export const initialState = {
 };
 
 const responseSlice = createSlice({
-  name: "response",
+  name: 'response',
   initialState,
   reducers: {
     createResponseInProgress: (state, action) => {
@@ -33,8 +33,8 @@ const responseSlice = createSlice({
         timeStarted: timeStarted,
         screenIndex: 0,
         activity: activity,
-        events: []
-      }
+        events: [],
+      };
     },
 
     setCurrentEvent: (state, action) => {
@@ -60,11 +60,8 @@ const responseSlice = createSlice({
       const inProgress = state.inProgress[activityId + currentEvent];
 
       const currentActivity = inProgress.activity;
-      if (
-        currentActivity.items[event.screen].inputType == 'text' &&
-        inProgress.events.length > 0
-      ) {
-        const lastEvent = inProgress.events[inProgress.events.length-1];
+      if (currentActivity.items[event.screen].inputType == 'text' && inProgress.events.length > 0) {
+        const lastEvent = inProgress.events[inProgress.events.length - 1];
 
         if (lastEvent.screen == event.screen && event.type == 'SET_ANSWER' && lastEvent.type == 'SET_ANSWER') {
           inProgress.events.pop();
@@ -74,7 +71,9 @@ const responseSlice = createSlice({
       inProgress.events.push(event);
     },
 
-    setInProgress: (state, action) => { state.inProgress = action.payload },
+    setInProgress: (state, action) => {
+      state.inProgress = action.payload;
+    },
     addToUploadQueue: (state, action) => {
       state.uploadQueue.push(action.payload);
     },
@@ -94,7 +93,7 @@ const responseSlice = createSlice({
       state.responseHistory[action.payload.index] = action.payload.response;
     },
     setLastResponseTime: (state, action) => {
-      state.lastResponseTime = action.payload
+      state.lastResponseTime = action.payload;
     },
     shiftUploadQueue: (state, action) => {
       state.uploadQueue = R.remove(0, 1, state.uploadQueue);
@@ -106,9 +105,8 @@ const responseSlice = createSlice({
       delete state.inProgress[action.payload];
     },
   },
-  extraReducers: {
-  }
-})
+  extraReducers: {},
+});
 
 export const {
   createResponseInProgress,

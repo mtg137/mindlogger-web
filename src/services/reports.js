@@ -5,11 +5,16 @@ export const sendPDFExport = (authToken, applet, activities, appletResponse, cur
   const configs = applet.reportConfigs;
   const responses = appletResponse.responses || {};
 
-  if (!configs.serverIp || !configs.publicEncryptionKey || !configs.emailRecipients || !configs.emailRecipients.length) {
-    return ;
+  if (
+    !configs.serverIp ||
+    !configs.publicEncryptionKey ||
+    !configs.emailRecipients ||
+    !configs.emailRecipients.length
+  ) {
+    return;
   }
 
-  const reportActivities = activities.filter(activity => activity.allowExport);
+  const reportActivities = activities.filter((activity) => activity.allowExport);
 
   if (reportActivities.length) {
     const params = [];
@@ -18,14 +23,14 @@ export const sendPDFExport = (authToken, applet, activities, appletResponse, cur
 
     for (const activity of reportActivities) {
       console.log('resopnses', responses);
-      console.log('items', activity.items)
+      console.log('items', activity.items);
 
       params.push({
         activityId: activity.id.split('/').pop(),
-        data: activity.items.map(item => {
+        data: activity.items.map((item) => {
           const itemResponses = responses[item.schema];
 
-          for (let i = itemResponses.length-1; i >= 0; i--) {
+          for (let i = itemResponses.length - 1; i >= 0; i--) {
             const response = itemResponses[i];
             if (flowId && response.activityFlow != flowId.split('/').pop()) {
               continue;
@@ -36,15 +41,14 @@ export const sendPDFExport = (authToken, applet, activities, appletResponse, cur
             }
 
             return {
-              value: response && (response.value === null || response.value === undefined ? null : response.value)
-            }
+              value: response && (response.value === null || response.value === undefined ? null : response.value),
+            };
           }
 
           return null;
-        })
-      })
+        }),
+      });
     }
-
 
     const encrypted = crypto.publicEncrypt(configs.publicEncryptionKey, Buffer.from(JSON.stringify(params)));
     exportPDF(
@@ -54,7 +58,7 @@ export const sendPDFExport = (authToken, applet, activities, appletResponse, cur
       applet.id.split('/').pop(),
       flowId && flowId.split('/').pop(),
       currentActivityId.split('/').pop(),
-      responseId
-    )
+      responseId,
+    );
   }
-}
+};
